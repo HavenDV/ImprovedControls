@@ -35,8 +35,8 @@
 #define MCSC_ABBREVIATIONSTEXT 8  // abbreviations text color
 #define MCSC_ABBREVIATIONSBK 9    // abbreviations background color
 
-extern void MONTHCAL_Register(void);
-extern void MONTHCAL_Unregister(void);
+void MONTHCAL_Register(void);
+void MONTHCAL_Unregister(void);
 
 int MONTHCAL_MonthLength(int month, int year);
 int MONTHCAL_CalculateDayOfWeek(SYSTEMTIME *date, BOOL inplace);
