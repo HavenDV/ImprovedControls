@@ -2061,6 +2061,8 @@ MONTHCAL_HitTest(const MONTHCAL_INFO *infoPtr, MCHITTESTINFO *lpht)
   return fill_hittest_info(&htinfo, lpht);
 }
 
+static void MONTHCAL_UpdateSize(MONTHCAL_INFO *infoPtr);
+
 /* MCN_GETDAYSTATE notification helper */
 static void MONTHCAL_NotifyDayState(MONTHCAL_INFO *infoPtr)
 {
@@ -2069,11 +2071,13 @@ static void MONTHCAL_NotifyDayState(MONTHCAL_INFO *infoPtr)
 
   if (!(infoPtr->dwStyle & MCS_DAYSTATE)) return;
 
+
   nmds.nmhdr.hwndFrom = infoPtr->hwndSelf;
   nmds.nmhdr.idFrom   = GetWindowLongPtrW(infoPtr->hwndSelf, GWLP_ID);
   nmds.nmhdr.code     = MCN_GETDAYSTATE;
   nmds.cDayState      = MONTHCAL_GetMonthRange(infoPtr, GMR_DAYSTATE, 0);
-  nmds.prgDayState    = state = (MONTHDAYSTATE*)Alloc(nmds.cDayState * sizeof(MONTHDAYSTATE));
+  state = (MONTHDAYSTATE*)Alloc(nmds.cDayState * sizeof(MONTHDAYSTATE));
+  nmds.prgDayState    = state;
 
   MONTHCAL_GetMinDate(infoPtr, &nmds.stStart);
   nmds.stStart.wDay = 1;
@@ -2118,30 +2122,12 @@ static void MONTHCAL_Scroll(MONTHCAL_INFO *infoPtr, INT delta)
   }
 }
 
-static void MONTHCAL_GoToMonth(MONTHCAL_INFO *infoPtr, enum nav_direction direction)
+static void MONTHCAL_GoToMonth(MONTHCAL_INFO *infoPtr, int delta)
 {
-  INT delta = infoPtr->delta ? infoPtr->delta : MONTHCAL_GetCalCount(infoPtr);
-  SYSTEMTIME st;
+  MONTHCAL_GetMonth(&infoPtr->calendars[0].month, delta);
 
-  TRACE("%s\n", direction == DIRECTION_BACKWARD ? "back" : "fwd");
-
-  /* check if change allowed by range set */
-  if(direction == DIRECTION_BACKWARD)
-  {
-    st = infoPtr->calendars[0].month;
-    MONTHCAL_GetMonth(&st, -delta);
-  }
-  else
-  {
-    st = infoPtr->calendars[MONTHCAL_GetCalCount(infoPtr)-1].month;
-    MONTHCAL_GetMonth(&st, delta);
-  }
-
-  if(!MONTHCAL_IsDateInValidRange(infoPtr, &st, FALSE)) return;
-
-  MONTHCAL_Scroll(infoPtr, direction == DIRECTION_BACKWARD ? -delta : delta);
   MONTHCAL_NotifyDayState(infoPtr);
-  MONTHCAL_NotifySelectionChange(infoPtr);
+  MONTHCAL_UpdateSize(infoPtr);
 }
 
 static LRESULT
@@ -2264,14 +2250,6 @@ static void MONTHCAL_EditYear(MONTHCAL_INFO *infoPtr, INT calIdx)
     SetFocus(infoPtr->hWndYearEdit);
 }
 
-static void MONTHCAL_UpdateSize(MONTHCAL_INFO *infoPtr);
-
-static void MONTHCAL_GoToYear(MONTHCAL_INFO *infoPtr, int year)
-{
-	infoPtr->calendars[0].month.wYear = year;
-	MONTHCAL_UpdateSize(infoPtr);
-}
-
 static LRESULT
 MONTHCAL_LButtonDown(MONTHCAL_INFO *infoPtr, LPARAM lParam)
 {
@@ -2295,18 +2273,19 @@ MONTHCAL_LButtonDown(MONTHCAL_INFO *infoPtr, LPARAM lParam)
   hit = MONTHCAL_HitTest(infoPtr, &ht);
 
   TRACE("%x at (%d, %d)\n", hit, ht.pt.x, ht.pt.y);
+  int delta = MONTHCAL_GetMonthDelta(infoPtr);
   
   switch(hit)
   {
   case MCHT_TITLEBTNNEXT:
-	MONTHCAL_GoToYear(infoPtr, infoPtr->calendars[0].month.wYear + 1);
+	MONTHCAL_GoToMonth(infoPtr, delta);
     infoPtr->status = MC_NEXTPRESSED;
     SetTimer(infoPtr->hwndSelf, MC_PREVNEXTMONTHTIMER, MC_PREVNEXTMONTHDELAY, 0);
     InvalidateRect(infoPtr->hwndSelf, NULL, FALSE);
     return 0;
 
   case MCHT_TITLEBTNPREV:
-	MONTHCAL_GoToYear(infoPtr, infoPtr->calendars[0].month.wYear - 1);
+	MONTHCAL_GoToMonth(infoPtr, -delta);
     infoPtr->status = MC_PREVPRESSED;
     SetTimer(infoPtr->hwndSelf, MC_PREVNEXTMONTHTIMER, MC_PREVNEXTMONTHDELAY, 0);
     InvalidateRect(infoPtr->hwndSelf, NULL, FALSE);
@@ -2372,11 +2351,11 @@ MONTHCAL_LButtonDown(MONTHCAL_INFO *infoPtr, LPARAM lParam)
     return 0;
   }
   case MCHT_CALENDARDATENEXT:
-  	  MONTHCAL_GoToYear(infoPtr, infoPtr->calendars[0].month.wYear + 1);
+	  MONTHCAL_GoToMonth(infoPtr, delta);
 	  InvalidateRect(infoPtr->hwndSelf, NULL, FALSE);
 	  return 0;
   case MCHT_CALENDARDATEPREV:
-	  MONTHCAL_GoToYear(infoPtr, infoPtr->calendars[0].month.wYear - 1);
+	  MONTHCAL_GoToMonth(infoPtr, -delta);
 	  InvalidateRect(infoPtr->hwndSelf, NULL, FALSE);
 	  return 0;
   case MCHT_CALENDARDATE:
@@ -2472,10 +2451,13 @@ MONTHCAL_Timer(MONTHCAL_INFO *infoPtr, WPARAM id)
 
   switch(id) {
   case MC_PREVNEXTMONTHTIMER:
-    if(infoPtr->status & MC_NEXTPRESSED) MONTHCAL_GoToMonth(infoPtr, DIRECTION_FORWARD);
-    if(infoPtr->status & MC_PREVPRESSED) MONTHCAL_GoToMonth(infoPtr, DIRECTION_BACKWARD);
+  {
+    int delta = MONTHCAL_GetMonthDelta(infoPtr); 
+    if (infoPtr->status & MC_NEXTPRESSED) MONTHCAL_GoToMonth(infoPtr, delta);
+    if (infoPtr->status & MC_PREVPRESSED) MONTHCAL_GoToMonth(infoPtr, -delta);
     InvalidateRect(infoPtr->hwndSelf, NULL, FALSE);
     break;
+  }
   case MC_TODAYUPDATETIMER:
   {
     SYSTEMTIME st;
@@ -2977,6 +2959,7 @@ MONTHCAL_Create(HWND hwnd, LPCREATESTRUCTW lpcs)
   infoPtr->calendars[0].month = infoPtr->todaysDate;
   infoPtr->isUnicode = TRUE;
   infoPtr->selection = NULL;
+  infoPtr->delta = 0;
 
   /* setup control layout and day state data */
   MONTHCAL_UpdateSize(infoPtr);
