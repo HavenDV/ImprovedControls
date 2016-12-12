@@ -884,6 +884,7 @@ MONTHCAL_AddToSelection(MONTHCAL_INFO * infoPtr, const SYSTEMTIME * time)
 	if (!info)
 	{
 		infoPtr->selection = newInfo;
+		MONTHCAL_NotifySelectionChange(infoPtr);
 		return;
 	}
 
@@ -894,6 +895,8 @@ MONTHCAL_AddToSelection(MONTHCAL_INFO * infoPtr, const SYSTEMTIME * time)
 	}
 
 	info->next = newInfo;
+
+	MONTHCAL_NotifySelectionChange(infoPtr);
 }
 
 static VOID
@@ -925,6 +928,8 @@ MONTHCAL_RemoveFromSelection(MONTHCAL_INFO * infoPtr, const SYSTEMTIME * time)
 		prevInfo = info;
 		info = info->next;
 	}
+
+	MONTHCAL_NotifySelectionChange(infoPtr);
 }
 
 static void MONTHCAL_DrawDay(const MONTHCAL_INFO *infoPtr, HDC hdc, const SYSTEMTIME *st,
