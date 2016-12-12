@@ -101,10 +101,6 @@ COMCTL32_RefreshSysColors(void)
 	comctl32_color.clrInfoText = GetSysColor(COLOR_INFOTEXT);
 }
 
-#define MCSC_SELECTEDTEXT 6       // selection text color
-#define MCSC_SELECTEDBK 7         // selection background color
-#define MCSC_ABBREVIATIONSTEXT 8  // abbreviations text color
-#define MCSC_ABBREVIATIONSBK 9    // abbreviations background color
 
 //WINE_DEFAULT_DEBUG_CHANNEL(monthcal);
 
@@ -1410,7 +1406,7 @@ MONTHCAL_SetColor(MONTHCAL_INFO *infoPtr, UINT index, COLORREF color)
 
   TRACE("%p, %d: color %08x\n", infoPtr, index, color);
 
-  if (index > MCSC_TRAILINGTEXT + 3) return -1;
+  if (index > MCSC_TRAILINGTEXT + 4) return -1;
 
   prev = infoPtr->colors[index];
   infoPtr->colors[index] = color;

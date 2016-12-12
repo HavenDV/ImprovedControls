@@ -30,6 +30,11 @@
 #undef  MCS_MULTISELECT
 #define MCS_MULTISELECT     0x1000
 
+#define MCSC_SELECTEDTEXT 6       // selection text color
+#define MCSC_SELECTEDBK 7         // selection background color
+#define MCSC_ABBREVIATIONSTEXT 8  // abbreviations text color
+#define MCSC_ABBREVIATIONSBK 9    // abbreviations background color
+
 extern void MONTHCAL_Register(void);
 extern void MONTHCAL_Unregister(void);
 
