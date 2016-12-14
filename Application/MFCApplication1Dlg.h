@@ -4,11 +4,7 @@
 
 #pragma once
 #include "afxdtctl.h"
-#include "ImprovedDatePicker.h"
-#include "ImprovedMonthCalCtrl.h"
-#include "DateTimeEditCtrl.h"
-#include "CDTPicker.h"
-
+#include "MultipleMonthCalCtrl.h"
 
 // CMFCApplication1Dlg dialog
 class CMFCApplication1Dlg : public CDialogEx
@@ -39,5 +35,5 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 public:
-	CImprovedMonthCalCtrl m_monthCalCtrl;
+	CMultipleMonthCalCtrl m_monthCalCtrl;
 };

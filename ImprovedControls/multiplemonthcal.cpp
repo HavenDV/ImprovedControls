@@ -41,7 +41,7 @@
  *    -- search for FIXME
  */
 
-#include "improvedmonthcal.h"
+#include "multiplemonthcal.h"
 
 /***********************************************************************
  * COMCTL32_RefreshSysColors [NOT AN API]
@@ -3185,13 +3185,13 @@ MONTHCAL_WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
   }
 }
 
-#define IMPROVEDMONTHCAL_CLASSA          "ImprovedSysMonthCal32"
-#define IMPROVEDMONTHCAL_CLASSW          L"ImprovedSysMonthCal32"
+#define MULTIPLEMONTHCAL_CLASSA          "MultipleSysMonthCal32"
+#define MULTIPLEMONTHCAL_CLASSW          L"MultipleSysMonthCal32"
 
 #ifdef UNICODE
-#define IMPROVEDMONTHCAL_CLASS           IMPROVEDMONTHCAL_CLASSW
+#define MULTIPLEMONTHCAL_CLASS           MULTIPLEMONTHCAL_CLASSW
 #else
-#define MONTHCAL_CLASS           MONTHCAL_CLASSA
+#define MULTIPLEMONTHCAL_CLASS           MULTIPLEMONTHCAL_CLASSA
 #endif
 
 VOID    MONTHCAL_Register(void)
@@ -3206,7 +3206,7 @@ VOID    MONTHCAL_Register(void)
 	wndClass.cbWndExtra    = sizeof(MONTHCAL_INFO *);
 	wndClass.hCursor       = LoadCursorW(0, (LPWSTR)IDC_ARROW);
 	wndClass.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-	wndClass.lpszClassName = IMPROVEDMONTHCAL_CLASSW;
+	wndClass.lpszClassName = MULTIPLEMONTHCAL_CLASSW;
 
 	RegisterClassW(&wndClass);
 }
@@ -3214,5 +3214,5 @@ VOID    MONTHCAL_Register(void)
 
 VOID    MONTHCAL_Unregister(VOID)
 {
-    UnregisterClassW(IMPROVEDMONTHCAL_CLASSW, NULL);
+    UnregisterClassW(MULTIPLEMONTHCAL_CLASSW, NULL);
 }

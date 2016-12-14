@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include "MFCApplication1.h"
 #include "MFCApplication1Dlg.h"
-#include <ImprovedMonthCalCtrl.h>
+#include <MultipleMonthCalCtrl.h>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -43,7 +43,7 @@ typedef int(__stdcall *SetSystemVisualStyleA)(LPCWSTR a, LPCWSTR b, LPCWSTR c, i
 BOOL CMFCApplication1App::InitInstance()
 {
 	AfxOleInit();
-	CImprovedMonthCalCtrl::RegisterControl();
+	CMultipleMonthCalCtrl::RegisterControl();
 	//CWinAppEx::InitInstance();
 
 	// InitCommonControlsEx() is required on Windows XP if an application

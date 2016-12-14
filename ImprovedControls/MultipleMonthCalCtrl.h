@@ -11,13 +11,13 @@
 #define MCSC_ABBREVIATIONSTEXT 8  // abbreviations text color
 #define MCSC_ABBREVIATIONSBK 9    // abbreviations background color
 
-class CImprovedMonthCalCtrl : public CMonthCalCtrl
+class CMultipleMonthCalCtrl : public CMonthCalCtrl
 {
-	DECLARE_DYNAMIC(CImprovedMonthCalCtrl)
+	DECLARE_DYNAMIC(CMultipleMonthCalCtrl)
 
 public:
-	CImprovedMonthCalCtrl();
-	virtual ~CImprovedMonthCalCtrl();
+	CMultipleMonthCalCtrl();
+	virtual ~CMultipleMonthCalCtrl();
 
 	static void RegisterControl();
 

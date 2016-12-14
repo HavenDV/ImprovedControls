@@ -18,18 +18,18 @@
     <ClInclude Include="unicode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="improvedmonthcal.h">
+    <ClInclude Include="MultipleMonthCalCtrl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ImprovedMonthCalCtrl.h">
+    <ClInclude Include="multiplemonthcal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ImprovedMonthCalCtrl.cpp">
+    <ClCompile Include="MultipleMonthCalCtrl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="improvedmonthcal.cpp">
+    <ClCompile Include="multiplemonthcal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
