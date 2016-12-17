@@ -75,18 +75,12 @@ void   CMultipleMonthCalCtrl::SetDefaultFont()
 
 void   CMultipleMonthCalCtrl::EnableMultiselect(int maxSelectCount)
 {
-	//SetMonthCalStyle(MCS_MULTISELECT);
-	//ModifyStyleEx(NULL, MCS_MULTISELECT);
 	SetMaxSelCount(maxSelectCount);
-	::SetWindowLongW(m_hWnd, GWL_STYLE, 
-		::GetWindowLongW(m_hWnd, GWL_STYLE) | MCS_MULTISELECT);
 }
 
 void   CMultipleMonthCalCtrl::DisableMultiselect()
 {
 	EnableMultiselect(1);
-	::SetWindowLongW(m_hWnd, GWL_STYLE, 
-		::GetWindowLongW(m_hWnd, GWL_STYLE) & ~MCS_MULTISELECT);
 }
 
 BEGIN_MESSAGE_MAP(CMultipleMonthCalCtrl, CMonthCalCtrl)
