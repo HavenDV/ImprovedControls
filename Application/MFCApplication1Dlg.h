@@ -24,8 +24,6 @@ public:
 // Implementation
 protected:
 	HICON m_hIcon;
-	//ImprovedDatePicker m_datepicker;
-	CFont m_MonthFont;
 
 	// Generated message map functions
 	virtual BOOL OnInitDialog();

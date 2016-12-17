@@ -171,36 +171,6 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
-
-	//CMFCVisualManagerOffice2007::SetStyle(CMFCVisualManagerOffice2007::Office2007_ObsidianBlack);
-	//CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerOffice2007));
-	//CDockingManager::SetDockingMode(DT_SMART);
-	//RedrawWindow(NULL, NULL, RDW_ALLCHILDREN | RDW_INVALIDATE | RDW_UPDATENOW | RDW_FRAME | RDW_ERASE);
-
-	//CDateTimeCtrl* pCtrl = (CDateTimeCtrl*)GetDlgItem(IDC_DATETIMEPICKER1);
-	//ASSERT(pCtrl != NULL);
-	//CDateTimeCtrl* pCtrl = (CDateTimeCtrl*)GetDlgItem(ID_FROM);
-	//ASSERT(pCtrl != NULL);
-	//pCtrl->SetFormat(_T("dd/MM/yyyy"));
-	// Set the color for the text in the control and 
-	// assure it was set properly. Unlike the GetMonthCalCtrl() member,
-	// GetMonthCalColor() and SetMonthCalColor() can be used at any time.
-	//pCtrl->SetMonthCalColor(MCSC_TEXT, RGB(255, 0, 0));
-	//VERIFY(pCtrl->GetMonthCalColor(MCSC_TEXT) == RGB(255, 0, 0));
-
-	//SetWindowTheme(pCtrl->m_hWnd, L" ", L" ");
-	//m_datetime.SetMonthCalColor(MCSC_TITLEBK, RGB(0, 0, 128));
-	//m_datetime.SetMonthCalStyle(MCS_NOSELCHANGEONNAV);
-	//m_datetime.SetMonthCalColor(MCSC_MONTHBK, RGB(70, 170, 255));
-	//m_datetime.SetMonthCalColor(MCSC_TEXT, RGB(250, 240, 50));
-	//m_datetime.SetMonthCalColor(MCSC_TITLETEXT, RGB(255, 255, 0));
-	//m_datetime.SetMonthCalColor(MCSC_BACKGROUND, RGB(255, 0, 0));
-	//m_datetime.SetMonthCalColor(MCSC_TRAILINGTEXT, RGB(150, 200, 255));
-
-	COLORREF monthTitleColor = RGB(219, 238, 244);
-	COLORREF selectBgColor = RGB(148, 196, 206);
-	COLORREF selectTextColor = RGB(10, 65, 122);
-
 	SYSTEMTIME systime;
 	::GetSystemTime(&systime);
 	SYSTEMTIME sysFromtime;
@@ -214,47 +184,9 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	sysEndtime.wMonth = 12;
 	sysEndtime.wYear += 1;
 	m_monthCalCtrl.SetRange(&sysFromtime, &sysEndtime);
-	/*
-	m_datepicker.SetMonthCalColor(MCSC_BACKGROUND, RGB(255, 255, 255));
-	m_datepicker.SetMonthCalColor(MCSC_TITLEBK, selectTextColor);
-	m_datepicker.SetMonthCalColor(MCSC_MONTHBK, RGB(255, 255, 255));
-	m_datepicker.SetMonthCalColor(MCSC_TEXT, RGB(0, 0, 0));
-	m_datepicker.SetMonthCalColor(MCSC_TITLETEXT, monthTitleColor);
-	m_datepicker.SetMonthCalColor(MCSC_TRAILINGTEXT, RGB(255, 255, 255));
-	*///m_datepicker.SetMonthCalStyle(MCS_MULTISELECT);
-	//m_monthCalCtrl.SetMonthCalStyle(MCS_MULTISELECT);
-
-	//CMonthCalCtrl * ctrl = new CMonthCalCtrl;
-	//ctrl->Create(WS_CHILD | WS_VISIBLE | DTS_SHORTDATEFORMAT, CRect(0, 0, 150, 30), this, 1001);
-	//CMonthCalCtrl *  month = m_datetime.GetMonthCalCtrl();
-	//ctrl->SetColor(MCSC_TITLEBK, RGB(0, 0, 128));
-	//*month = *ctrl;
-
-	HTHEME theme = ::GetWindowTheme(m_monthCalCtrl.m_hWnd);
-	VERIFY(theme);
-
-	LOGFONTW lf;
-	HRESULT hr = GetThemeFont(theme, NULL,
-		HP_HEADERITEM, HIS_NORMAL, TMT_CAPTIONFONT, &lf);
-	if (FAILED(hr))
-		hr = GetThemeSysFont(theme, TMT_CAPTIONFONT, &lf);
-
-	//LOGFONT lf;
-	//memset(&lf, 0, sizeof(lf));
-	lf.lfHeight = 16;
-	lf.lfWidth = 6;
-	lf.lfWeight = FW_EXTRALIGHT;
-	//lf.lfPitchAndFamily = FIXED_PITCH | FF_DECORATIVE;
-	//lf.lfQuality |= ANTIALIASED_QUALITY;
-	
-	_tcscpy_s(lf.lfFaceName, LF_FACESIZE, _T("Segoe UI"));
-	//MessageBox(lf.lfFaceName, _T("Error"), MB_ICONERROR | MB_OK);
-	if (m_MonthFont.CreateFontIndirect(&lf))
-	{
-		// if successful, set the month calendar font
-		m_monthCalCtrl.SetFont(&m_MonthFont);
-	}
-	//VERIFY(m_datetime.GetMonthCalColor(MCSC_TEXT) == RGB(250, 240, 50));
+	m_monthCalCtrl.SetDefaultColors();
+	m_monthCalCtrl.SetDefaultFont();
+	m_monthCalCtrl.EnableMultiselect(3);
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }

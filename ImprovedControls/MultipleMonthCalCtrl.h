@@ -2,10 +2,6 @@
 #include <SDKDDKVer.h>
 #include <afxdtctl.h>
 
-#define MCS_RANGESELECT     MCS_MULTISELECT
-#undef  MCS_MULTISELECT
-#define MCS_MULTISELECT     0x1000
-
 #define MCSC_SELECTEDTEXT 6       // selection text color
 #define MCSC_SELECTEDBK 7         // selection background color
 #define MCSC_ABBREVIATIONSTEXT 8  // abbreviations text color
@@ -21,8 +17,18 @@ public:
 
 	static void RegisterControl();
 
+	void    SetDefaultColors();
+	void    SetDefaultFont();
+
+	void    EnableMultiselect(int maxSelectCount = 0);
+	void    DisableMultiselect();
+
 protected:
+	CFont m_font;
+
 	DECLARE_MESSAGE_MAP()
+public:
+
 };
 
 
