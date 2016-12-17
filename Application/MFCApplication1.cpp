@@ -81,6 +81,11 @@ BOOL CMFCApplication1App::InitInstance()
 	CMFCVisualManager::GetInstance()->RedrawAll();
 	//new CMFCVisualManager();
 
+	//CMFCVisualManagerOffice2007::SetStyle(CMFCVisualManagerOffice2007::Office2007_ObsidianBlack);
+	//CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerOffice2007));
+	//CDockingManager::SetDockingMode(DT_SMART);
+	//RedrawWindow(NULL, NULL, RDW_ALLCHILDREN | RDW_INVALIDATE | RDW_UPDATENOW | RDW_FRAME | RDW_ERASE);
+
 	// This will set your Visual Style to Luna
 	HMODULE hmUxtheme;
 	hmUxtheme = LoadLibrary(L"uxtheme.dll");
