@@ -1786,11 +1786,7 @@ MONTHCAL_SetMaxSelCount(MONTHCAL_INFO *infoPtr, INT max)
 {
   TRACE("%d\n", max);
 
-  if(!(infoPtr->dwStyle & MCS_RANGESELECT)) return FALSE;
-  if(max <= 0) return FALSE;
-
-  infoPtr->maxSelCount = max;
-
+  infoPtr->maxSelCount = max >= 0 ? max : 0;
   return TRUE;
 }
 
