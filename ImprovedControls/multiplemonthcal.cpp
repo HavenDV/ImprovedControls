@@ -1696,14 +1696,15 @@ MONTHCAL_SetDayState(const MONTHCAL_INFO *infoPtr, INT months, MONTHDAYSTATE *st
 }
 
 static LRESULT
-MONTHCAL_GetCurSel(const MONTHCAL_INFO *infoPtr, SYSTEMTIME *curSel)
+MONTHCAL_GetCurSel(const MONTHCAL_INFO *infoPtr, SELECTION_INFO * selectionInfo)
 {
-  TRACE("%p\n", curSel);
-  if(!curSel) return FALSE;
-  if(infoPtr->dwStyle & MCS_RANGESELECT) return FALSE;
+  TRACE("%p\n", selectionInfo);
+  if (!selectionInfo)
+  {
+	  return FALSE;
+  }
 
-  *curSel = infoPtr->minSel;
-  TRACE("%d/%d/%d\n", curSel->wYear, curSel->wMonth, curSel->wDay);
+  *selectionInfo = infoPtr->selectionInfo;
   return TRUE;
 }
 
