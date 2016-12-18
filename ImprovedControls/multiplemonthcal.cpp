@@ -1721,63 +1721,36 @@ MONTHCAL_SetMaxSelCount(MONTHCAL_INFO *infoPtr, INT max)
 static LRESULT
 MONTHCAL_SetSelRange(MONTHCAL_INFO *infoPtr, SYSTEMTIME *range)
 {
-  SYSTEMTIME old_range[2];
-  INT diff;
-
   TRACE("%p\n", range);
 
-  if(!range || !(infoPtr->dwStyle & MCS_RANGESELECT)) return FALSE;
+  if (!range)
+  {
+	  return FALSE;
+  }
 
   /* adjust timestamps */
-  if(!MONTHCAL_ValidateTime(&range[0])) MONTHCAL_CopyTime(&infoPtr->todaysDate, &range[0]);
-  if(!MONTHCAL_ValidateTime(&range[1])) MONTHCAL_CopyTime(&infoPtr->todaysDate, &range[1]);
+  if (!MONTHCAL_ValidateTime(&range[0]))
+  {
+	  MONTHCAL_CopyTime(&infoPtr->todaysDate, &range[0]);
+  }
+  if (!MONTHCAL_ValidateTime(&range[1])) 
+  {
+	  MONTHCAL_CopyTime(&infoPtr->todaysDate, &range[1]);
+  }
 
   /* maximum range exceeded */
-  if(!MONTHCAL_IsSelRangeValid(infoPtr, &range[0], &range[1], NULL)) return FALSE;
-
-  old_range[0] = infoPtr->minSel;
-  old_range[1] = infoPtr->maxSel;
+  //if(!MONTHCAL_IsSelRangeValid(infoPtr, &range[0], &range[1], NULL)) return FALSE;
 
   /* swap if min > max */
-  if(MONTHCAL_CompareSystemTime(&range[0], &range[1]) <= 0)
+  if(!(MONTHCAL_CompareSystemTime(&range[0], &range[1]) <= 0))
   {
-    infoPtr->minSel = range[0];
-    infoPtr->maxSel = range[1];
+	  SYSTEMTIME temp = range[0];
+	  range[0] = range[1];
+	  range[1] = temp;
   }
-  else
-  {
-    infoPtr->minSel = range[1];
-    infoPtr->maxSel = range[0];
-  }
-
-  diff = MONTHCAL_MonthDiff(&infoPtr->calendars[MONTHCAL_GetCalCount(infoPtr)-1].month, &infoPtr->maxSel);
-  if (diff < 0)
-  {
-    diff = MONTHCAL_MonthDiff(&infoPtr->calendars[0].month, &infoPtr->maxSel);
-    if (diff > 0) diff = 0;
-  }
-
-  if (diff != 0)
-  {
-    INT i;
-
-    for (i = 0; i < MONTHCAL_GetCalCount(infoPtr); i++)
-      MONTHCAL_GetMonth(&infoPtr->calendars[i].month, diff);
-  }
-
-  /* update day of week */
-  MONTHCAL_CalculateDayOfWeek(&infoPtr->minSel, TRUE);
-  MONTHCAL_CalculateDayOfWeek(&infoPtr->maxSel, TRUE);
-
-  /* redraw if bounds changed */
-  /* FIXME: no actual need to redraw everything */
-  /*
-  if(!MONTHCAL_IsDateEqual(&old_range[0], &range[0]) ||
-     !MONTHCAL_IsDateEqual(&old_range[1], &range[1]))
-  {
-     InvalidateRect(infoPtr->hwndSelf, NULL, FALSE);
-  }
-  */
+  MONTHCAL_AddToSelection(infoPtr, &range[0]);
+  MONTHCAL_AddToSelection(infoPtr, &range[1]);
+  MONTHCAL_SetRange(infoPtr, 2, range);
 
   return TRUE;
 }
