@@ -2906,15 +2906,6 @@ static INT MONTHCAL_StyleChanging(MONTHCAL_INFO *infoPtr, WPARAM wStyleType,
     TRACE("(styletype=%lx, styleOld=0x%08x, styleNew=0x%08x)\n",
           wStyleType, lpss->styleOld, lpss->styleNew);
 
-    /* block MCS_RANGESELECT change */
-    if ((lpss->styleNew ^ lpss->styleOld) & MCS_RANGESELECT)
-    {
-        if (lpss->styleOld & MCS_RANGESELECT)
-            lpss->styleNew |= MCS_RANGESELECT;
-        else
-            lpss->styleNew &= ~MCS_RANGESELECT;
-    }
-
     /* block MCS_DAYSTATE change */
     if ((lpss->styleNew ^ lpss->styleOld) & MCS_DAYSTATE)
     {
@@ -2944,7 +2935,7 @@ MONTHCAL_Create(HWND hwnd, LPCREATESTRUCTW lpcs)
 
   infoPtr->hwndSelf = hwnd;
   infoPtr->hwndNotify = lpcs->hwndParent;
-  infoPtr->dwStyle = GetWindowLongW(hwnd, GWL_STYLE) | MCS_MULTISELECT;
+  infoPtr->dwStyle = GetWindowLongW(hwnd, GWL_STYLE);
   infoPtr->dim.cx = infoPtr->dim.cy = 1;
   infoPtr->calendars = (CALENDAR_INFO*)Alloc(sizeof(CALENDAR_INFO));
   if (!infoPtr->calendars) goto fail;
@@ -3206,7 +3197,7 @@ MONTHCAL_WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     return 0;
 
   case WM_STYLECHANGED:
-    return MONTHCAL_StyleChanged(infoPtr, wParam, (LPSTYLESTRUCT)lParam);
+	  return MONTHCAL_StyleChanged(infoPtr, wParam, (LPSTYLESTRUCT)lParam);
 
   case WM_STYLECHANGING:
     return MONTHCAL_StyleChanging(infoPtr, wParam, (LPSTYLESTRUCT)lParam);
