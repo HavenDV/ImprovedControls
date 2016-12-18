@@ -156,8 +156,8 @@ typedef struct _CALENDAR_INFO
 
 typedef struct
 {
-    HWND	hwndSelf;
-    DWORD	dwStyle; /* cached GWL_STYLE */
+    HWND        hwndSelf;
+    DWORD       dwStyle; /* cached GWL_STYLE */
 
     COLORREF    colors[MCSC_TRAILINGTEXT + 1 + 5];
     HBRUSH      brushes[BrushLast];
@@ -1399,7 +1399,7 @@ MONTHCAL_GetMinReqRect(const MONTHCAL_INFO *infoPtr, RECT *rect)
   rect->bottom = infoPtr->calendars[0].days.bottom + infoPtr->todayrect.bottom -
                  infoPtr->todayrect.top;
 
-  AdjustWindowRect(rect, infoPtr->dwStyle, FALSE);
+  ::AdjustWindowRect(rect, infoPtr->dwStyle, FALSE);
 
   /* minimal rectangle is zero based */
   OffsetRect(rect, -rect->left, -rect->top);
@@ -2105,7 +2105,7 @@ static void MONTHCAL_NotifyDayState(MONTHCAL_INFO *infoPtr)
 
 
   nmds.nmhdr.hwndFrom = infoPtr->hwndSelf;
-  nmds.nmhdr.idFrom   = GetWindowLongPtrW(infoPtr->hwndSelf, GWLP_ID);
+  nmds.nmhdr.idFrom   = ::GetWindowLongPtr(infoPtr->hwndSelf, GWLP_ID);
   nmds.nmhdr.code     = MCN_GETDAYSTATE;
   nmds.cDayState      = MONTHCAL_GetMonthRange(infoPtr, GMR_DAYSTATE, 0);
   state = (MONTHDAYSTATE*)Alloc(nmds.cDayState * sizeof(MONTHDAYSTATE));
@@ -2213,7 +2213,7 @@ MONTHCAL_RButtonUp(MONTHCAL_INFO *infoPtr, LPARAM lParam)
  */
 static LRESULT CALLBACK EditWndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-    MONTHCAL_INFO *infoPtr = (MONTHCAL_INFO *)GetWindowLongPtrW(GetParent(hwnd), 0);
+    MONTHCAL_INFO *infoPtr = (MONTHCAL_INFO *)::GetWindowLongPtr(GetParent(hwnd), 0);
 
     TRACE("(hwnd=%p, uMsg=%x, wParam=%lx, lParam=%lx)\n",
 	  hwnd, uMsg, wParam, lParam);
@@ -2442,7 +2442,7 @@ MONTHCAL_LButtonUp(MONTHCAL_INFO *infoPtr, LPARAM lParam)
 
   /* always send NM_RELEASEDCAPTURE notification */
   nmhdr.hwndFrom = infoPtr->hwndSelf;
-  nmhdr.idFrom   = GetWindowLongPtrW(infoPtr->hwndSelf, GWLP_ID);
+  nmhdr.idFrom   = ::GetWindowLongPtr(infoPtr->hwndSelf, GWLP_ID);
   nmhdr.code     = NM_RELEASEDCAPTURE;
   TRACE("Sent notification from %p to %p\n", infoPtr->hwndSelf, infoPtr->hwndNotify);
 
@@ -2914,7 +2914,7 @@ MONTHCAL_Create(HWND hwnd, LPCREATESTRUCTW lpcs)
 
   infoPtr->hwndSelf = hwnd;
   infoPtr->hwndNotify = lpcs->hwndParent;
-  infoPtr->dwStyle = GetWindowLongW(hwnd, GWL_STYLE);
+  infoPtr->dwStyle = (DWORD)::GetWindowLongPtr(hwnd, GWL_STYLE);
   infoPtr->dim.cx = infoPtr->dim.cy = 1;
   infoPtr->calendars = (CALENDAR_INFO*)Alloc(sizeof(CALENDAR_INFO));
   if (!infoPtr->calendars) goto fail;
@@ -3037,7 +3037,7 @@ MONTHCAL_GetUnicodeFormat(const MONTHCAL_INFO *infoPtr)
 static LRESULT WINAPI
 MONTHCAL_WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-  MONTHCAL_INFO *infoPtr = (MONTHCAL_INFO *)GetWindowLongPtrW(hwnd, 0);
+  MONTHCAL_INFO *infoPtr = (MONTHCAL_INFO *)::GetWindowLongPtr(hwnd, 0);
 
   TRACE("hwnd=%p msg=%x wparam=%lx lparam=%lx\n", hwnd, uMsg, wParam, lParam);
 
