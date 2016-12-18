@@ -181,10 +181,7 @@ typedef struct
     SYSTEMTIME	todaysDate;
     BOOL	todaySet;       /* Today was forced with MCM_SETTODAY */
     int		status;		/* See MC_SEL flags */
-    SYSTEMTIME	firstSel;	/* first selected day */
     INT		maxSelCount;
-    SYSTEMTIME	minSel;         /* contains single selection when used without MCS_RANGESELECT */
-    SYSTEMTIME	maxSel;
     SYSTEMTIME  focusedSel;     /* date currently focused with mouse movement */
     DWORD	rangeValid;
     SYSTEMTIME	minDate;
@@ -692,8 +689,6 @@ static inline void MONTHCAL_GetDayRectI(const MONTHCAL_INFO *infoPtr, RECT *r,
 static inline void MONTHCAL_GetDayRect(const MONTHCAL_INFO *infoPtr, const SYSTEMTIME *date,
     RECT *r, INT calIdx)
 {
-  INT col, row;
-
   if (calIdx == -1)
   {
       INT cmp = MONTHCAL_CompareMonths(date, &infoPtr->calendars[0].month);
@@ -714,6 +709,7 @@ static inline void MONTHCAL_GetDayRect(const MONTHCAL_INFO *infoPtr, const SYSTE
       }
   }
 
+  INT col, row;
   MONTHCAL_GetDayPos(infoPtr, date, &col, &row, calIdx);
   MONTHCAL_GetDayRectI(infoPtr, r, col, row, calIdx);
 }
@@ -972,7 +968,7 @@ static void MONTHCAL_ChangeSelection(MONTHCAL_INFO * infoPtr, const SYSTEMTIME *
 static void MONTHCAL_DrawDay(const MONTHCAL_INFO *infoPtr, HDC hdc, const SYSTEMTIME *st,
                              int bold, const PAINTSTRUCT *ps)
 {
-  static const WCHAR fmtW[] = { '%','d',0 };
+  static const WCHAR fmtW[] = L"%d";
   WCHAR buf[10];
   RECT r, r_temp;
   COLORREF oldCol = 0;
@@ -986,7 +982,7 @@ static void MONTHCAL_DrawDay(const MONTHCAL_INFO *infoPtr, HDC hdc, const SYSTEM
 
   if (MONTHCAL_IsDaySelected(infoPtr, st))
   {
-    TRACE("%d %d %d\n", st->wDay, infoPtr->minSel.wDay, infoPtr->maxSel.wDay);
+    TRACE("%d\n", st->wDay);
     //TRACE("%s\n", wine_dbgstr_rect(&r));
     oldCol = SetTextColor(hdc, infoPtr->colors[MCSC_SELECTEDTEXT]);
     oldBk = SetBkColor(hdc, infoPtr->colors[MCSC_TRAILINGTEXT]);
@@ -1273,7 +1269,7 @@ static void MONTHCAL_PaintLeadTrailMonths(const MONTHCAL_INFO *infoPtr, HDC hdc,
   if (infoPtr->dwStyle & MCS_NOTRAILINGDATES) return;
 
   SetTextColor(hdc, infoPtr->colors[MCSC_TRAILINGTEXT]);
-
+  
   /* draw prev month */
   MONTHCAL_GetMinDate(infoPtr, &st);
   mask = 1 << (st.wDay-1);
@@ -1323,7 +1319,7 @@ static void MONTHCAL_PaintCalendar(const MONTHCAL_INFO *infoPtr, HDC hdc, const 
   FillRect(hdc, &fill_bk_rect, infoPtr->brushes[BrushMonth]);
 
   /* draw line under day abbreviations */
-  old_pen = (HPEN)SelectObject(hdc, infoPtr->pens[PenAbbreviations]);
+  old_pen = (HPEN)SelectObject(hdc, infoPtr->pens[PenAbbreviationsLine]);
   MoveToEx(hdc, infoPtr->calendars[calIdx].days.left + 3,
                 infoPtr->calendars[calIdx].title.bottom + infoPtr->textHeight + 1, NULL);
   LineTo(hdc, infoPtr->calendars[calIdx].days.right - 3,
@@ -1435,7 +1431,7 @@ MONTHCAL_GetColor(const MONTHCAL_INFO *infoPtr, UINT index)
 {
   TRACE("%p, %d\n", infoPtr, index);
 
-  if (index > MCSC_TRAILINGTEXT + 4) return -1;
+  if (index > MCSC_TRAILINGTEXT + 5) return -1;
   return infoPtr->colors[index];
 }
 
@@ -2186,7 +2182,7 @@ static void MONTHCAL_GoToMonth(MONTHCAL_INFO *infoPtr, int delta)
 static LRESULT
 MONTHCAL_RButtonUp(MONTHCAL_INFO *infoPtr, LPARAM lParam)
 {
-  static const WCHAR todayW[] = { 'G','o',' ','t','o',' ','T','o','d','a','y',':',0 };
+  static const WCHAR todayW[] = L"Go to today";
   HMENU hMenu;
   POINT menupoint;
   WCHAR buf[32];
@@ -2949,8 +2945,6 @@ MONTHCAL_Create(HWND hwnd, LPCREATESTRUCTW lpcs)
   
   MONTHCAL_SetFirstDayOfWeek(infoPtr, -1);
 
-  infoPtr->maxSelCount   = (infoPtr->dwStyle & MCS_RANGESELECT) ? 7 : 1;
-
   infoPtr->maxSelCount = 0;
 
   infoPtr->colors[MCSC_BACKGROUND]        = comctl32_color.clrWindow;
@@ -2979,11 +2973,10 @@ MONTHCAL_Create(HWND hwnd, LPCREATESTRUCTW lpcs)
   GetLocalTime(&start);
   start.wMonth = 1;
 
-  infoPtr->minSel = infoPtr->todaysDate;
-  infoPtr->maxSel = infoPtr->todaysDate;
   infoPtr->calendars[0].month = infoPtr->todaysDate;
   infoPtr->isUnicode = TRUE;
-  infoPtr->selection = NULL;
+  infoPtr->selectionInfo.size = 0;
+  infoPtr->selectionInfo.first = NULL;
   infoPtr->delta = 0;
 
   /* setup control layout and day state data */
