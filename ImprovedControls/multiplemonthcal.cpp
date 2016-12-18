@@ -127,7 +127,7 @@ enum CachedPen
 {
     PenRed = 0,
     PenText,
-	PenAbbreviations,
+	PenAbbreviationsLine,
     PenLast
 };
 
@@ -165,7 +165,7 @@ typedef struct
     HWND	hwndSelf;
     DWORD	dwStyle; /* cached GWL_STYLE */
 
-    COLORREF    colors[MCSC_TRAILINGTEXT + 1 + 4];
+    COLORREF    colors[MCSC_TRAILINGTEXT + 1 + 5];
     HBRUSH      brushes[BrushLast];
     HPEN        pens[PenLast];
 
@@ -209,7 +209,7 @@ typedef struct
 	LPSELECTION_INFO  selection;
 } MONTHCAL_INFO, *LPMONTHCAL_INFO;
 
-static const WCHAR themeClass[] = { 'S','c','r','o','l','l','b','a','r',0 };
+static const WCHAR themeClass[] = L"MonthCal";
 
 /* empty SYSTEMTIME const */
 static const SYSTEMTIME st_null;
@@ -1401,49 +1401,64 @@ MONTHCAL_GetColor(const MONTHCAL_INFO *infoPtr, UINT index)
 static LRESULT
 MONTHCAL_SetColor(MONTHCAL_INFO *infoPtr, UINT index, COLORREF color)
 {
-  enum CachedBrush type;
-  COLORREF prev;
-
   TRACE("%p, %d: color %08x\n", infoPtr, index, color);
 
-  if (index > MCSC_TRAILINGTEXT + 4) return -1;
+  if (index > MCSC_TRAILINGTEXT + 5)
+  {
+	  return -1;
+  }
 
+  COLORREF prev;
   prev = infoPtr->colors[index];
   infoPtr->colors[index] = color;
 
   /* update cached brush */
+  enum CachedBrush brushType;
   switch (index)
   {
   case MCSC_BACKGROUND:
-    type = BrushBackground;
-    break;
+	  brushType = BrushBackground;
+      break;
   case MCSC_TITLEBK:
-    type = BrushTitle;
-    break;
+	  brushType = BrushTitle;
+      break;
   case MCSC_MONTHBK:
-    type = BrushMonth;
-    break;
+	  brushType = BrushMonth;
+      break;
   case MCSC_SELECTEDBK:
-    type = BrushSelected;
-    break;
+	  brushType = BrushSelected;
+      break;
   case MCSC_ABBREVIATIONSBK:
-	  type = BrushAbbreviations;
+	  brushType = BrushAbbreviations;
 	  break;
   default:
-    type = BrushLast;
+	  brushType = BrushLast;
   }
 
-  if (type != BrushLast)
+  if (brushType != BrushLast)
   {
-    DeleteObject(infoPtr->brushes[type]);
-    infoPtr->brushes[type] = CreateSolidBrush(color);
+    DeleteObject(infoPtr->brushes[brushType]);
+    infoPtr->brushes[brushType] = CreateSolidBrush(color);
   }
 
   /* update cached pen */
-  if (index == MCSC_TEXT)
+  enum CachedPen penType;
+  switch (index)
   {
-    DeleteObject(infoPtr->pens[PenText]);
-    infoPtr->pens[PenText] = CreatePen(PS_SOLID, 1, infoPtr->colors[index]);
+  case MCSC_TEXT:
+	  penType = PenText;
+	  break;
+  case MCSC_ABBREVIATIONSLINE:
+	  penType = PenAbbreviationsLine;
+	  break;
+  default:
+	  penType = PenLast;
+  }
+
+  if (penType != PenLast)
+  {
+    DeleteObject(infoPtr->pens[penType]);
+    infoPtr->pens[penType] = CreatePen(PS_SOLID, 1, color);
   }
 
   InvalidateRect(infoPtr->hwndSelf, NULL, index == MCSC_BACKGROUND);
@@ -2908,38 +2923,19 @@ MONTHCAL_Create(HWND hwnd, LPCREATESTRUCTW lpcs)
 
   infoPtr->maxSelCount   = (infoPtr->dwStyle & MCS_RANGESELECT) ? 7 : 1;
 
-  COLORREF monthTitleColor = RGB(219, 238, 244);
-  COLORREF monthTitleTextColor = RGB(87, 108, 113);
-  COLORREF selectBgColor = RGB(152, 194, 206);
-  COLORREF selectTextColor = RGB(10, 65, 122);
+  infoPtr->maxSelCount = 0;
 
-  infoPtr->colors[MCSC_BACKGROUND]   = comctl32_color.clrWindow;
-  infoPtr->colors[MCSC_TEXT]         = comctl32_color.clrWindowText;
-  infoPtr->colors[MCSC_TITLEBK] = monthTitleColor;///comctl32_color.clrActiveCaption;
-  infoPtr->colors[MCSC_TITLETEXT] = monthTitleTextColor;// comctl32_color.clrWindow;
-  infoPtr->colors[MCSC_MONTHBK]      = comctl32_color.clrWindow;
-  infoPtr->colors[MCSC_TRAILINGTEXT] = comctl32_color.clrGrayText;
-  infoPtr->colors[MCSC_SELECTEDTEXT] = selectTextColor;// comctl32_color.clrHighlight;
-  infoPtr->colors[MCSC_SELECTEDBK] = selectBgColor;// comctl32_color.clrHighlight;
+  infoPtr->colors[MCSC_BACKGROUND]        = comctl32_color.clrWindow;
+  infoPtr->colors[MCSC_TEXT]              = comctl32_color.clrWindowText;
+  infoPtr->colors[MCSC_TITLEBK]           = comctl32_color.clrActiveCaption;
+  infoPtr->colors[MCSC_TITLETEXT]         = comctl32_color.clrWindow;
+  infoPtr->colors[MCSC_MONTHBK]           = comctl32_color.clrWindow;
+  infoPtr->colors[MCSC_TRAILINGTEXT]      = comctl32_color.clrGrayText;
+  infoPtr->colors[MCSC_SELECTEDTEXT]      = comctl32_color.clrWindow;
+  infoPtr->colors[MCSC_SELECTEDBK]        = comctl32_color.clrHighlight;
   infoPtr->colors[MCSC_ABBREVIATIONSTEXT] = comctl32_color.clrWindowText;
   infoPtr->colors[MCSC_ABBREVIATIONSBK]   = comctl32_color.clrActiveCaption;
-	/*	comctl32_color.clrBtnHighlight = GetSysColor(COLOR_BTNHIGHLIGHT);
-	comctl32_color.clrBtnShadow = GetSysColor(COLOR_BTNSHADOW);
-	comctl32_color.clrBtnText = GetSysColor(COLOR_BTNTEXT);
-	comctl32_color.clrBtnFace = GetSysColor(COLOR_BTNFACE);
-	comctl32_color.clrHighlight = GetSysColor(COLOR_HIGHLIGHT);
-	comctl32_color.clrHighlightText = GetSysColor(COLOR_HIGHLIGHTTEXT);
-	comctl32_color.clrHotTrackingColor = GetSysColor(COLOR_HOTLIGHT);
-	comctl32_color.clr3dHilight = GetSysColor(COLOR_3DHILIGHT);
-	comctl32_color.clr3dShadow = GetSysColor(COLOR_3DSHADOW);
-	comctl32_color.clr3dDkShadow = GetSysColor(COLOR_3DDKSHADOW);
-	comctl32_color.clr3dFace = GetSysColor(COLOR_3DFACE);
-	comctl32_color.clrWindow = GetSysColor(COLOR_WINDOW);
-	comctl32_color.clrWindowText = GetSysColor(COLOR_WINDOWTEXT);
-	comctl32_color.clrGrayText = GetSysColor(COLOR_GRAYTEXT);
-	comctl32_color.clrActiveCaption = GetSysColor(COLOR_ACTIVECAPTION);
-	comctl32_color.clrInfoBk = GetSysColor(COLOR_INFOBK);
-	comctl32_color.clrInfoText = GetSysColor(COLOR_INFOTEXT);*/
+  infoPtr->colors[MCSC_ABBREVIATIONSLINE] = comctl32_color.clr3dFace;
 
   infoPtr->brushes[BrushBackground]    = CreateSolidBrush(infoPtr->colors[MCSC_BACKGROUND]);
   infoPtr->brushes[BrushTitle]         = CreateSolidBrush(infoPtr->colors[MCSC_TITLEBK]);
@@ -2949,7 +2945,7 @@ MONTHCAL_Create(HWND hwnd, LPCREATESTRUCTW lpcs)
 
   infoPtr->pens[PenRed]  = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
   infoPtr->pens[PenText] = CreatePen(PS_SOLID, 1, infoPtr->colors[MCSC_TEXT]);
-  infoPtr->pens[PenAbbreviations] = CreatePen(PS_SOLID, 1, comctl32_color.clr3dFace);
+  infoPtr->pens[PenAbbreviationsLine] = CreatePen(PS_SOLID, 1, infoPtr->colors[MCSC_ABBREVIATIONSLINE]);
 
   SYSTEMTIME start;
   GetLocalTime(&start);
@@ -2968,7 +2964,7 @@ MONTHCAL_Create(HWND hwnd, LPCREATESTRUCTW lpcs)
   /* today auto update timer, to be freed only on control destruction */
   SetTimer(infoPtr->hwndSelf, MC_TODAYUPDATETIMER, MC_TODAYUPDATEDELAY, 0);
 
-  OpenThemeData (infoPtr->hwndSelf, themeClass);
+  ::OpenThemeData(infoPtr->hwndSelf, themeClass);
 
   return 0;
 
@@ -3194,7 +3190,7 @@ MONTHCAL_WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 #define MULTIPLEMONTHCAL_CLASS           MULTIPLEMONTHCAL_CLASSA
 #endif
 
-VOID    MONTHCAL_Register(void)
+VOID    MONTHCAL_Register(VOID)
 {
     COMCTL32_RefreshSysColors();
     WNDCLASSW wndClass;
