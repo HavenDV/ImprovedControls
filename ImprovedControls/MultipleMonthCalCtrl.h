@@ -3,12 +3,6 @@
 #include <afxdtctl.h>
 #include <vector>
 
-#define MCSC_SELECTEDTEXT      6  // selection text color
-#define MCSC_SELECTEDBK        7  // selection background color
-#define MCSC_ABBREVIATIONSTEXT 8  // abbreviations text color
-#define MCSC_ABBREVIATIONSBK   9  // abbreviations background color
-#define MCSC_ABBREVIATIONSLINE 10 // abbreviations line color
-
 class CMultipleMonthCalCtrl : public CMonthCalCtrl
 {
 	DECLARE_DYNAMIC(CMultipleMonthCalCtrl)

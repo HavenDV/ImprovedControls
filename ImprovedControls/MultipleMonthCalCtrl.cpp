@@ -1,21 +1,5 @@
-// ImprovedMonthCalCtrl.cpp : implementation file
-//
+#include "multiplemonthcal.h"
 #include "MultipleMonthCalCtrl.h"
-
-//Prototype of function in improvedmonthcal.cpp
-void MONTHCAL_Register(void);
-
-typedef struct tagSELECTION_ITEM
-{
-	SYSTEMTIME          time;
-	tagSELECTION_ITEM * next;
-} SELECTION_ITEM, *LPSELECTION_ITEM;
-
-typedef struct
-{
-	INT               size;
-	LPSELECTION_ITEM  first;
-} SELECTION_INFO, *LPSELECTION_INFO;
 
 IMPLEMENT_DYNAMIC(CMultipleMonthCalCtrl, CMonthCalCtrl)
 
@@ -34,7 +18,7 @@ void   CMultipleMonthCalCtrl::RegisterControl()
 
 void   CMultipleMonthCalCtrl::SetOriginalColors()
 {
-	//SetWindowTheme(pCtrl->m_hWnd, L" ", L" ");
+	//SetWindowTheme(m_hWnd, L" ", L" ");
 	COLORREF monthTitleColor = RGB(219, 238, 244);
 	COLORREF monthTitleTextColor = RGB(87, 108, 113);
 	COLORREF selectBgColor = RGB(152, 194, 206);
