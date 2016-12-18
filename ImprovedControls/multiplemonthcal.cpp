@@ -1265,11 +1265,11 @@ static void MONTHCAL_PaintLeadTrailMonths(const MONTHCAL_INFO *infoPtr, HDC hdc,
   INT mask, index;
   UINT length;
   SYSTEMTIME st_max, st;
-
+  
   if (infoPtr->dwStyle & MCS_NOTRAILINGDATES) return;
 
   SetTextColor(hdc, infoPtr->colors[MCSC_TRAILINGTEXT]);
-  
+
   /* draw prev month */
   MONTHCAL_GetMinDate(infoPtr, &st);
   mask = 1 << (st.wDay-1);
