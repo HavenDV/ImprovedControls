@@ -11,7 +11,8 @@ public:
 	CMultipleMonthCalCtrl();
 	virtual ~CMultipleMonthCalCtrl();
 
-	static void RegisterControl();
+	static void   RegisterControl();
+	static void   UnregisterControl();
 
 	void    SetOriginalColors();
 

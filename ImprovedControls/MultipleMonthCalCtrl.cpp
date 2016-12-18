@@ -16,6 +16,11 @@ void   CMultipleMonthCalCtrl::RegisterControl()
 	MONTHCAL_Register();
 }
 
+void CMultipleMonthCalCtrl::UnregisterControl()
+{
+	MONTHCAL_Unregister();
+}
+
 void   CMultipleMonthCalCtrl::SetOriginalColors()
 {
 	//SetWindowTheme(m_hWnd, L" ", L" ");
