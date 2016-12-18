@@ -1607,6 +1607,7 @@ MONTHCAL_GetMaxTodayWidth(const MONTHCAL_INFO *infoPtr)
 
 static LRESULT
 MONTHCAL_SetCurSel(MONTHCAL_INFO *infoPtr, SYSTEMTIME *curSel);
+static void MONTHCAL_UpdateSize(MONTHCAL_INFO *infoPtr);
 
 static LRESULT
 MONTHCAL_SetRange(MONTHCAL_INFO *infoPtr, SHORT limits, SYSTEMTIME *range)
@@ -1868,7 +1869,6 @@ MONTHCAL_SetSelRange(MONTHCAL_INFO *infoPtr, SYSTEMTIME *range)
   }
   */
 
-  TRACE("[min,max]=[%d %d]\n", infoPtr->minSel.wDay, infoPtr->maxSel.wDay);
   return TRUE;
 }
 
@@ -2110,8 +2110,6 @@ MONTHCAL_HitTest(const MONTHCAL_INFO *infoPtr, MCHITTESTINFO *lpht)
 
   return fill_hittest_info(&htinfo, lpht);
 }
-
-static void MONTHCAL_UpdateSize(MONTHCAL_INFO *infoPtr);
 
 /* MCN_GETDAYSTATE notification helper */
 static void MONTHCAL_NotifyDayState(MONTHCAL_INFO *infoPtr)
@@ -3064,7 +3062,7 @@ MONTHCAL_WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
   switch(uMsg)
   {
   case MCM_GETCURSEL:
-    return MONTHCAL_GetCurSel(infoPtr, (LPSYSTEMTIME)lParam);
+    return MONTHCAL_GetCurSel(infoPtr, (LPSELECTION_INFO)lParam);
 
   case MCM_SETCURSEL:
     return MONTHCAL_SetCurSel(infoPtr, (LPSYSTEMTIME)lParam);
@@ -3076,7 +3074,7 @@ MONTHCAL_WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     return MONTHCAL_SetMaxSelCount(infoPtr, wParam);
 
   case MCM_GETSELRANGE:
-    return MONTHCAL_GetSelRange(infoPtr, (LPSYSTEMTIME)lParam);
+	  return MONTHCAL_GetCurSel(infoPtr, (LPSELECTION_INFO)lParam);
 
   case MCM_SETSELRANGE:
     return MONTHCAL_SetSelRange(infoPtr, (LPSYSTEMTIME)lParam);
