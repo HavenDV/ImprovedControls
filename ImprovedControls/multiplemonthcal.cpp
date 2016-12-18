@@ -2285,20 +2285,6 @@ MONTHCAL_LButtonUp(MONTHCAL_INFO *infoPtr, LPARAM lParam)
   infoPtr->status = MC_SEL_LBUTUP;
   MONTHCAL_SetDayFocus(infoPtr, NULL);
 
-  if((hit & MCHT_CALENDARDATE) == MCHT_CALENDARDATE)
-  {
-    SYSTEMTIME sel = infoPtr->minSel;
-
-    /* will be invalidated here */
-    MONTHCAL_SetCurSel(infoPtr, &ht.st);
-
-    /* send MCN_SELCHANGE only if new date selected */
-    if (!MONTHCAL_IsDateEqual(&sel, &ht.st))
-        MONTHCAL_NotifySelectionChange(infoPtr);
-
-    MONTHCAL_NotifySelect(infoPtr);
-  }
-
   return 0;
 }
 
