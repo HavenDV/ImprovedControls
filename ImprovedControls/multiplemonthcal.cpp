@@ -1608,6 +1608,7 @@ MONTHCAL_GetMaxTodayWidth(const MONTHCAL_INFO *infoPtr)
 static LRESULT
 MONTHCAL_SetCurSel(MONTHCAL_INFO *infoPtr, SYSTEMTIME *curSel);
 static void MONTHCAL_UpdateSize(MONTHCAL_INFO *infoPtr);
+static void MONTHCAL_NotifyDayState(MONTHCAL_INFO *infoPtr);
 
 static LRESULT
 MONTHCAL_SetRange(MONTHCAL_INFO *infoPtr, SHORT limits, SYSTEMTIME *range)
