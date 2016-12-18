@@ -2210,20 +2210,8 @@ MONTHCAL_LButtonDown(MONTHCAL_INFO *infoPtr, LPARAM lParam)
     if ((i > 0) && (i < 13) && infoPtr->calendars[ht.iOffset].month.wMonth != i)
     {
         INT delta = i - infoPtr->calendars[ht.iOffset].month.wMonth;
-        SYSTEMTIME st;
-
-        /* check if change allowed by range set */
-        st = delta < 0 ? infoPtr->calendars[0].month :
-                         infoPtr->calendars[MONTHCAL_GetCalCount(infoPtr)-1].month;
-        MONTHCAL_GetMonth(&st, delta);
-
-        if (MONTHCAL_IsDateInValidRange(infoPtr, &st, FALSE))
-        {
-            MONTHCAL_Scroll(infoPtr, delta);
-            MONTHCAL_NotifyDayState(infoPtr);
-            MONTHCAL_NotifySelectionChange(infoPtr);
-            InvalidateRect(infoPtr->hwndSelf, NULL, FALSE);
-        }
+        MONTHCAL_GoToMonth(infoPtr, delta);
+        InvalidateRect(infoPtr->hwndSelf, NULL, FALSE);
     }
     return 0;
   }
