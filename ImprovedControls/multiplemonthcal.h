@@ -8,11 +8,6 @@
 #include <uxtheme.h>
 #include "unicode.h"
 
-#ifndef TRACE
-#include <atltrace.h>
-#define TRACE ATLTRACE
-#endif
-
 #define Alloc(s) malloc((s))
 #define ReAlloc(s,t) realloc((s),(t))
 #define Free(s) free((s))

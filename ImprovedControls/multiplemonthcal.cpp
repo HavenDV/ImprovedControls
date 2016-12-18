@@ -705,8 +705,6 @@ MONTHCAL_GetMonthRange(const MONTHCAL_INFO *infoPtr, DWORD flag, SYSTEMTIME *st)
 {
   INT range;
 
-  TRACE("flag=%d, st=%p\n", flag, st);
-
   switch (flag) {
   case GMR_VISIBLE:
   {
@@ -844,9 +842,6 @@ MONTHCAL_RedrawDayRect(MONTHCAL_INFO * infoPtr, const SYSTEMTIME * date)
 {
 	RECT rect;
 	MONTHCAL_GetDayRect(infoPtr, date, &rect, -1);
-	//GetClientRect(infoPtr->hwndSelf, &rect);
-	
-	TRACE("left=%d, top=%d, right=%d, bottom=%d\n", rect.left, rect.top, rect.right, rect.bottom);
 	::InvalidateRect(infoPtr->hwndSelf, &rect, FALSE);
 }
 
@@ -951,8 +946,6 @@ static void MONTHCAL_DrawDay(const MONTHCAL_INFO *infoPtr, HDC hdc, const SYSTEM
 
   if (MONTHCAL_IsDaySelected(infoPtr, st))
   {
-    TRACE("%d\n", st->wDay);
-    //TRACE("%s\n", wine_dbgstr_rect(&r));
     oldCol = SetTextColor(hdc, infoPtr->colors[MCSC_SELECTEDTEXT]);
     oldBk = SetBkColor(hdc, infoPtr->colors[MCSC_TRAILINGTEXT]);
     FillRect(hdc, &r, infoPtr->brushes[BrushSelected]);
@@ -1385,8 +1378,6 @@ static void MONTHCAL_Refresh(MONTHCAL_INFO *infoPtr, HDC hdc, const PAINTSTRUCT 
 static LRESULT
 MONTHCAL_GetMinReqRect(const MONTHCAL_INFO *infoPtr, RECT *rect)
 {
-  TRACE("rect %p\n", rect);
-
   if(!rect) return FALSE;
 
   *rect = infoPtr->calendars[0].title;
@@ -1398,25 +1389,23 @@ MONTHCAL_GetMinReqRect(const MONTHCAL_INFO *infoPtr, RECT *rect)
   /* minimal rectangle is zero based */
   OffsetRect(rect, -rect->left, -rect->top);
 
-  //TRACE("%s\n", wine_dbgstr_rect(rect));
-
   return TRUE;
 }
 
 static COLORREF
 MONTHCAL_GetColor(const MONTHCAL_INFO *infoPtr, UINT index)
 {
-  TRACE("%p, %d\n", infoPtr, index);
-
-  if (index > MCSC_TRAILINGTEXT + 5) return -1;
-  return infoPtr->colors[index];
+    if (index > MCSC_TRAILINGTEXT + 5) 
+    {
+        return -1;
+    }
+    
+    return infoPtr->colors[index];
 }
 
 static LRESULT
 MONTHCAL_SetColor(MONTHCAL_INFO *infoPtr, UINT index, COLORREF color)
 {
-  TRACE("%p, %d: color %08x\n", infoPtr, index, color);
-
   if (index > MCSC_TRAILINGTEXT + 5)
   {
 	  return -1;
@@ -1482,8 +1471,6 @@ MONTHCAL_SetColor(MONTHCAL_INFO *infoPtr, UINT index, COLORREF color)
 static LRESULT
 MONTHCAL_GetMonthDelta(const MONTHCAL_INFO *infoPtr)
 {
-  TRACE("\n");
-
   if(infoPtr->delta)
     return infoPtr->delta;
 
@@ -1495,9 +1482,6 @@ static LRESULT
 MONTHCAL_SetMonthDelta(MONTHCAL_INFO *infoPtr, INT delta)
 {
   INT prev = infoPtr->delta;
-
-  TRACE("delta %d\n", delta);
-
   infoPtr->delta = delta;
   return prev;
 }
@@ -1537,14 +1521,11 @@ MONTHCAL_SetFirstDayOfWeek(MONTHCAL_INFO *infoPtr, INT day)
   LRESULT prev = MONTHCAL_GetFirstDayOfWeek(infoPtr);
   int new_day;
 
-  TRACE("%d\n", day);
-
   if(day == -1)
   {
     WCHAR buf[80];
 
     GetLocaleInfoW(LOCALE_USER_DEFAULT, LOCALE_IFIRSTDAYOFWEEK, buf, countof(buf));
-    //TRACE("%s %d\n", debugstr_w(buf), strlenW(buf));
 
     new_day = atoiW(buf);
 
@@ -1589,8 +1570,6 @@ static LRESULT
 MONTHCAL_SetRange(MONTHCAL_INFO *infoPtr, SHORT limits, SYSTEMTIME *range)
 {
     FILETIME ft_min, ft_max;
-
-    TRACE("%x %p\n", limits, range);
 
     if ((limits & GDTR_MIN && !MONTHCAL_ValidateDate(&range[0])) ||
         (limits & GDTR_MAX && !MONTHCAL_ValidateDate(&range[1])))
@@ -1650,8 +1629,6 @@ done:
 static LRESULT
 MONTHCAL_GetRange(const MONTHCAL_INFO *infoPtr, SYSTEMTIME *range)
 {
-  TRACE("%p\n", range);
-
   if(!range) return FALSE;
 
   range[1] = infoPtr->maxDate;
@@ -1664,8 +1641,6 @@ MONTHCAL_GetRange(const MONTHCAL_INFO *infoPtr, SYSTEMTIME *range)
 static LRESULT
 MONTHCAL_SetDayState(const MONTHCAL_INFO *infoPtr, INT months, MONTHDAYSTATE *states)
 {
-  TRACE("%p %d %p\n", infoPtr, months, states);
-
   if (!(infoPtr->dwStyle & MCS_DAYSTATE)) return 0;
   if (months != MONTHCAL_GetMonthRange(infoPtr, GMR_DAYSTATE, 0)) return 0;
 
@@ -1677,7 +1652,6 @@ MONTHCAL_SetDayState(const MONTHCAL_INFO *infoPtr, INT months, MONTHDAYSTATE *st
 static LRESULT
 MONTHCAL_GetCurSel(const MONTHCAL_INFO *infoPtr, SELECTION_INFO * selectionInfo)
 {
-  TRACE("%p\n", selectionInfo);
   if (!selectionInfo)
   {
 	  return FALSE;
@@ -1690,7 +1664,6 @@ MONTHCAL_GetCurSel(const MONTHCAL_INFO *infoPtr, SELECTION_INFO * selectionInfo)
 static LRESULT
 MONTHCAL_SetCurSel(MONTHCAL_INFO *infoPtr, SYSTEMTIME *curSel)
 {
-  TRACE("%p\n", curSel);
   if (!curSel || !MONTHCAL_ValidateDate(curSel))
   {
 	  return FALSE;
@@ -1712,8 +1685,6 @@ MONTHCAL_GetMaxSelCount(const MONTHCAL_INFO *infoPtr)
 static LRESULT
 MONTHCAL_SetMaxSelCount(MONTHCAL_INFO *infoPtr, INT max)
 {
-  TRACE("%d\n", max);
-
   infoPtr->maxSelCount = max >= 0 ? max : 0;
   return TRUE;
 }
@@ -1721,8 +1692,6 @@ MONTHCAL_SetMaxSelCount(MONTHCAL_INFO *infoPtr, INT max)
 static LRESULT
 MONTHCAL_SetSelRange(MONTHCAL_INFO *infoPtr, SYSTEMTIME *range)
 {
-  TRACE("%p\n", range);
-
   if (!range)
   {
 	  return FALSE;
@@ -1759,8 +1728,6 @@ MONTHCAL_SetSelRange(MONTHCAL_INFO *infoPtr, SYSTEMTIME *range)
 static LRESULT
 MONTHCAL_GetToday(const MONTHCAL_INFO *infoPtr, SYSTEMTIME *today)
 {
-  TRACE("%p\n", today);
-
   if(!today) return FALSE;
   *today = infoPtr->todaysDate;
   return TRUE;
@@ -1797,8 +1764,6 @@ MONTHCAL_UpdateToday(MONTHCAL_INFO *infoPtr, const SYSTEMTIME *today)
 static LRESULT
 MONTHCAL_SetToday(MONTHCAL_INFO *infoPtr, const SYSTEMTIME *today)
 {
-  TRACE("%p\n", today);
-
   if (today)
   {
     /* remember if date was set successfully */
@@ -1853,18 +1818,6 @@ MONTHCAL_HitTest(const MONTHCAL_INFO *infoPtr, MCHITTESTINFO *lpht)
   /* we should preserve passed fields if hit area doesn't need them */
   if (lpht->cbSize == sizeof(MCHITTESTINFO))
     memcpy(&htinfo.rc, &lpht->rc, sizeof(MCHITTESTINFO) - MCHITTESTINFO_V1_SIZE);
-
-  /* Comment in for debugging...
-  TRACE("%d %d wd[%d %d %d %d] d[%d %d %d %d] t[%d %d %d %d] wn[%d %d %d %d]\n", x, y,
-	infoPtr->wdays.left, infoPtr->wdays.right,
-	infoPtr->wdays.top, infoPtr->wdays.bottom,
-	infoPtr->days.left, infoPtr->days.right,
-	infoPtr->days.top, infoPtr->days.bottom,
-	infoPtr->todayrect.left, infoPtr->todayrect.right,
-	infoPtr->todayrect.top, infoPtr->todayrect.bottom,
-	infoPtr->weeknums.left, infoPtr->weeknums.right,
-	infoPtr->weeknums.top, infoPtr->weeknums.bottom);
-  */
 
   /* guess in what calendar we are */
   calIdx = MONTHCAL_GetCalendarFromPoint(infoPtr, &lpht->pt);
@@ -2081,9 +2034,6 @@ static LRESULT CALLBACK EditWndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM 
 {
     MONTHCAL_INFO *infoPtr = (MONTHCAL_INFO *)::GetWindowLongPtr(GetParent(hwnd), 0);
 
-    TRACE("(hwnd=%p, uMsg=%x, wParam=%lx, lParam=%lx)\n",
-	  hwnd, uMsg, wParam, lParam);
-
     switch (uMsg)
     {
 	case WM_GETDLGCODE:
@@ -2170,7 +2120,6 @@ MONTHCAL_LButtonDown(MONTHCAL_INFO *infoPtr, LPARAM lParam)
 
   hit = MONTHCAL_HitTest(infoPtr, &ht);
 
-  TRACE("%x at (%d, %d)\n", hit, ht.pt.x, ht.pt.y);
   int delta = MONTHCAL_GetMonthDelta(infoPtr);
   
   switch(hit)
@@ -2252,8 +2201,6 @@ MONTHCAL_LButtonUp(MONTHCAL_INFO *infoPtr, LPARAM lParam)
   NMHDR nmhdr;
   MCHITTESTINFO ht;
   DWORD hit;
-
-  TRACE("\n");
   
   if(infoPtr->status & (MC_PREVPRESSED | MC_NEXTPRESSED)) {
     RECT *r;
@@ -2271,7 +2218,6 @@ MONTHCAL_LButtonUp(MONTHCAL_INFO *infoPtr, LPARAM lParam)
   nmhdr.hwndFrom = infoPtr->hwndSelf;
   nmhdr.idFrom   = ::GetWindowLongPtr(infoPtr->hwndSelf, GWLP_ID);
   nmhdr.code     = NM_RELEASEDCAPTURE;
-  TRACE("Sent notification from %p to %p\n", infoPtr->hwndSelf, infoPtr->hwndNotify);
 
   SendMessageW(infoPtr->hwndNotify, WM_NOTIFY, nmhdr.idFrom, (LPARAM)&nmhdr);
 
@@ -2292,8 +2238,6 @@ MONTHCAL_LButtonUp(MONTHCAL_INFO *infoPtr, LPARAM lParam)
 static LRESULT
 MONTHCAL_Timer(MONTHCAL_INFO *infoPtr, WPARAM id)
 {
-  TRACE("%ld\n", id);
-
   switch(id) {
   case MC_PREVNEXTMONTHTIMER:
   {
@@ -2342,7 +2286,6 @@ MONTHCAL_MouseMove(MONTHCAL_INFO *infoPtr, LPARAM lParam)
   hit = MONTHCAL_HitTest(infoPtr, &ht);
 
   /* not on the calendar date numbers? bail out */
-  TRACE("hit:%x\n",hit);
   if((hit & MCHT_CALENDARDATE) != MCHT_CALENDARDATE)
   {
     MONTHCAL_SetDayFocus(infoPtr, NULL);
@@ -2409,8 +2352,6 @@ MONTHCAL_PrintClient(MONTHCAL_INFO *infoPtr, HDC hdc, DWORD options)
 static LRESULT
 MONTHCAL_SetFocus(const MONTHCAL_INFO *infoPtr)
 {
-  TRACE("\n");
-
   InvalidateRect(infoPtr->hwndSelf, NULL, FALSE);
 
   return 0;
@@ -2588,20 +2529,10 @@ static void MONTHCAL_UpdateSize(MONTHCAL_INFO *infoPtr)
   todayrect->right  = infoPtr->calendars[j].title.right;
   todayrect->top    = infoPtr->calendars[i].days.bottom;
   todayrect->bottom = infoPtr->calendars[i].days.bottom + infoPtr->height_increment;
-  /*
-  TRACE("dx=%d dy=%d client[%s] title[%s] wdays[%s] days[%s] today[%s]\n",
-	infoPtr->width_increment,infoPtr->height_increment,
-        wine_dbgstr_rect(&client),
-        wine_dbgstr_rect(title),
-        wine_dbgstr_rect(wdays),
-        wine_dbgstr_rect(days),
-        wine_dbgstr_rect(todayrect));*/
 }
 
 static LRESULT MONTHCAL_Size(MONTHCAL_INFO *infoPtr, int Width, int Height)
 {
-  TRACE("(width=%d, height=%d)\n", Width, Height);
-
   MONTHCAL_UpdateSize(infoPtr);
   InvalidateRect(infoPtr->hwndSelf, NULL, TRUE);
 
@@ -2672,10 +2603,10 @@ static LRESULT theme_changed (const MONTHCAL_INFO* infoPtr)
 static INT MONTHCAL_StyleChanged(MONTHCAL_INFO *infoPtr, WPARAM wStyleType,
                                  const STYLESTRUCT *lpss)
 {
-    TRACE("(styletype=%lx, styleOld=0x%08x, styleNew=0x%08x)\n",
-          wStyleType, lpss->styleOld, lpss->styleNew);
-
-    if (wStyleType != GWL_STYLE) return 0;
+	if (wStyleType != GWL_STYLE) 
+	{
+		return 0;
+	}
 
     infoPtr->dwStyle = lpss->styleNew;
 
@@ -2689,9 +2620,6 @@ static INT MONTHCAL_StyleChanged(MONTHCAL_INFO *infoPtr, WPARAM wStyleType,
 static INT MONTHCAL_StyleChanging(MONTHCAL_INFO *infoPtr, WPARAM wStyleType,
                                   STYLESTRUCT *lpss)
 {
-    TRACE("(styletype=%lx, styleOld=0x%08x, styleNew=0x%08x)\n",
-          wStyleType, lpss->styleOld, lpss->styleNew);
-
     /* block MCS_DAYSTATE change */
     if ((lpss->styleNew ^ lpss->styleOld) & MCS_DAYSTATE)
     {
@@ -2844,8 +2772,6 @@ static LRESULT WINAPI
 MONTHCAL_WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
   MONTHCAL_INFO *infoPtr = (MONTHCAL_INFO *)::GetWindowLongPtr(hwnd, 0);
-
-  TRACE("hwnd=%p msg=%x wparam=%lx lparam=%lx\n", hwnd, uMsg, wParam, lParam);
 
   if (!infoPtr && (uMsg != WM_CREATE))
     return DefWindowProcW(hwnd, uMsg, wParam, lParam);
