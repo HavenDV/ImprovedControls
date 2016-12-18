@@ -3,21 +3,13 @@
 
 #include <SDKDDKVer.h>
 #include <afx.h>
+#include <afxdtctl.h>
 #include <Windows.h>
-#include <stdarg.h>
-#include <assert.h>
-#include <windef.h>
-#include <winbase.h>
-#include <wingdi.h>
-#include <winuser.h>
-#include <winreg.h>
-#include <objbase.h>
 #include <uxtheme.h>
-#include <vssym32.h>
-#include <atltrace.h>
 #include "unicode.h"
 
 #ifndef TRACE
+#include <atltrace.h>
 #define TRACE ATLTRACE
 #endif
 
@@ -26,20 +18,35 @@
 #define Free(s) free((s))
 #define GetSize(s) GetSize((s));
 
-#define MCS_RANGESELECT     MCS_MULTISELECT
-#undef  MCS_MULTISELECT
-#define MCS_MULTISELECT     0x1000
-
-#define MCSC_SELECTEDTEXT 6       // selection text color
-#define MCSC_SELECTEDBK 7         // selection background color
+#define MCSC_SELECTEDTEXT      6  // selection text color
+#define MCSC_SELECTEDBK        7  // selection background color
 #define MCSC_ABBREVIATIONSTEXT 8  // abbreviations text color
-#define MCSC_ABBREVIATIONSBK 9    // abbreviations background color
+#define MCSC_ABBREVIATIONSBK   9  // abbreviations background color
+#define MCSC_ABBREVIATIONSLINE 10 // abbreviations line color
 
-void MONTHCAL_Register(void);
-void MONTHCAL_Unregister(void);
+typedef struct tagSELECTION_ITEM
+{
+	SYSTEMTIME          time;
+	tagSELECTION_ITEM * next;
+} SELECTION_ITEM, *LPSELECTION_ITEM;
 
-int MONTHCAL_MonthLength(int month, int year);
-int MONTHCAL_CalculateDayOfWeek(SYSTEMTIME *date, BOOL inplace);
-LONG MONTHCAL_CompareSystemTime(const SYSTEMTIME *first, const SYSTEMTIME *second);
+typedef struct
+{
+	INT               size;
+	LPSELECTION_ITEM  first;
+} SELECTION_INFO, *LPSELECTION_INFO;
+
+// MCN_SELCHANGEEX is sent whenever the currently displayed date changes
+// via month change, year change, keyboard navigation, prev/next button
+//
+typedef struct tagNMSELCHANGEEX
+{
+	NMHDR           nmhdr;  // this must be first, so we don't break WM_NOTIFY
+
+	SELECTION_INFO  selectionInfo;
+} NMSELCHANGEEX, *LPNMSELCHANGEEX;
+
+VOID   MONTHCAL_Register(VOID);
+VOID   MONTHCAL_Unregister(VOID);
 
 #endif  /* __IMPROVED_MONTHCAL_H */
