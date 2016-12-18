@@ -2222,18 +2222,7 @@ MONTHCAL_LButtonDown(MONTHCAL_INFO *infoPtr, LPARAM lParam)
   }
   case MCHT_TODAYLINK:
   {
-    if (infoPtr->dwStyle & MCS_RANGESELECT)
-    {
-        SYSTEMTIME range[2];
-
-        range[0] = range[1] = infoPtr->todaysDate;
-        MONTHCAL_SetSelRange(infoPtr, range);
-    }
-    else
-        MONTHCAL_SetCurSel(infoPtr, &infoPtr->todaysDate);
-
-    MONTHCAL_NotifySelectionChange(infoPtr);
-    MONTHCAL_NotifySelect(infoPtr);
+    MONTHCAL_SetCurSel(infoPtr, &infoPtr->todaysDate);
     return 0;
   }
   case MCHT_CALENDARDATENEXT:
