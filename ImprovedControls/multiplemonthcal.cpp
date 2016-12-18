@@ -2235,26 +2235,10 @@ MONTHCAL_LButtonDown(MONTHCAL_INFO *infoPtr, LPARAM lParam)
 	  return 0;
   case MCHT_CALENDARDATE:
   {
-    SYSTEMTIME st[2];
-
-    MONTHCAL_CopyDate(&ht.st, &infoPtr->firstSel);
-
-    st[0] = st[1] = ht.st;
-    /* clear selection range */
-    MONTHCAL_SetSelRange(infoPtr, st);
-
-	if (MONTHCAL_IsDaySelected(infoPtr, &ht.st))
-	{
-		MONTHCAL_RemoveFromSelection(infoPtr, &ht.st);
-	}
-	else
-	{
-		MONTHCAL_AddToSelection(infoPtr, &ht.st);
-	}
-
-    infoPtr->status = MC_SEL_LBUTDOWN;
-    MONTHCAL_SetDayFocus(infoPtr, &ht.st);
-    return 0;
+	  infoPtr->status = MC_SEL_LBUTDOWN;
+	  MONTHCAL_ChangeSelection(infoPtr, &ht.st);
+	  MONTHCAL_SetDayFocus(infoPtr, &ht.st);
+      return 0;
   }
   }
 
