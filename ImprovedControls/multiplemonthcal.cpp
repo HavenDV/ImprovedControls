@@ -854,31 +854,14 @@ static BOOL MONTHCAL_IsDaySelected(const MONTHCAL_INFO *infoPtr, const SYSTEMTIM
 }
 
 static VOID
-MONTHCAL_AddToSelection(MONTHCAL_INFO * infoPtr, const SYSTEMTIME * time)
+MONTHCAL_RedrawDayRect(MONTHCAL_INFO * infoPtr, const SYSTEMTIME * date)
 {
-	VERIFY(time);
+	RECT rect;
+	MONTHCAL_GetDayRect(infoPtr, date, &rect, -1);
+	//GetClientRect(infoPtr->hwndSelf, &rect);
 
-	LPSELECTION_INFO newInfo = (LPSELECTION_INFO)Alloc(sizeof(SELECTION_INFO));
-	newInfo->time = *time;
-	newInfo->next = NULL;
-
-	LPSELECTION_INFO info = infoPtr->selection;
-	if (!info)
-	{
-		infoPtr->selection = newInfo;
-		MONTHCAL_NotifySelectionChange(infoPtr);
-		return;
-	}
-
-	//Go to last selection info
-	while (info->next)
-	{
-		info = info->next;
-	}
-
-	info->next = newInfo;
-
-	MONTHCAL_NotifySelectionChange(infoPtr);
+	TRACE("left=%d, top=%d, right=%d, bottom=%d\n", rect.left, rect.top, rect.right, rect.bottom);
+	::InvalidateRect(infoPtr->hwndSelf, &rect, FALSE);
 }
 
 static VOID
