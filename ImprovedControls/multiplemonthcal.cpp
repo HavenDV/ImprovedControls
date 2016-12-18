@@ -896,15 +896,15 @@ MONTHCAL_AddToSelection(MONTHCAL_INFO * infoPtr, const SYSTEMTIME * time)
 }
 
 static VOID
-MONTHCAL_RemoveFromSelection(MONTHCAL_INFO * infoPtr, const SYSTEMTIME * time)
+MONTHCAL_RemoveFromSelection(MONTHCAL_INFO * infoPtr, const SYSTEMTIME * date)
 {
-	VERIFY(time);
+	VERIFY(date);
 
-	LPSELECTION_INFO prevInfo = NULL; 
-	LPSELECTION_INFO info = infoPtr->selection;
+	LPSELECTION_ITEM prevInfo = NULL;
+	LPSELECTION_ITEM info = infoPtr->selectionInfo.first;
 	while (info)
 	{
-		if (MONTHCAL_IsDateEquals(&info->time, time))
+		if (MONTHCAL_IsDateEquals(&info->time, date))
 		{
 			if (prevInfo)
 			{
@@ -912,12 +912,14 @@ MONTHCAL_RemoveFromSelection(MONTHCAL_INFO * infoPtr, const SYSTEMTIME * time)
 			}
 			else
 			{
-				infoPtr->selection = info->next;
+				infoPtr->selectionInfo.first = info->next;
 			}
 
-			LPSELECTION_INFO temp = info->next;
+			MONTHCAL_RedrawDayRect(infoPtr, date);
+			LPSELECTION_ITEM temp = info->next;
 			Free(info);
 			info = temp;
+			--infoPtr->selectionInfo.size;
 			continue;
 		}
 
@@ -926,6 +928,55 @@ MONTHCAL_RemoveFromSelection(MONTHCAL_INFO * infoPtr, const SYSTEMTIME * time)
 	}
 
 	MONTHCAL_NotifySelectionChange(infoPtr);
+}
+
+static VOID
+MONTHCAL_AddToSelection(MONTHCAL_INFO * infoPtr, const SYSTEMTIME * date)
+{
+	VERIFY(date);
+
+	LPSELECTION_ITEM newInfo = (LPSELECTION_ITEM)Alloc(sizeof(SELECTION_ITEM));
+	newInfo->time = *date;
+	newInfo->next = NULL;
+
+	LPSELECTION_ITEM info = infoPtr->selectionInfo.first;
+	if (!info)
+	{
+		infoPtr->selectionInfo.first = newInfo;
+		goto added;
+	}
+
+	//Go to last selection info
+	while (info->next)
+	{
+		info = info->next;
+	}
+
+	info->next = newInfo;
+
+added:
+	++infoPtr->selectionInfo.size;
+	if (infoPtr->maxSelCount > 0 && infoPtr->selectionInfo.size > infoPtr->maxSelCount)
+	{
+		MONTHCAL_RemoveFromSelection(infoPtr, &infoPtr->selectionInfo.first->time);
+		return;
+	}
+	MONTHCAL_NotifySelect(infoPtr);
+}
+
+static void MONTHCAL_ChangeSelection(MONTHCAL_INFO * infoPtr, const SYSTEMTIME * date)
+{
+	if (MONTHCAL_IsDaySelected(infoPtr, date))
+	{
+		MONTHCAL_RemoveFromSelection(infoPtr, date);
+	}
+	else
+	{
+		MONTHCAL_AddToSelection(infoPtr, date);
+	}
+	//InvalidateRect(infoPtr->hwndSelf, NULL, FALSE);
+	MONTHCAL_NotifySelectionChange(infoPtr);
+	MONTHCAL_RedrawDayRect(infoPtr, date);
 }
 
 static void MONTHCAL_DrawDay(const MONTHCAL_INFO *infoPtr, HDC hdc, const SYSTEMTIME *st,
