@@ -1718,26 +1718,6 @@ MONTHCAL_SetMaxSelCount(MONTHCAL_INFO *infoPtr, INT max)
   return TRUE;
 }
 
-
-static LRESULT
-MONTHCAL_GetSelRange(const MONTHCAL_INFO *infoPtr, SYSTEMTIME *range)
-{
-  TRACE("%p\n", range);
-
-  if(!range) return FALSE;
-
-  if(infoPtr->dwStyle & MCS_RANGESELECT)
-  {
-    range[1] = infoPtr->maxSel;
-    range[0] = infoPtr->minSel;
-    TRACE("[min,max]=[%d %d]\n", infoPtr->minSel.wDay, infoPtr->maxSel.wDay);
-    return TRUE;
-  }
-
-  return FALSE;
-}
-
-
 static LRESULT
 MONTHCAL_SetSelRange(MONTHCAL_INFO *infoPtr, SYSTEMTIME *range)
 {
