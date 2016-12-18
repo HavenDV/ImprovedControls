@@ -2827,24 +2827,49 @@ static LRESULT MONTHCAL_GetFont(const MONTHCAL_INFO *infoPtr)
 
 static LRESULT MONTHCAL_SetFont(MONTHCAL_INFO *infoPtr, HFONT hFont, BOOL redraw)
 {
-    HFONT hOldFont;
-    LOGFONTW lf;
+	if (!hFont) 
+	{
+		return 0;
+	}
 
-    if (!hFont) return 0;
+	HFONT hOldFont;   
+	hOldFont = infoPtr->hFont;
+	infoPtr->hFont = hFont;    
 
-    hOldFont = infoPtr->hFont;
-    infoPtr->hFont = hFont;
+	LOGFONTW lf2;
+	GetObjectW(hFont, sizeof(lf2), &lf2);
+	if (wcscmp(lf2.lfFaceName, L"MS Shell Dlg 2") == 0) 
+	{
+		HTHEME theme = ::OpenThemeData(infoPtr->hwndSelf, themeClass);
+		VERIFY(theme);
 
-    GetObjectW(infoPtr->hFont, sizeof(lf), &lf);
-    lf.lfWeight = FW_BOLD;
-    infoPtr->hBoldFont = CreateFontIndirectW(&lf);
+		LOGFONTW lf;
+		HRESULT hr = GetThemeFont(theme, NULL,
+			HP_HEADERITEM, HIS_NORMAL, TMT_CAPTIONFONT, &lf);
+		if (FAILED(hr))
+			hr = GetThemeSysFont(theme, TMT_CAPTIONFONT, &lf);
 
-    MONTHCAL_UpdateSize(infoPtr);
+		lf.lfHeight = 16;
+		lf.lfWidth = 6;
+		lf.lfWeight = FW_LIGHT;
+		lf.lfQuality |= ANTIALIASED_QUALITY;
 
-    if (redraw)
-        InvalidateRect(infoPtr->hwndSelf, NULL, FALSE);
+		infoPtr->hFont = CreateFontIndirect(&lf);
+		lf.lfWeight = FW_BOLD;
+		infoPtr->hBoldFont = CreateFontIndirect(&lf);
+	}
+	else
+	{
+		lf2.lfWeight = FW_BOLD;
+		infoPtr->hBoldFont = CreateFontIndirect(&lf2);
+	} 
+	
+	MONTHCAL_UpdateSize(infoPtr);
 
-    return (LRESULT)hOldFont;
+	if (redraw)
+		InvalidateRect(infoPtr->hwndSelf, NULL, FALSE);
+
+	return (LRESULT)hOldFont;
 }
 
 /* update theme after a WM_THEMECHANGED message */
