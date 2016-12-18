@@ -227,7 +227,7 @@ static inline void MONTHCAL_NotifySelectionChange(const MONTHCAL_INFO *infoPtr)
     NMSELCHANGE nmsc;
 
     nmsc.nmhdr.hwndFrom = infoPtr->hwndSelf;
-    nmsc.nmhdr.idFrom   = GetWindowLongPtrW(infoPtr->hwndSelf, GWLP_ID);
+    nmsc.nmhdr.idFrom   = ::GetWindowLongPtr(infoPtr->hwndSelf, GWLP_ID);
     nmsc.nmhdr.code     = MCN_SELCHANGE;
     nmsc.stSelStart     = infoPtr->minSel;
     nmsc.stSelStart.wDayOfWeek = 0;
@@ -247,7 +247,7 @@ static inline void MONTHCAL_NotifySelect(const MONTHCAL_INFO *infoPtr)
     NMSELCHANGE nmsc;
 
     nmsc.nmhdr.hwndFrom = infoPtr->hwndSelf;
-    nmsc.nmhdr.idFrom   = GetWindowLongPtrW(infoPtr->hwndSelf, GWLP_ID);
+    nmsc.nmhdr.idFrom   = ::GetWindowLongPtr(infoPtr->hwndSelf, GWLP_ID);
     nmsc.nmhdr.code     = MCN_SELECT;
     nmsc.stSelStart     = infoPtr->minSel;
     nmsc.stSelStart.wDayOfWeek = 0;
