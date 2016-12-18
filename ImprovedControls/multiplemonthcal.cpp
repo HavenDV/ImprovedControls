@@ -3006,9 +3006,8 @@ MONTHCAL_Notify(MONTHCAL_INFO *infoPtr, NMHDR *hdr)
     if (hdr->hwndFrom == infoPtr->hWndYearUpDown && nmud->iDelta)
     {
       /* year value limits are set up explicitly after updown creation */
-      MONTHCAL_Scroll(infoPtr, 12 * nmud->iDelta);
+      MONTHCAL_GoToMonth(infoPtr, 12 * nmud->iDelta);
       MONTHCAL_NotifyDayState(infoPtr);
-      MONTHCAL_NotifySelectionChange(infoPtr);
     }
   }
   return 0;
