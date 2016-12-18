@@ -2330,9 +2330,7 @@ static LRESULT
 MONTHCAL_MouseMove(MONTHCAL_INFO *infoPtr, LPARAM lParam)
 {
   MCHITTESTINFO ht;
-  SYSTEMTIME st_ht;
   INT hit;
-  RECT r;
 
   if(!(infoPtr->status & MC_SEL_LBUTDOWN)) return 0;
 
@@ -2351,40 +2349,10 @@ MONTHCAL_MouseMove(MONTHCAL_INFO *infoPtr, LPARAM lParam)
     return 0;
   }
 
-  st_ht = ht.st;
-
   /* if pointer is over focused day still there's nothing to do */
   if(!MONTHCAL_SetDayFocus(infoPtr, &ht.st)) return 0;
 
-  MONTHCAL_GetDayRect(infoPtr, &ht.st, &r, ht.iOffset);
-
-  if(infoPtr->dwStyle & MCS_RANGESELECT) {
-    SYSTEMTIME st[2];
-
-    MONTHCAL_GetSelRange(infoPtr, st);
-
-    /* If we're still at the first selected date and range is empty, return.
-       If range isn't empty we should change range to a single firstSel */
-    if(MONTHCAL_IsDateEqual(&infoPtr->firstSel, &st_ht) &&
-       MONTHCAL_IsDateEqual(&st[0], &st[1])) goto done;
-
-    MONTHCAL_IsSelRangeValid(infoPtr, &st_ht, &infoPtr->firstSel, &st_ht);
-
-    st[0] = infoPtr->firstSel;
-    /* we should overwrite timestamp here */
-    MONTHCAL_CopyDate(&st_ht, &st[1]);
-
-    /* bounds will be swapped here if needed */
-    MONTHCAL_SetSelRange(infoPtr, st);
-
-    return 0;
-  }
-
-done:
-
-  /* FIXME: this should specify a rectangle containing only the days that changed
-     using InvalidateRect */
-  InvalidateRect(infoPtr->hwndSelf, NULL, FALSE);
+  MONTHCAL_ChangeSelection(infoPtr, &ht.st);
 
   return 0;
 }
