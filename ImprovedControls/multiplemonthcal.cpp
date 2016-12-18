@@ -1690,62 +1690,14 @@ MONTHCAL_GetCurSel(const MONTHCAL_INFO *infoPtr, SELECTION_INFO * selectionInfo)
 static LRESULT
 MONTHCAL_SetCurSel(MONTHCAL_INFO *infoPtr, SYSTEMTIME *curSel)
 {
-  SYSTEMTIME prev = infoPtr->minSel, selection;
-  INT diff;
-  WORD day;
-
   TRACE("%p\n", curSel);
-  if(!curSel) return FALSE;
-  if(infoPtr->dwStyle & MCS_RANGESELECT) return FALSE;
-
-  if(!MONTHCAL_ValidateDate(curSel)) return FALSE;
-  /* exit earlier if selection equals current */
-  if (MONTHCAL_IsDateEqual(&infoPtr->minSel, curSel)) return TRUE;
-
-  selection = *curSel;
-  selection.wHour = selection.wMinute = selection.wSecond = selection.wMilliseconds = 0;
-  MONTHCAL_CalculateDayOfWeek(&selection, TRUE);
-
-  if(!MONTHCAL_IsDateInValidRange(infoPtr, &selection, FALSE)) return FALSE;
-
-  /* scroll calendars only if we have to */
-  diff = MONTHCAL_MonthDiff(&infoPtr->calendars[MONTHCAL_GetCalCount(infoPtr)-1].month, curSel);
-  if (diff <= 0)
+  if (!curSel || !MONTHCAL_ValidateDate(curSel))
   {
-    diff = MONTHCAL_MonthDiff(&infoPtr->calendars[0].month, curSel);
-    if (diff > 0) diff = 0;
+	  return FALSE;
   }
 
-  if (diff != 0)
-  {
-    INT i;
-
-    for (i = 0; i < MONTHCAL_GetCalCount(infoPtr); i++)
-      MONTHCAL_GetMonth(&infoPtr->calendars[i].month, diff);
-  }
-
-  /* we need to store time part as it is */
-  selection = *curSel;
-  MONTHCAL_CalculateDayOfWeek(&selection, TRUE);
-  infoPtr->minSel = infoPtr->maxSel = selection;
-
-  /* if selection is still in current month, reduce rectangle */
-  day = prev.wDay;
-  prev.wDay = curSel->wDay;
-  if (MONTHCAL_IsDateEqual(&prev, curSel))
-  {
-    RECT r_prev, r_new;
-
-    prev.wDay = day;
-    MONTHCAL_GetDayRect(infoPtr, &prev, &r_prev, -1);
-    MONTHCAL_GetDayRect(infoPtr, curSel, &r_new, -1);
-
-    InvalidateRect(infoPtr->hwndSelf, &r_prev, FALSE);
-    InvalidateRect(infoPtr->hwndSelf, &r_new,  FALSE);
-  }
-  else
-    InvalidateRect(infoPtr->hwndSelf, NULL, FALSE);
-
+  MONTHCAL_AddToSelection(infoPtr, curSel);
+  MONTHCAL_SetRange(infoPtr, 1, curSel);
   return TRUE;
 }
 
