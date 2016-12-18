@@ -2583,8 +2583,9 @@ static void MONTHCAL_UpdateSize(MONTHCAL_INFO *infoPtr)
   OffsetRect(next, (x-1)*(title->right - title->left + MC_CALENDAR_PADDING) + c_dx, c_dy);
 
   i = infoPtr->dim.cx * infoPtr->dim.cy - infoPtr->dim.cx;
+  j = infoPtr->dim.cx * infoPtr->dim.cy - 1;
   todayrect->left   = infoPtr->calendars[i].title.left;
-  todayrect->right  = infoPtr->calendars[i].title.right;
+  todayrect->right  = infoPtr->calendars[j].title.right;
   todayrect->top    = infoPtr->calendars[i].days.bottom;
   todayrect->bottom = infoPtr->calendars[i].days.bottom + infoPtr->height_increment;
   /*
