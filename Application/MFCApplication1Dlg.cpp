@@ -107,7 +107,7 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	sysEndtime.wMonth = 12;
 	m_monthCalCtrl.SetRange(&sysFromtime, &sysEndtime);
 	m_monthCalCtrl.SetOriginalColors();
-	m_monthCalCtrl.EnableMultiselect(3);
+	m_monthCalCtrl.EnableMultiselect(15);
 	std::vector<SYSTEMTIME> dates;
 	dates.push_back(sysEndtime);
 	dates.push_back(sysFromtime);
