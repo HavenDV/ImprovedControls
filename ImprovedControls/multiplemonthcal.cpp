@@ -154,12 +154,6 @@ typedef struct _CALENDAR_INFO
     SYSTEMTIME month;/* contains calendar main month/year */
 } CALENDAR_INFO;
 
-typedef struct _SELECTION_INFO
-{
-	SYSTEMTIME        time;
-	_SELECTION_INFO * next;
-} SELECTION_INFO, *LPSELECTION_INFO;
-
 typedef struct
 {
     HWND	hwndSelf;
@@ -206,7 +200,7 @@ typedef struct
 
     CALENDAR_INFO *calendars;
     SIZE dim;           /* [cx,cy] - dimensions of calendars matrix, row/column count */
-	LPSELECTION_INFO  selection;
+	SELECTION_INFO  selectionInfo;
 } MONTHCAL_INFO, *LPMONTHCAL_INFO;
 
 static const WCHAR themeClass[] = L"MonthCal";
@@ -849,22 +843,18 @@ static BOOL MONTHCAL_IsDaySelected(const MONTHCAL_INFO *infoPtr, const SYSTEMTIM
 {
 	VERIFY(time);
 
-	if (infoPtr->dwStyle & MCS_MULTISELECT) {
-		LPSELECTION_INFO info = infoPtr->selection;
-		while (info)
+	LPSELECTION_ITEM info = infoPtr->selectionInfo.first;
+	while (info)
+	{
+		if (MONTHCAL_IsDateEquals(&info->time, time))
 		{
-			if (MONTHCAL_IsDateEquals(&info->time, time))
-			{
-				return TRUE;
-			}
-
-			info = info->next;
+			return TRUE;
 		}
-		return FALSE;
+
+		info = info->next;
 	}
 
-	return (MONTHCAL_CompareDate(time, &infoPtr->minSel) >= 0) &&
-		   (MONTHCAL_CompareDate(time, &infoPtr->maxSel) <= 0);
+	return FALSE;
 }
 
 static VOID
