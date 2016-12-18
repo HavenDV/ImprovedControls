@@ -990,13 +990,14 @@ static void MONTHCAL_DrawDay(const MONTHCAL_INFO *infoPtr, HDC hdc, const SYSTEM
   }
 }
 
+//#include <afxvisualmanager.h>
 static void MONTHCAL_PaintButton(MONTHCAL_INFO *infoPtr, HDC hdc, enum nav_direction button)
 {
     HTHEME theme = OpenThemeData(infoPtr->hwndSelf, L"NAVIGATION");//::GetWindowTheme(infoPtr->hwndSelf);
     RECT *r = button == DIRECTION_FORWARD ? &infoPtr->titlebtnnext : &infoPtr->titlebtnprev;
     BOOL pressed = button == DIRECTION_FORWARD ? infoPtr->status & MC_NEXTPRESSED :
                                                  infoPtr->status & MC_PREVPRESSED;
-    if (theme)
+    if (theme && ::IsThemeActive())
     {
         static const int states[] = {
             /* Prev button */
@@ -1010,10 +1011,16 @@ static void MONTHCAL_PaintButton(MONTHCAL_INFO *infoPtr, HDC hdc, enum nav_direc
         else
         {
             if (infoPtr->dwStyle & WS_DISABLED) stateNum += 2;
-        }
-		button == DIRECTION_FORWARD ?
-			DrawThemeBackground(theme, hdc, NAV_FORWARDBUTTON, states[stateNum], r, NULL):
-			DrawThemeBackground(theme, hdc, NAV_BACKBUTTON, states[stateNum], r, NULL);
+        }  
+    	if (IsThemeBackgroundPartiallyTransparent(theme, button == DIRECTION_FORWARD ?
+			NAV_FORWARDBUTTON : NAV_BACKBUTTON, states[stateNum]))
+		{
+			DrawThemeParentBackground(infoPtr->hwndSelf, hdc, r);
+		}
+		//CMFCVisualManager::DrawPushButtonWinXP(hdc, r, );
+		DrawThemeBackground(theme, hdc, button == DIRECTION_FORWARD ?
+			NAV_FORWARDBUTTON : NAV_BACKBUTTON, states[stateNum], r, NULL);
+		//::DrawThemeText(hTheme, lpdis->hDC, BP_PUSHBUTTON, PBS_NORMAL, L"Settings...", wcslen(L"Settings..."), DT_SINGLELINE | DT_VCENTER | DT_CENTER, 0, &rc);
     }
     else
     {
@@ -1027,6 +1034,7 @@ static void MONTHCAL_PaintButton(MONTHCAL_INFO *infoPtr, HDC hdc, enum nav_direc
         
         DrawFrameControl(hdc, r, DFC_SCROLL, style);
     }
+	CloseThemeData(theme);
 }
 
 /* paint a title with buttons and month/year string */
