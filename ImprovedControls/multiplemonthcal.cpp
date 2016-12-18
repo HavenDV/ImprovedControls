@@ -1331,12 +1331,12 @@ static void MONTHCAL_PaintCalendar(const MONTHCAL_INFO *infoPtr, HDC hdc, const 
   SetTextColor(hdc, infoPtr->colors[MCSC_TEXT]);
   st = *date;
   st.wDay = 1;
-  mask = 1;
+  mask = 0;
   length = MONTHCAL_MonthLength(date->wMonth, date->wYear);
   while(st.wDay <= length)
   {
     MONTHCAL_DrawDay(infoPtr, hdc, &st, infoPtr->monthdayState[calIdx+1] & mask, ps);
-    mask <<= 1;
+    //mask <<= 1;
     st.wDay++;
   }
 }
