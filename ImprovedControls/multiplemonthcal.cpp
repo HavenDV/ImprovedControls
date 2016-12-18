@@ -2060,18 +2060,7 @@ MONTHCAL_RButtonUp(MONTHCAL_INFO *infoPtr, LPARAM lParam)
   if( TrackPopupMenu(hMenu, TPM_RIGHTBUTTON | TPM_NONOTIFY | TPM_RETURNCMD,
 		     menupoint.x, menupoint.y, 0, infoPtr->hwndSelf, NULL))
   {
-      if (infoPtr->dwStyle & MCS_RANGESELECT)
-      {
-          SYSTEMTIME range[2];
-
-          range[0] = range[1] = infoPtr->todaysDate;
-          MONTHCAL_SetSelRange(infoPtr, range);
-      }
-      else
-          MONTHCAL_SetCurSel(infoPtr, &infoPtr->todaysDate);
-
-      MONTHCAL_NotifySelectionChange(infoPtr);
-      MONTHCAL_NotifySelect(infoPtr);
+      MONTHCAL_SetCurSel(infoPtr, &infoPtr->todaysDate);
   }
 
   return 0;
