@@ -1163,41 +1163,41 @@ static void MONTHCAL_PaintWeeknumbers(const MONTHCAL_INFO *infoPtr, HDC hdc, con
 /* bottom today date */
 static void MONTHCAL_PaintTodayTitle(const MONTHCAL_INFO *infoPtr, HDC hdc, const PAINTSTRUCT *ps)
 {
-  static const WCHAR fmt_todayW[] = { '%','s',' ','%','s',0 };
-  WCHAR buf_todayW[30], buf_dateW[20], buf[80];
-  RECT text_rect, box_rect;
-  HFONT old_font;
-  INT col;
+	if (infoPtr->dwStyle & MCS_NOTODAY)
+	{
+		return;
+	}
 
-  if(infoPtr->dwStyle & MCS_NOTODAY) return;
+    static const WCHAR fmt_todayW[] = L"%s %s";
+    WCHAR buf_todayW[30], buf_dateW[20], buf[80];
 
   //if (!LoadStringW(COMCTL32_hModule, IDM_TODAY, buf_todayW, countof(buf_todayW)))
   {
-    static const WCHAR todayW[] = { 'T','o','d','a','y',':',0 };
-    //WARN("Can't load resource\n");
+    static const WCHAR todayW[] = L"Today:";
     strcpyW(buf_todayW, todayW);
   }
 
-  col = infoPtr->dwStyle & MCS_NOTODAYCIRCLE ? 0 : 1;
+  INT col = infoPtr->dwStyle & MCS_NOTODAYCIRCLE ? 0 : 1;
   if (infoPtr->dwStyle & MCS_WEEKNUMBERS) col--;
   /* label is located below first calendar last row */
+  RECT text_rect;
   MONTHCAL_GetDayRectI(infoPtr, &text_rect, col, 6, infoPtr->dim.cx * infoPtr->dim.cy - infoPtr->dim.cx);
 
   RECT client_rect;
   GetClientRect(infoPtr->hwndSelf, &client_rect);
   text_rect.right = client_rect.right;
-  box_rect = text_rect;
+  RECT box_rect = text_rect;
 
   GetDateFormatW(LOCALE_USER_DEFAULT, DATE_SHORTDATE, &infoPtr->todaysDate, NULL,
                                                       buf_dateW, countof(buf_dateW));
-  old_font = (HFONT)SelectObject(hdc, infoPtr->hBoldFont);
+  HFONT old_font = (HFONT)SelectObject(hdc, infoPtr->hBoldFont);
   SetTextColor(hdc, infoPtr->colors[MCSC_TEXT]);
 
   wsprintfW(buf, fmt_todayW, buf_todayW, buf_dateW);
-  DrawTextW(hdc, buf, -1, &text_rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);//DT_CALCRECT | 
-  //DrawTextW(hdc, buf, -1, &text_rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+  DrawTextW(hdc, buf, -1, &text_rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
-  if(!(infoPtr->dwStyle & MCS_NOTODAYCIRCLE)) {
+  if(!(infoPtr->dwStyle & MCS_NOTODAYCIRCLE))
+  {
     OffsetRect(&box_rect, -infoPtr->width_increment, 0);
     MONTHCAL_Circle(infoPtr, hdc, &box_rect);
   }
