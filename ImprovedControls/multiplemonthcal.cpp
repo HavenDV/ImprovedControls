@@ -845,7 +845,7 @@ MONTHCAL_RedrawDayRect(MONTHCAL_INFO * infoPtr, const SYSTEMTIME * date)
 	RECT rect;
 	MONTHCAL_GetDayRect(infoPtr, date, &rect, -1);
 	//GetClientRect(infoPtr->hwndSelf, &rect);
-
+	
 	TRACE("left=%d, top=%d, right=%d, bottom=%d\n", rect.left, rect.top, rect.right, rect.bottom);
 	::InvalidateRect(infoPtr->hwndSelf, &rect, FALSE);
 }
@@ -1582,8 +1582,6 @@ MONTHCAL_GetMaxTodayWidth(const MONTHCAL_INFO *infoPtr)
   return(infoPtr->todayrect.right - infoPtr->todayrect.left);
 }
 
-static LRESULT
-MONTHCAL_SetCurSel(MONTHCAL_INFO *infoPtr, SYSTEMTIME *curSel);
 static void MONTHCAL_UpdateSize(MONTHCAL_INFO *infoPtr);
 static void MONTHCAL_NotifyDayState(MONTHCAL_INFO *infoPtr);
 
@@ -1618,7 +1616,7 @@ MONTHCAL_SetRange(MONTHCAL_INFO *infoPtr, SHORT limits, SYSTEMTIME *range)
 
     /* Only one limit set - we are done */
     if ((infoPtr->rangeValid & (GDTR_MIN | GDTR_MAX)) != (GDTR_MIN | GDTR_MAX))
-        return TRUE;
+        goto done;
 
     SystemTimeToFileTime(&infoPtr->maxDate, &ft_max);
     SystemTimeToFileTime(&infoPtr->minDate, &ft_min);
@@ -1640,9 +1638,11 @@ MONTHCAL_SetRange(MONTHCAL_INFO *infoPtr, SHORT limits, SYSTEMTIME *range)
             infoPtr->rangeValid &= limits & GDTR_MIN ? ~GDTR_MAX : ~GDTR_MIN;
         }
     }
-	
-	MONTHCAL_SetCurSel(infoPtr, &range[0]);
 
+done:
+	MONTHCAL_UpdateSize(infoPtr);
+	MONTHCAL_NotifyDayState(infoPtr);
+	InvalidateRect(infoPtr->hwndSelf, NULL, FALSE);
     return TRUE;
 }
 
