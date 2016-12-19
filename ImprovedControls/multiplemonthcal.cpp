@@ -283,7 +283,11 @@ int MONTHCAL_MonthLength(int month, int year)
 /* compares timestamps using date part only */
 static inline BOOL MONTHCAL_IsDateEqual(const SYSTEMTIME *first, const SYSTEMTIME *second)
 {
-  return (first->wYear == second->wYear) && (first->wMonth == second->wMonth) &&
+  VERIFY(first);
+  VERIFY(second);
+  
+  return (first->wYear == second->wYear) && 
+         (first->wMonth == second->wMonth) &&
          (first->wDay  == second->wDay);
 }
 
@@ -812,16 +816,6 @@ static void MONTHCAL_CircleDay(const MONTHCAL_INFO *infoPtr, HDC hdc,
   MONTHCAL_Circle(infoPtr, hdc, &r);
 }
 
-static BOOL MONTHCAL_IsDateEquals(const SYSTEMTIME * first, const SYSTEMTIME * second)
-{
-	VERIFY(first);
-	VERIFY(second);
-
-	return first->wDay == second->wDay &&
-		first->wMonth == second->wMonth &&
-		first->wYear == second->wYear;
-}
-
 static BOOL MONTHCAL_IsDaySelected(const MONTHCAL_INFO *infoPtr, const SYSTEMTIME * date)
 {
 	VERIFY(date);
@@ -829,7 +823,7 @@ static BOOL MONTHCAL_IsDaySelected(const MONTHCAL_INFO *infoPtr, const SYSTEMTIM
 	LPSELECTION_ITEM info = infoPtr->selectionInfo.first;
 	while (info)
 	{
-		if (MONTHCAL_IsDateEquals(&info->date, date))
+		if (MONTHCAL_IsDateEqual(&info->date, date))
 		{
 			return TRUE;
 		}
@@ -857,7 +851,7 @@ MONTHCAL_RemoveFromSelection(MONTHCAL_INFO * infoPtr, const SYSTEMTIME * date)
 	LPSELECTION_ITEM item = infoPtr->selectionInfo.first;
 	while (item)
 	{
-		if (MONTHCAL_IsDateEquals(&item->date, date))
+		if (MONTHCAL_IsDateEqual(&item->date, date))
 		{
 			if (prevItem)
 			{
