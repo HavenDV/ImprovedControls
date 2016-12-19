@@ -26,6 +26,7 @@ public:
 	 * Use SetRange() after for select need range.
 	 */
 	void	SetSelection(const std::vector<SYSTEMTIME> & dates);
+	void	UnselectAll();
 
 protected:
 

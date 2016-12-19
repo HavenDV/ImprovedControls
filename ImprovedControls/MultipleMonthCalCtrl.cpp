@@ -56,7 +56,7 @@ std::vector<SYSTEMTIME>
 		LPSELECTION_ITEM item = info.first;
 		while (item)
 		{
-			dates.push_back(item->time);
+			dates.push_back(item->date);
 			item = item->next;
 		}
 	}
@@ -70,6 +70,11 @@ void    CMultipleMonthCalCtrl::SetSelection(const std::vector<SYSTEMTIME>& dates
 	{
 		::SendMessage(m_hWnd, MCM_SETCURSEL, 0, (LPARAM)&dates[i]);
 	}
+}
+
+void    CMultipleMonthCalCtrl::UnselectAll()
+{
+	::SendMessage(m_hWnd, MCM_SETCURSEL, 0, 0);
 }
 
 BEGIN_MESSAGE_MAP(CMultipleMonthCalCtrl, CMonthCalCtrl)
