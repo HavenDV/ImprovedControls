@@ -112,6 +112,7 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	dates.push_back(sysEndtime);
 	dates.push_back(sysFromtime);
 	m_monthCalCtrl.SetSelection(dates);
+	m_monthCalCtrl.UnselectAll();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
