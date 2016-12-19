@@ -2917,8 +2917,8 @@ MONTHCAL_WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
   }
 }
 
-#define MULTIPLEMONTHCAL_CLASSA          "MultipleSysMonthCal32"
-#define MULTIPLEMONTHCAL_CLASSW          L"MultipleSysMonthCal32"
+#define MULTIPLEMONTHCAL_CLASSA          "MultipleMonthCal32"
+#define MULTIPLEMONTHCAL_CLASSW          L"MultipleMonthCal32"
 
 #ifdef UNICODE
 #define MULTIPLEMONTHCAL_CLASS           MULTIPLEMONTHCAL_CLASSW
