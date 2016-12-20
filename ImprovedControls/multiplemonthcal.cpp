@@ -108,6 +108,8 @@ COMCTL32_RefreshSysColors(void)
 #define MC_SEL_LBUTDOWN	    2	/* Left button pressed in calendar */
 #define MC_PREVPRESSED      4   /* Prev month button pressed */
 #define MC_NEXTPRESSED      8   /* Next month button pressed */
+#define MC_PREVHOT          16   /* Prev month button hot */
+#define MC_NEXTHOT          32   /* Next month button hot */
 #define MC_PREVNEXTMONTHDELAY   350	/* when continuously pressing `next/prev
 					   month', wait 350 ms before going
 					   to the next/prev month */
@@ -982,33 +984,25 @@ static void MONTHCAL_DrawDay(const MONTHCAL_INFO *infoPtr, HDC hdc, const SYSTEM
 //#include <afxvisualmanager.h>
 static void MONTHCAL_PaintButton(MONTHCAL_INFO *infoPtr, HDC hdc, enum nav_direction button)
 {
-    HTHEME theme = OpenThemeData(infoPtr->hwndSelf, L"NAVIGATION");//::GetWindowTheme(infoPtr->hwndSelf);
+    HTHEME theme = OpenThemeData(infoPtr->hwndSelf, L"MonthCal");//::GetWindowTheme(infoPtr->hwndSelf);
     RECT *r = button == DIRECTION_FORWARD ? &infoPtr->titlebtnnext : &infoPtr->titlebtnprev;
     BOOL pressed = button == DIRECTION_FORWARD ? infoPtr->status & MC_NEXTPRESSED :
-                                                 infoPtr->status & MC_PREVPRESSED;
+                                                 infoPtr->status & MC_PREVPRESSED;    
+	BOOL hot = button == DIRECTION_FORWARD ? infoPtr->status & MC_NEXTHOT :
+		                                     infoPtr->status & MC_PREVHOT;
     if (theme && ::IsThemeActive())
     {
-        static const int states[] = {
-            /* Prev button */
-			NAV_BB_NORMAL,  NAV_BB_PRESSED,  NAV_BB_DISABLED,
-            /* Next button */
-			NAV_FB_NORMAL, NAV_FB_PRESSED, NAV_FB_DISABLED
-        };
-        int stateNum = button == DIRECTION_FORWARD ? 3 : 0;
-        if (pressed)
-            stateNum += 1;
-        else
-        {
-            if (infoPtr->dwStyle & WS_DISABLED) stateNum += 2;
-        }  
-    	if (IsThemeBackgroundPartiallyTransparent(theme, button == DIRECTION_FORWARD ?
-			NAV_FORWARDBUTTON : NAV_BACKBUTTON, states[stateNum]))
-		{
-			DrawThemeParentBackground(infoPtr->hwndSelf, hdc, r);
-		}
+        int stateNum = MCNN_NORMAL;
+    	if (hot)
+			stateNum = MCNN_HOT;
+    	else if (pressed)
+		    stateNum = MCNN_PRESSED;
+        else if(infoPtr->dwStyle & WS_DISABLED)
+            stateNum = MCNN_DISABLED;
+
 		//CMFCVisualManager::DrawPushButtonWinXP(hdc, r, );
 		DrawThemeBackground(theme, hdc, button == DIRECTION_FORWARD ?
-			NAV_FORWARDBUTTON : NAV_BACKBUTTON, states[stateNum], r, NULL);
+			MC_NAVNEXT : MC_NAVPREV, stateNum, r, NULL);
 		//::DrawThemeText(hTheme, lpdis->hDC, BP_PUSHBUTTON, PBS_NORMAL, L"Settings...", wcslen(L"Settings..."), DT_SINGLELINE | DT_VCENTER | DT_CENTER, 0, &rc);
     }
     else
@@ -2287,14 +2281,41 @@ MONTHCAL_MouseMove(MONTHCAL_INFO *infoPtr, LPARAM lParam)
   MCHITTESTINFO ht;
   INT hit;
 
-  if(!(infoPtr->status & MC_SEL_LBUTDOWN)) return 0;
-
   ht.cbSize = sizeof(MCHITTESTINFO);
   ht.pt.x = (short)LOWORD(lParam);
   ht.pt.y = (short)HIWORD(lParam);
   ht.iOffset = -1;
 
   hit = MONTHCAL_HitTest(infoPtr, &ht);
+
+  switch (hit)
+  {
+  case MCHT_TITLEBTNNEXT: 
+	  if (!(infoPtr->status & MC_NEXTHOT)) 
+	  {
+		  infoPtr->status |= MC_NEXTHOT;
+		  InvalidateRect(infoPtr->hwndSelf, &infoPtr->titlebtnnext, FALSE);
+	  }
+	  break;
+  case MCHT_TITLEBTNPREV:
+	  if (!(infoPtr->status & MC_PREVHOT)) 
+	  {
+		  infoPtr->status |= MC_PREVHOT;
+	      InvalidateRect(infoPtr->hwndSelf, &infoPtr->titlebtnprev, FALSE);
+	  }
+	  break;
+  default:
+	  if (infoPtr->status & MC_PREVHOT || 
+	  	  infoPtr->status & MC_NEXTHOT) 
+      {
+		  infoPtr->status &= ~(MC_PREVHOT | MC_NEXTHOT);
+		  InvalidateRect(infoPtr->hwndSelf, &infoPtr->titlebtnprev, FALSE);
+		  InvalidateRect(infoPtr->hwndSelf, &infoPtr->titlebtnnext, FALSE);
+	  }
+	  break;
+  }
+
+  if (!(infoPtr->status & MC_SEL_LBUTDOWN)) return 0;
 
   /* not on the calendar date numbers? bail out */
   if((hit & MCHT_CALENDARDATE) != MCHT_CALENDARDATE)

@@ -111,9 +111,10 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	std::vector<SYSTEMTIME> dates;
 	dates.push_back(sysEndtime);
 	dates.push_back(sysFromtime);
-	m_monthCalCtrl.SelectDates(dates);
-	m_monthCalCtrl.UnselectAll();
-
+	m_monthCalCtrl.SetCurSel(&sysEndtime);
+	m_monthCalCtrl.SetCurSel(&sysFromtime);
+	//m_monthCalCtrl.UnselectAll();
+	int nCount = m_monthCalCtrl.GetMonthRange(&sysEndtime, &sysFromtime, GMR_DAYSTATE);
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
