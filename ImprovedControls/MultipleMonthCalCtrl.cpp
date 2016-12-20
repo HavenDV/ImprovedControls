@@ -37,12 +37,14 @@ void   CMultipleMonthCalCtrl::SetOriginalColors()
 	SetColor(MCSC_TITLEBK, monthTitleColor);
 	SetColor(MCSC_TITLETEXT, monthTitleTextColor);
 	SetColor(MCSC_MONTHBK, white);
-	SetColor(MCSC_TRAILINGTEXT, white);
 	SetColor(MCSC_SELECTEDTEXT, selectTextColor);
 	SetColor(MCSC_SELECTEDBK, selectBgColor);
 	SetColor(MCSC_ABBREVIATIONSTEXT, black);
 	SetColor(MCSC_ABBREVIATIONSBK, white);
 	SetColor(MCSC_ABBREVIATIONSLINE, gray);
+
+	//Hide trailing dates
+	SetColor(MCSC_TRAILINGTEXT, white);
 }
 
 void   CMultipleMonthCalCtrl::EnableMultiselect(int maxSelectCount)
