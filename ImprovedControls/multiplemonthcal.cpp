@@ -740,8 +740,9 @@ MONTHCAL_GetMonthRange(const MONTHCAL_INFO *infoPtr, DWORD flag, SYSTEMTIME *st)
           MONTHCAL_GetMinDate(infoPtr, &st[0]);
           MONTHCAL_GetMaxDate(infoPtr, &st[1]);
       }
-      /* include two partially visible months */
-      range = MONTHCAL_GetCalCount(infoPtr) + 2;
+      /* include two partially visible months if MCS_NOTRAILINGDATES not set */
+	  BOOL IsTrailing = !(infoPtr->dwStyle & MCS_NOTRAILINGDATES);
+      range = MONTHCAL_GetCalCount(infoPtr) + ( IsTrailing ? 2 : 0 );
       break;
   }
   default:
