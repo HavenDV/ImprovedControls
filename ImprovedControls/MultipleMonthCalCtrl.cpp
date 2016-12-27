@@ -97,3 +97,13 @@ void    CMultipleMonthCalCtrl::UnselectAll()
 
 BEGIN_MESSAGE_MAP(CMultipleMonthCalCtrl, CMonthCalCtrl)
 END_MESSAGE_MAP()
+
+
+BOOL CMultipleMonthCalCtrl::Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID)
+{
+	// initialize common controls
+	//VERIFY(AfxDeferRegisterClass(AFX_WNDCOMMCTL_DATE_REG));
+
+	CWnd* pWnd = this;
+	return pWnd->Create(MULTIPLEMONTHCAL_CLASS, NULL, dwStyle, rect, pParentWnd, nID);
+}

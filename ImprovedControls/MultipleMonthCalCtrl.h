@@ -34,6 +34,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 
+	virtual BOOL Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID);
 };
 
 
