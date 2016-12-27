@@ -115,6 +115,26 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	m_monthCalCtrl.SetCurSel(&sysFromtime);
 	//m_monthCalCtrl.UnselectAll();
 	int nCount = m_monthCalCtrl.GetMonthRange(&sysEndtime, &sysFromtime, GMR_DAYSTATE);
+
+	CMultipleMonthCalCtrl button;
+	button.Create(WS_CHILD | WS_VISIBLE | WS_TABSTOP | BS_PUSHBUTTON | DT_CENTER, CRect(5, 5, 55, 19), this, 111);
+
+	button.SetRange(&sysFromtime, &sysEndtime);
+	button.SetOriginalColors();
+	button.EnableMultiselect(15);
+	button.SetCurSel(&sysEndtime);
+	button.SetCurSel(&sysFromtime);
+
+	CMultipleMonthCalCtrl * newCtrl = new CMultipleMonthCalCtrl();
+	newCtrl->Create(WS_CHILD | WS_VISIBLE | WS_TABSTOP | BS_PUSHBUTTON | DT_CENTER, CRect(5, 5, 55, 19), this, 111);
+	newCtrl->SetRange(&sysFromtime, &sysEndtime);
+	newCtrl->SetOriginalColors();
+	newCtrl->EnableMultiselect(15);
+	newCtrl->SetCurSel(&sysEndtime);
+	newCtrl->SetCurSel(&sysFromtime);
+	delete newCtrl;
+
+
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
