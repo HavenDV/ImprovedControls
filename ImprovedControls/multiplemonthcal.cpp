@@ -527,7 +527,7 @@ int MONTHCAL_CalculateDayOfWeek(SYSTEMTIME *date, BOOL inplace)
 }
 
 /* add/subtract 'months' from date */
-static inline void MONTHCAL_GetMonth(SYSTEMTIME *date, INT months)
+void MONTHCAL_GetMonth(SYSTEMTIME *date, INT months)
 {
   INT length, m = date->wMonth + months;
 
@@ -1322,12 +1322,12 @@ static void MONTHCAL_PaintCalendar(const MONTHCAL_INFO *infoPtr, HDC hdc, const 
   SetTextColor(hdc, infoPtr->colors[MCSC_TEXT]);
   st = *date;
   st.wDay = 1;
-  mask = 0;
+  mask = 1;
   length = MONTHCAL_MonthLength(date->wMonth, date->wYear);
   while(st.wDay <= length)
   {
-    MONTHCAL_DrawDay(infoPtr, hdc, &st, infoPtr->monthdayState[calIdx+1] & mask, ps);
-    //mask <<= 1;
+    MONTHCAL_DrawDay(infoPtr, hdc, &st, infoPtr->monthdayState[calIdx + (infoPtr->dwStyle & MCS_NOTRAILINGDATES ? 0 : 1)] & mask, ps);
+    mask <<= 1;
     st.wDay++;
   }
 }
@@ -1972,8 +1972,8 @@ static void MONTHCAL_NotifyDayState(MONTHCAL_INFO *infoPtr)
   nmds.stStart.wDay = 1;
 
   SendMessageW(infoPtr->hwndNotify, WM_NOTIFY, nmds.nmhdr.idFrom, (LPARAM)&nmds);
-  memcpy(infoPtr->monthdayState, nmds.prgDayState,
-      MONTHCAL_GetMonthRange(infoPtr, GMR_DAYSTATE, 0)*sizeof(MONTHDAYSTATE));
+  //memcpy(infoPtr->monthdayState, nmds.prgDayState,
+  //    MONTHCAL_GetMonthRange(infoPtr, GMR_DAYSTATE, 0)*sizeof(MONTHDAYSTATE));
 
   Free(state);
 }
