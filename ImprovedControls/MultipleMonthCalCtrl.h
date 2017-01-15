@@ -29,6 +29,8 @@ public:
 	void	SelectDates(const std::vector<SYSTEMTIME> & dates);
 	void	UnselectAll();
 
+	BOOL	SetDayState(int count, MONTHDAYSTATE * states);
+
 protected:
 
 	DECLARE_MESSAGE_MAP()

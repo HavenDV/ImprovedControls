@@ -737,14 +737,17 @@ MONTHCAL_GetMonthRange(const MONTHCAL_INFO *infoPtr, DWORD flag, SYSTEMTIME *st)
   }
   case GMR_DAYSTATE:
   {
+	  if (infoPtr->dwStyle & MCS_NOTRAILINGDATES)
+	  {
+		  return MONTHCAL_GetMonthRange(infoPtr, GMR_VISIBLE, st);
+	  }
+
       if (st)
       {
           MONTHCAL_GetMinDate(infoPtr, &st[0]);
           MONTHCAL_GetMaxDate(infoPtr, &st[1]);
       }
-      /* include two partially visible months if MCS_NOTRAILINGDATES not set */
-	  BOOL IsTrailing = !(infoPtr->dwStyle & MCS_NOTRAILINGDATES);
-      range = MONTHCAL_GetCalCount(infoPtr) + ( IsTrailing ? 2 : 0 );
+      range = MONTHCAL_GetCalCount(infoPtr);
       break;
   }
   default:
@@ -1675,7 +1678,6 @@ MONTHCAL_SetCurSel(MONTHCAL_INFO *infoPtr, SYSTEMTIME *curSel)
   }
 
   MONTHCAL_AddToSelection(infoPtr, curSel);
-  MONTHCAL_SetRange(infoPtr, 1, curSel);
   return TRUE;
 }
 
@@ -2511,8 +2513,11 @@ static void MONTHCAL_UpdateSize(MONTHCAL_INFO *infoPtr)
       infoPtr->dim.cy = y;
       infoPtr->calendars = (CALENDAR_INFO*)ReAlloc(infoPtr->calendars, MONTHCAL_GetCalCount(infoPtr)*sizeof(CALENDAR_INFO));
 
+	  int count = MONTHCAL_GetMonthRange(infoPtr, GMR_DAYSTATE, 0);
       infoPtr->monthdayState = (MONTHDAYSTATE*)ReAlloc(infoPtr->monthdayState,
-          MONTHCAL_GetMonthRange(infoPtr, GMR_DAYSTATE, 0)*sizeof(MONTHDAYSTATE));
+		  count *sizeof(MONTHDAYSTATE));
+
+	  ::memset(infoPtr->monthdayState, 0, count * sizeof(MONTHDAYSTATE));
       MONTHCAL_NotifyDayState(infoPtr);
 
       /* update pointers that we'll need */
@@ -2717,6 +2722,7 @@ MONTHCAL_Create(HWND hwnd, LPCREATESTRUCTW lpcs)
   infoPtr->calendars = (CALENDAR_INFO*)Alloc(sizeof(CALENDAR_INFO));
   if (!infoPtr->calendars) goto fail;
   infoPtr->monthdayState = (MONTHDAYSTATE*)Alloc(3*sizeof(MONTHDAYSTATE));
+  ::memset(infoPtr->monthdayState, 0, 3 * sizeof(MONTHDAYSTATE));
   if (!infoPtr->monthdayState) goto fail;
 
   /* initialize info structure */
