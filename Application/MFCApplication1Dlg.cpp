@@ -6,6 +6,7 @@
 #include "MFCApplication1.h"
 #include "MFCApplication1Dlg.h"
 #include "afxdialogex.h"
+#include "../ImprovedControls/MultipleMonthCalCtrl.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -107,14 +108,22 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	sysEndtime.wMonth = 12;
 	m_monthCalCtrl.SetRange(&sysFromtime, &sysEndtime);
 	m_monthCalCtrl.SetOriginalColors();
-	m_monthCalCtrl.EnableMultiselect(15);
+	//m_monthCalCtrl.EnableMultiselect(15);
 	std::vector<SYSTEMTIME> dates;
 	dates.push_back(sysEndtime);
 	dates.push_back(sysFromtime);
-	m_monthCalCtrl.SetCurSel(&sysEndtime);
-	m_monthCalCtrl.SetCurSel(&sysFromtime);
+	//m_monthCalCtrl.SetCurSel(&sysEndtime);
+	//m_monthCalCtrl.SetCurSel(&sysFromtime);
 	//m_monthCalCtrl.UnselectAll();
-	int nCount = m_monthCalCtrl.GetMonthRange(&sysEndtime, &sysFromtime, GMR_DAYSTATE);
+	//int nCount = m_monthCalCtrl.GetMonthRange(&sysFromtime, &sysEndtime, GMR_DAYSTATE);
+
+	int count = 12;
+	MONTHDAYSTATE * states = ToDayStates(GetAllYearDaysForDayOfWeek(2016, 0), count, sysFromtime);
+	dates = ToSystemTimeVector(count, states, sysFromtime);
+	m_monthCalCtrl.SelectDates(dates);
+	MONTHDAYSTATE * pstates = ToDayStates(dates, count, sysFromtime);
+	m_monthCalCtrl.SetRange(&sysFromtime, &sysEndtime);
+	m_monthCalCtrl.SetDayState(count, pstates);
 
 	CMultipleMonthCalCtrl button;
 	button.Create(WS_CHILD | WS_VISIBLE | WS_TABSTOP | BS_PUSHBUTTON | DT_CENTER, CRect(5, 5, 55, 19), this, 111);

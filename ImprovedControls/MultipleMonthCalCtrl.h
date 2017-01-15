@@ -38,3 +38,13 @@ public:
 };
 
 
+/*
+* Utilities for T3000
+*/
+
+std::vector<SYSTEMTIME> ToSystemTimeVector(int monthCount, MONTHDAYSTATE * states, const SYSTEMTIME & start);
+MONTHDAYSTATE*    ToDayStates(const std::vector<SYSTEMTIME> & days, int & mCount, SYSTEMTIME & start);
+
+//Default - sunday
+//0 - sunday, 6 - monday
+std::vector<SYSTEMTIME>   GetAllYearDaysForDayOfWeek(int year, int dayOfWeek = 0);
