@@ -96,6 +96,8 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
+	m_monthCalCtrl.SetOriginalColors();
+
 	SYSTEMTIME systime;
 	::GetSystemTime(&systime);
 	SYSTEMTIME sysFromtime;
@@ -107,7 +109,6 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	sysEndtime.wDay = 31;
 	sysEndtime.wMonth = 12;
 	m_monthCalCtrl.SetRange(&sysFromtime, &sysEndtime);
-	m_monthCalCtrl.SetOriginalColors();
 	//m_monthCalCtrl.EnableMultiselect(15);
 	std::vector<SYSTEMTIME> dates;
 	dates.push_back(sysEndtime);
@@ -115,15 +116,22 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	//m_monthCalCtrl.SetCurSel(&sysEndtime);
 	//m_monthCalCtrl.SetCurSel(&sysFromtime);
 	//m_monthCalCtrl.UnselectAll();
-	//int nCount = m_monthCalCtrl.GetMonthRange(&sysFromtime, &sysEndtime, GMR_DAYSTATE);
+	int nCount = m_monthCalCtrl.GetMonthRange(&sysFromtime, &sysEndtime, GMR_DAYSTATE);
+	VERIFY(nCount == 12);
+	VERIFY(sysFromtime.wDay == 1);
+	VERIFY(sysFromtime.wMonth == 1);
+	VERIFY(sysFromtime.wYear == systime.wYear);
+	VERIFY(sysEndtime.wDay == 31);
+	VERIFY(sysEndtime.wMonth == 12);
+	VERIFY(sysEndtime.wYear == systime.wYear);
 
 	int count = 12;
-	MONTHDAYSTATE * states = ToDayStates(GetAllYearDaysForDayOfWeek(2016, 0), count, sysFromtime);
-	dates = ToSystemTimeVector(count, states, sysFromtime);
-	m_monthCalCtrl.SelectDates(dates);
-	MONTHDAYSTATE * pstates = ToDayStates(dates, count, sysFromtime);
+	MONTHDAYSTATE * states = ToDayStates(GetAllYearDaysForDayOfWeek(2018, 0), count, sysFromtime);
+	//dates = ToSystemTimeVector(count, states, sysFromtime);
+	//m_monthCalCtrl.SelectDates(dates);
+	//MONTHDAYSTATE * pstates = ToDayStates(dates, count, sysFromtime);
 	m_monthCalCtrl.SetRange(&sysFromtime, &sysEndtime);
-	m_monthCalCtrl.SetDayState(count, pstates);
+	m_monthCalCtrl.SetDayState(count, states);
 
 	CMultipleMonthCalCtrl button;
 	button.Create(WS_CHILD | WS_VISIBLE | WS_TABSTOP | BS_PUSHBUTTON | DT_CENTER, CRect(5, 5, 55, 19), this, 111);
