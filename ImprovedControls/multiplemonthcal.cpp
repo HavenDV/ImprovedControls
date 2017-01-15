@@ -880,7 +880,6 @@ MONTHCAL_RemoveFromSelection(MONTHCAL_INFO * infoPtr, const SYSTEMTIME * date)
 		item = item->next;
 	}
 
-	MONTHCAL_NotifySelectionChange(infoPtr);
 	MONTHCAL_RedrawDayRect(infoPtr, date);
 }
 
@@ -915,8 +914,6 @@ added:
 		MONTHCAL_RemoveFromSelection(infoPtr, &infoPtr->selectionInfo.first->date);
 		return;
 	}
-	MONTHCAL_NotifySelect(infoPtr);
-	MONTHCAL_NotifySelectionChange(infoPtr);
 	MONTHCAL_RedrawDayRect(infoPtr, date);
 }
 
@@ -940,8 +937,6 @@ static void MONTHCAL_UnselectAll(MONTHCAL_INFO * infoPtr)
 		MONTHCAL_RemoveFromSelection(infoPtr, &item->date);
 		item = infoPtr->selectionInfo.first;
 	}
-
-	MONTHCAL_NotifySelectionChange(infoPtr);
 }
 
 static void MONTHCAL_DrawDay(const MONTHCAL_INFO *infoPtr, HDC hdc, const SYSTEMTIME *st,
@@ -2021,6 +2016,8 @@ MONTHCAL_RButtonUp(MONTHCAL_INFO *infoPtr, LPARAM lParam)
 		     menupoint.x, menupoint.y, 0, infoPtr->hwndSelf, NULL))
   {
       MONTHCAL_SetCurSel(infoPtr, &infoPtr->todaysDate);
+	  MONTHCAL_NotifySelect(infoPtr);
+	  MONTHCAL_NotifySelectionChange(infoPtr);
   }
 
   return 0;
@@ -2179,6 +2176,8 @@ MONTHCAL_LButtonDown(MONTHCAL_INFO *infoPtr, LPARAM lParam)
   case MCHT_TODAYLINK:
   {
     MONTHCAL_SetCurSel(infoPtr, &infoPtr->todaysDate);
+	MONTHCAL_NotifySelect(infoPtr);
+	MONTHCAL_NotifySelectionChange(infoPtr);
     return 0;
   }
   case MCHT_CALENDARDATENEXT:
@@ -2193,6 +2192,8 @@ MONTHCAL_LButtonDown(MONTHCAL_INFO *infoPtr, LPARAM lParam)
   {
 	  infoPtr->status = MC_SEL_LBUTDOWN;
 	  MONTHCAL_ChangeSelection(infoPtr, &ht.st);
+	  MONTHCAL_NotifySelect(infoPtr);
+	  MONTHCAL_NotifySelectionChange(infoPtr);
 	  MONTHCAL_SetDayFocus(infoPtr, &ht.st);
       return 0;
   }
@@ -2330,6 +2331,8 @@ MONTHCAL_MouseMove(MONTHCAL_INFO *infoPtr, LPARAM lParam)
   if(!MONTHCAL_SetDayFocus(infoPtr, &ht.st)) return 0;
 
   MONTHCAL_ChangeSelection(infoPtr, &ht.st);
+  MONTHCAL_NotifySelect(infoPtr);
+  MONTHCAL_NotifySelectionChange(infoPtr);
 
   return 0;
 }
