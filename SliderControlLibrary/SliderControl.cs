@@ -1,100 +1,60 @@
-﻿namespace T3000Controls
+﻿using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+
+namespace T3000Controls
 {
-    using System.Drawing;
-    using System.Windows.Forms;
-
-    using System.Runtime.InteropServices;
-    using System.Reflection;
-    using Microsoft.Win32;
-
-    [ProgId("T3000Controls.SliderControl")]
-    public partial class SliderControl: UserControl
+    public partial class SliderControl : UserControl
     {
-        private bool IsMoved { get; set; }
-        private Point Offset { get; set; }
-
         public SliderControl()
         {
             InitializeComponent();
         }
 
-        private void slider1_MouseDown(object sender, MouseEventArgs e)
+        private void Panel_Paint(object sender, PaintEventArgs e)
         {
-            IsMoved = true;
-            Offset = new Point( -e.Location.X, -e.Location.Y );
-        }
-
-        private void slider1_MouseUp(object sender, MouseEventArgs e)
-        {
-            IsMoved = false;
-        }
-
-        private void slider1_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (!IsMoved)
+            var x1 = 0;
+            var x2 = 0.5F * Width;
+            using (var brush = new SolidBrush(Color.DeepSkyBlue))
             {
-                return;
+                var rect = new RectangleF(x1, 0, x2, 0.33F * Height);
+                e.Graphics.FillRectangle(brush, rect);
+            }
+            using (var brush = new SolidBrush(Color.GreenYellow))
+            {
+                var rect = new RectangleF(x1, 0.33F * Height, x2, 0.33F * Height);
+                e.Graphics.FillRectangle(brush, rect);
+            }
+            using (var brush = new SolidBrush(Color.Red))
+            {
+                var rect = new RectangleF(x1, 0.66F * Height, x2, 0.34F * Height);
+                e.Graphics.FillRectangle(brush, rect);
             }
 
-            var point = PointToClient(slider1.PointToScreen(e.Location));
-            point.Offset(Offset);
+            using (var pen = new Pen(Color.DarkGray))
+            {
+                for (var i = 0; i < 20; ++i)
+                {
+                    var height = 0.05F*i*Height;
+                    e.Graphics.DrawLine(pen, 0.2F * x2, height, 0.8F * x2, height);
+                }
+            }
 
-            //Save X coordinate from slider
-            point.X = slider1.Location.X;
+            using (var pen = new Pen(Color.DarkGray, 2))
+            {
+                for (var i = 0; i < 20; ++i)
+                {
+                    var height = 0.05F * i * Height + 0.025F * Height;
+                    e.Graphics.DrawLine(pen, 0.1F * x2, height, 0.9F * x2, height);
+                }
+            }
 
-            slider1.Location = point;
-        }
-
-        ///	<summary>
-        ///	Register the class as a	control	and	set	it's CodeBase entry
-        ///	</summary>
-        ///	<param name="key">The registry key of the control</param>
-        [ComRegisterFunction()]
-        public static void RegisterClass(string key)
-        {
-            // Strip off HKEY_CLASSES_ROOT\ from the passed key as I don't need it
-            key = key.Replace(@"HKEY_CLASSES_ROOT\", "");
-
-            // Open the CLSID\{guid} key for write access
-            var k = Registry.ClassesRoot.OpenSubKey(key, true);
-
-            // And create	the	'Control' key -	this allows	it to show up in
-            // the ActiveX control container
-            var ctrl = k.CreateSubKey("Control");
-            ctrl.Close();
-
-            // Next create the CodeBase entry	- needed if	not	string named and GACced.
-            var inprocServer32 = k.OpenSubKey("InprocServer32", true);
-            inprocServer32.SetValue("CodeBase", Assembly.GetExecutingAssembly().CodeBase);
-            inprocServer32.Close();
-
-            // Finally close the main	key
-            k.Close();
-        }
-
-        ///	<summary>
-        ///	Called to unregister the control
-        ///	</summary>
-        ///	<param name="key">Tke registry key</param>
-        [ComUnregisterFunction()]
-        public static void UnregisterClass(string key)
-        {
-            key = key.Replace(@"HKEY_CLASSES_ROOT\", "");
-
-            // Open	HKCR\CLSID\{guid} for write	access
-            var k = Registry.ClassesRoot.OpenSubKey(key, true);
-
-            // Delete the 'Control'	key, but don't throw an	exception if it	does not exist
-            k.DeleteSubKey("Control", false);
-
-            // Next	open up	InprocServer32
-            var inprocServer32 = k.OpenSubKey("InprocServer32", true);
-
-            // And delete the CodeBase key,	again not throwing if missing
-            k.DeleteSubKey("CodeBase", false);
-
-            // Finally close the main key
-            k.Close();
+            using (var pen = new Pen(Color.Black))
+            {
+                var height = 0.5F * Height;
+                e.Graphics.DrawLine(pen, 0, height, Width, height);
+                e.Graphics.DrawRectangle(pen, x1, 0, x2 - 1, Height - 1);
+            }
         }
     }
 }

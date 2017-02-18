@@ -30,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RegisterForComInterop>true</RegisterForComInterop>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -44,12 +45,24 @@
     <Compile Include="SliderControl.Designer.cs">
       <DependentUpon>SliderControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Slider.cs">
+    <Compile Include="HandleControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Slider.Designer.cs">
-      <DependentUpon>Slider.cs</DependentUpon>
+    <Compile Include="HandleControl.Designer.cs">
+      <DependentUpon>HandleControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SetPointsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SetPointsControl.Designer.cs">
+      <DependentUpon>SetPointsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="IndicatorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="IndicatorControl.Designer.cs">
+      <DependentUpon>IndicatorControl.cs</DependentUpon>
     </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
@@ -57,8 +70,14 @@
     <EmbeddedResource Include="SliderControl.resx">
       <DependentUpon>SliderControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Slider.resx">
-      <DependentUpon>Slider.cs</DependentUpon>
+    <EmbeddedResource Include="HandleControl.resx">
+      <DependentUpon>HandleControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SetPointsControl.resx">
+      <DependentUpon>SetPointsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IndicatorControl.resx">
+      <DependentUpon>IndicatorControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

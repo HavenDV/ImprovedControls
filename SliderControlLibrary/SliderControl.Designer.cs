@@ -2,12 +2,12 @@
 {
     partial class SliderControl
     {
-        /// <summary>
+        /// <summary> 
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
+        /// <summary> 
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -22,40 +22,54 @@
 
         #region Component Designer generated code
 
-        /// <summary>
+        /// <summary> 
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            this.slider1 = new Slider();
+            this.heatingHandle = new T3000Controls.HandleControl();
+            this.coolingHandle = new T3000Controls.HandleControl();
             this.SuspendLayout();
             // 
-            // slider1
+            // heatingHandle
             // 
-            this.slider1.BackColor = System.Drawing.Color.Transparent;
-            this.slider1.Location = new System.Drawing.Point(22, 157);
-            this.slider1.Name = "slider1";
-            this.slider1.Size = new System.Drawing.Size(101, 28);
-            this.slider1.TabIndex = 1;
-            this.slider1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.slider1_MouseDown);
-            this.slider1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.slider1_MouseMove);
-            this.slider1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.slider1_MouseUp);
+            this.heatingHandle.BackColor = System.Drawing.Color.Transparent;
+            this.heatingHandle.BorderColor = System.Drawing.Color.White;
+            this.heatingHandle.Location = new System.Drawing.Point(0, 129);
+            this.heatingHandle.Name = "heatingHandle";
+            this.heatingHandle.Size = new System.Drawing.Size(98, 17);
+            this.heatingHandle.SliderColor = System.Drawing.Color.Red;
+            this.heatingHandle.SliderValue = "Value";
+            this.heatingHandle.TabIndex = 1;
             // 
-            // SliderControl
+            // coolingHandle
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Maroon;
-            this.Controls.Add(this.slider1);
-            this.Name = "SliderControl";
-            this.Size = new System.Drawing.Size(432, 359);
+            this.coolingHandle.BackColor = System.Drawing.Color.Transparent;
+            this.coolingHandle.BorderColor = System.Drawing.Color.White;
+            this.coolingHandle.Location = new System.Drawing.Point(0, 44);
+            this.coolingHandle.Name = "coolingHandle";
+            this.coolingHandle.Size = new System.Drawing.Size(98, 16);
+            this.coolingHandle.SliderColor = System.Drawing.Color.DeepSkyBlue;
+            this.coolingHandle.SliderValue = "75.5F";
+            this.coolingHandle.TabIndex = 0;
+            // 
+            // Panel
+            // 
+            this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.heatingHandle);
+            this.Controls.Add(this.coolingHandle);
+            this.DoubleBuffered = true;
+            this.Name = "Panel";
+            this.Size = new System.Drawing.Size(163, 195);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel_Paint);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private Slider slider1;
+        private HandleControl coolingHandle;
+        private HandleControl heatingHandle;
     }
 }
