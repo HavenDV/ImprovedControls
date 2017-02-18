@@ -29,7 +29,7 @@ END_DELEGATE_MAP()
 protected:
 	HICON m_hIcon;
 	//CWinFormsControl<System::Windows::Forms::MaskedTextBox> m_MaskedEdit;
-	CWinFormsControl<ImprovedControls::MyControl> m_MaskedEdit;
+	CWinFormsControl<T3000Controls::SetPointsControl> m_MaskedEdit;
 
 	// Generated message map functions
 	virtual BOOL OnInitDialog();
