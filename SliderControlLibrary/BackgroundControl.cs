@@ -52,7 +52,7 @@ namespace T3000Controls
         {
             var delta = Math.Abs(TopValue - BottomValue);
             var oneValue = delta / Height;
-            var value = y*oneValue;
+            var value = y * oneValue;
             return TopValue > BottomValue ? TopValue - value : TopValue + value;
         }
 
@@ -99,7 +99,7 @@ namespace T3000Controls
 
             using (var pen = new Pen(LinesColor, 2))
             {
-                var diff = Math.Abs(TopValue/10 - TopValue/10.0F)*10;
+                var diff = Math.Abs(TopValue / 10 - TopValue / 10.0F) * 10;
                 var offset = TopValue < BottomValue ? 10 - diff : diff;
                 for (var height = ValueToY(offset); height < Height; height += ValueToY(10))
                 {

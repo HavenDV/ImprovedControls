@@ -12,7 +12,8 @@ namespace T3000Controls
             set { nameLabel.Text = value; }
         }
 
-        public string SliderValue {
+        public string SliderValue
+        {
             get { return valueLabel.Text; }
             set { valueLabel.Text = value; }
         }

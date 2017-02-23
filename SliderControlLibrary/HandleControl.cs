@@ -11,7 +11,8 @@ namespace T3000Controls
     {
         private float _value = 0.0F;
         [Description("Value for handle"), Category("Data")]
-        public float Value {
+        public float Value
+        {
             get { return _value; }
             set
             {
