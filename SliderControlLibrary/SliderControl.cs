@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
@@ -6,55 +7,84 @@ namespace T3000Controls
 {
     public partial class SliderControl : UserControl
     {
+        private MouseMover Mover { get; set; }
+
         public SliderControl()
         {
             InitializeComponent();
+
+            Mover = new MouseMover(this);
+
+            topHandle.Value = 33;
+            backgroundControl.UpdateHandlePosition(topHandle);
+            backgroundControl.TopZoneValue = topHandle.Value;
+
+            bottomHandle.Value = 66;
+            backgroundControl.UpdateHandlePosition(bottomHandle);
+            backgroundControl.BottomZoneValue = bottomHandle.Value;
+            backgroundControl.Refresh();
         }
 
-        private void Panel_Paint(object sender, PaintEventArgs e)
+        private void handle_MouseDown(object sender, MouseEventArgs e)
         {
-            var x1 = 0;
-            var x2 = 0.5F * Width;
-            using (var brush = new SolidBrush(Color.DeepSkyBlue))
+            Mover.Start(e.Location, sender as Control);
+        }
+
+        private void handle_MouseUp(object sender, MouseEventArgs e)
+        {
+            Mover.End();
+        }
+
+        private void handle_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (!Mover.IsMoved)
             {
-                var rect = new RectangleF(x1, 0, x2, 0.33F * Height);
-                e.Graphics.FillRectangle(brush, rect);
-            }
-            using (var brush = new SolidBrush(Color.GreenYellow))
-            {
-                var rect = new RectangleF(x1, 0.33F * Height, x2, 0.33F * Height);
-                e.Graphics.FillRectangle(brush, rect);
-            }
-            using (var brush = new SolidBrush(Color.Red))
-            {
-                var rect = new RectangleF(x1, 0.66F * Height, x2, 0.34F * Height);
-                e.Graphics.FillRectangle(brush, rect);
+                return;
             }
 
-            using (var pen = new Pen(Color.DarkGray))
+            var point = Mover.GetPoint(e.Location);
+            var handle = sender as HandleControl;
+            if (handle == null)
             {
-                for (var i = 0; i < 20; ++i)
-                {
-                    var height = 0.05F*i*Height;
-                    e.Graphics.DrawLine(pen, 0.2F * x2, height, 0.8F * x2, height);
-                }
+                return;
             }
 
-            using (var pen = new Pen(Color.DarkGray, 2))
-            {
-                for (var i = 0; i < 20; ++i)
-                {
-                    var height = 0.05F * i * Height + 0.025F * Height;
-                    e.Graphics.DrawLine(pen, 0.1F * x2, height, 0.9F * x2, height);
-                }
-            }
+            var value = backgroundControl.YToValue(point.Y + handle.Height / 2);
+            var maxValue = Math.Max(backgroundControl.BottomValue, backgroundControl.TopValue);
+            var minValue = Math.Min(backgroundControl.BottomValue, backgroundControl.TopValue);
+            value = Math.Max(Math.Min(value, maxValue), minValue);
 
-            using (var pen = new Pen(Color.Black))
+            handle.Value = value;
+        }
+
+        private void topHandle_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (!Mover.IsMoved)
             {
-                var height = 0.5F * Height;
-                e.Graphics.DrawLine(pen, 0, height, Width, height);
-                e.Graphics.DrawRectangle(pen, x1, 0, x2 - 1, Height - 1);
+                return;
             }
+            handle_MouseMove(sender, e);
+
+            topHandle.Value = Math.Min(bottomHandle.Value, topHandle.Value);
+
+            backgroundControl.TopZoneValue = topHandle.Value;
+            backgroundControl.UpdateHandlePosition(topHandle);
+            backgroundControl.Refresh();
+        }
+
+        private void bottomHandle_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (!Mover.IsMoved)
+            {
+                return;
+            }
+            handle_MouseMove(sender, e);
+
+            bottomHandle.Value = Math.Max(bottomHandle.Value, topHandle.Value);
+
+            backgroundControl.BottomZoneValue = bottomHandle.Value;
+            backgroundControl.UpdateHandlePosition(bottomHandle);
+            backgroundControl.Refresh();
         }
     }
 }

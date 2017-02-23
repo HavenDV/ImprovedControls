@@ -10,36 +10,35 @@
     [ProgId("T3000Controls.SliderControl")]
     public partial class SetPointsControl: UserControl
     {
-        private bool IsMoved { get; set; }
-        private Point Offset { get; set; }
+        private MouseMover Mover { get; set; }
 
         public SetPointsControl()
         {
             InitializeComponent();
 
             valueSlider.SliderName = "Temp";
+            Mover = new MouseMover(this);
         }
 
-        private void slider1_MouseDown(object sender, MouseEventArgs e)
+        private void slider1_MouseDown(object sender, MouseEventArgs args)
         {
-            IsMoved = true;
-            Offset = new Point( -e.Location.X, -e.Location.Y );
+            Mover.Start(args.Location, valueSlider);
         }
 
         private void slider1_MouseUp(object sender, MouseEventArgs e)
         {
-            IsMoved = false;
+            Mover.End();
         }
 
         private void slider1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (!IsMoved)
+            if (!Mover.IsMoved)
             {
                 return;
             }
 
             var point = PointToClient(valueSlider.PointToScreen(e.Location));
-            point.Offset(Offset);
+            point.Offset(Mover.Offset);
 
             //Save X coordinate from slider
             point.X = valueSlider.Location.X;

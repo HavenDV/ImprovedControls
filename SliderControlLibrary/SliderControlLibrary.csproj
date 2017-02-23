@@ -39,6 +39,13 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackgroundControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BackgroundControl.Designer.cs">
+      <DependentUpon>BackgroundControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MouseMover.cs" />
     <Compile Include="SliderControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -67,6 +74,9 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="BackgroundControl.resx">
+      <DependentUpon>BackgroundControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SliderControl.resx">
       <DependentUpon>SliderControl.cs</DependentUpon>
     </EmbeddedResource>

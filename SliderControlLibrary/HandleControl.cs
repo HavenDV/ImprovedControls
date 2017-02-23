@@ -1,20 +1,24 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace T3000Controls
 {
     public partial class HandleControl : UserControl
     {
-        [Description("Value for slider"), Category("Appearance")]
-        public string SliderValue {
-            get { return valueLabel.Text; }
-            set { valueLabel.Text = value; }
+        private float _value = 0.0F;
+        [Description("Value for handle"), Category("Data")]
+        public float Value {
+            get { return _value; }
+            set
+            {
+                _value = value;
+                valueLabel.Text = $"{_value.ToString("F1")} F";
+            }
         }
-
-        [Description("Color for slider"), Category("Appearance")]
-        public Color SliderColor { get; set; } = Color.White;
 
         [Description("Color for border"), Category("Appearance")]
         public Color BorderColor { get; set; } = Color.White;
@@ -30,6 +34,8 @@ namespace T3000Controls
         {
             base.OnPaint(args);
 
+            var graphics = args.Graphics;
+
             var polygonWidth = Height;
             var smallRadius = 3;
             var smallWidth = 50;
@@ -39,28 +45,40 @@ namespace T3000Controls
                 new Point(smallRadius, Height / 2 - smallRadius),
                 new Point(smallWidth, Height / 2 - smallRadius),
                 new Point(smallWidth + textRadius, 0),
-                new Point(Width - textRadius, 0),
-                new Point(Width, Height / 2 - smallRadius),
-                new Point(Width, Height / 2 + smallRadius),
-                new Point(Width - textRadius, Height - 1),
-                new Point(smallWidth + textRadius, Height - 1),
-                new Point(smallWidth, Height / 2 + smallRadius),
-                new Point(smallRadius, Height / 2 + smallRadius)
+                new Point(Width - textRadius - 1, 0),
+                new Point(Width - 1, Height / 2 - smallRadius),
+                new Point(Width - 1, Height / 2 + smallRadius - 1),
+                new Point(Width - textRadius - 1, Height - 1 - 1),
+                new Point(smallWidth + textRadius, Height - 1 - 1),
+                new Point(smallWidth, Height / 2 + smallRadius - 1),
+                new Point(smallRadius, Height / 2 + smallRadius - 1)
             };
 
-            using (var brush = new SolidBrush(SliderColor))
+            using (var brush = new SolidBrush(BackColor))
             {
-                args.Graphics.FillPolygon(brush, polygon);
+                graphics.FillPolygon(brush, polygon);
             }
 
             using (var pen = new Pen(BorderColor, 1))
             {
-                args.Graphics.DrawPolygon(pen, polygon);
+                graphics.DrawPolygon(pen, polygon);
+            }
+
+
+            for (var i = 6; i < polygon.Length; ++i)
+            {
+                polygon[i].Y += 1;
+            }
+
+
+            for (var i = 4; i < 8; ++i)
+            {
+                polygon[i].X += 1;
             }
 
             var path = new GraphicsPath();
             path.AddPolygon(polygon);
-            //Region = new Region(path);
+            Region = new Region(path);
         }
     }
 }

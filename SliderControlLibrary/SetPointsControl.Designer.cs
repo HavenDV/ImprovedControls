@@ -28,22 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new T3000Controls.SliderControl();
+            this.panel = new T3000Controls.SliderControl();
             this.valueSlider = new T3000Controls.IndicatorControl();
             this.SuspendLayout();
             // 
-            // panel1
+            // panel
             // 
-            this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.Location = new System.Drawing.Point(170, 37);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(101, 241);
-            this.panel1.TabIndex = 2;
+            this.panel.BackColor = System.Drawing.Color.Transparent;
+            this.panel.Location = new System.Drawing.Point(170, 37);
+            this.panel.Name = "panel";
+            this.panel.Size = new System.Drawing.Size(102, 206);
+            this.panel.TabIndex = 2;
             // 
             // valueSlider
             // 
             this.valueSlider.BackColor = System.Drawing.Color.Transparent;
-            this.valueSlider.Location = new System.Drawing.Point(0, 130);
+            this.valueSlider.Location = new System.Drawing.Point(0, 113);
             this.valueSlider.Name = "valueSlider";
             this.valueSlider.Size = new System.Drawing.Size(164, 55);
             this.valueSlider.SliderName = "Name";
@@ -53,21 +53,22 @@
             this.valueSlider.MouseMove += new System.Windows.Forms.MouseEventHandler(this.slider1_MouseMove);
             this.valueSlider.MouseUp += new System.Windows.Forms.MouseEventHandler(this.slider1_MouseUp);
             // 
-            // SliderControl
+            // SetPointsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panel);
             this.Controls.Add(this.valueSlider);
-            this.Name = "SliderControl";
+            this.Name = "SetPointsControl";
             this.Size = new System.Drawing.Size(412, 359);
             this.ResumeLayout(false);
+
         }
 
         #endregion
 
         private T3000Controls.IndicatorControl valueSlider;
-        private SliderControl panel1;
+        private SliderControl panel;
     }
 }

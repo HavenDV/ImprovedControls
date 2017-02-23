@@ -1,8 +1,6 @@
-﻿using System.Windows.Forms;
-
-namespace T3000Controls
+﻿namespace T3000Controls
 {
-    partial class HandleControl
+    partial class BackgroundControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,33 +28,18 @@ namespace T3000Controls
         /// </summary>
         private void InitializeComponent()
         {
-            this.valueLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // valueLabel
+            // BackgroundControl
             // 
-            this.valueLabel.AutoSize = true;
-            this.valueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.valueLabel.Location = new System.Drawing.Point(54, 0);
-            this.valueLabel.Name = "valueLabel";
-            this.valueLabel.Size = new System.Drawing.Size(39, 13);
-            this.valueLabel.TabIndex = 1;
-            this.valueLabel.Text = "Value";
-            // 
-            // HandleControl
-            // 
-            this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.valueLabel);
+            this.BackColor = System.Drawing.Color.GreenYellow;
             this.DoubleBuffered = true;
-            this.Name = "HandleControl";
-            this.Size = new System.Drawing.Size(94, 16);
+            this.Name = "BackgroundControl";
+            this.Size = new System.Drawing.Size(50, 200);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label valueLabel;
     }
 }
