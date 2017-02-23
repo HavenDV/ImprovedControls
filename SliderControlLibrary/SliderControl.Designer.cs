@@ -67,6 +67,7 @@
             this.backgroundControl.BottomZone = true;
             this.backgroundControl.BottomZoneColor = System.Drawing.Color.Red;
             this.backgroundControl.BottomZoneValue = 66F;
+            this.backgroundControl.CurrentValue = 50F;
             this.backgroundControl.Dock = System.Windows.Forms.DockStyle.Left;
             this.backgroundControl.LinesColor = System.Drawing.Color.LightGray;
             this.backgroundControl.Location = new System.Drawing.Point(0, 0);
