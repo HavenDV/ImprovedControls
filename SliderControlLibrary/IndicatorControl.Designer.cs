@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.nameLabel = new System.Windows.Forms.Label();
-            this.valueLabel = new System.Windows.Forms.Label();
+            this.nameLabel = new T3000Controls.TransparentLabel();
+            this.valueLabel = new T3000Controls.TransparentLabel();
             this.SuspendLayout();
             // 
             // nameLabel

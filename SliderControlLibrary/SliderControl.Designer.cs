@@ -48,6 +48,7 @@
             // 
             // topHandle
             // 
+            this.topHandle.AccessibleRole = System.Windows.Forms.AccessibleRole.Slider;
             this.topHandle.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.topHandle.BorderColor = System.Drawing.Color.White;
             this.topHandle.Location = new System.Drawing.Point(-1, 82);

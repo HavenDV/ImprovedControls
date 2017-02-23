@@ -71,6 +71,9 @@
     <Compile Include="IndicatorControl.Designer.cs">
       <DependentUpon>IndicatorControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="TransparentLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>

@@ -42,13 +42,13 @@ namespace T3000Controls
                 return;
             }
 
-            var point = Mover.GetPoint(e.Location);
             var handle = sender as HandleControl;
             if (handle == null)
             {
                 return;
             }
 
+            var point = Mover.GetPoint(e.Location);
             var value = backgroundControl.YToValue(point.Y + handle.Height / 2);
             var maxValue = Math.Max(backgroundControl.BottomValue, backgroundControl.TopValue);
             var minValue = Math.Min(backgroundControl.BottomValue, backgroundControl.TopValue);
