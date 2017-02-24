@@ -76,15 +76,23 @@ namespace T3000Controls
 
             var x1 = 0;
             var x2 = Width - 1;
-            using (var brush = new SolidBrush(TopZoneColor))
+            if (TopZone)
             {
-                var rect = new RectangleF(x1, 0, x2, ValueToY(TopZoneValue));
-                args.Graphics.FillRectangle(brush, rect);
+                using (var brush = new SolidBrush(TopZoneColor))
+                {
+                    var y = ValueToY(TopZoneValue);
+                    var rect = new RectangleF(x1, 0, x2, y);
+                    args.Graphics.FillRectangle(brush, rect);
+                }
             }
-            using (var brush = new SolidBrush(BottomZoneColor))
+            if (BottomZone)
             {
-                var rect = new RectangleF(x1, ValueToY(BottomZoneValue), x2, Height - ValueToY(BottomZoneValue));
-                args.Graphics.FillRectangle(brush, rect);
+                using (var brush = new SolidBrush(BottomZoneColor))
+                {
+                    var y = ValueToY(BottomZoneValue);
+                    var rect = new RectangleF(x1, y, x2, Height - y);
+                    args.Graphics.FillRectangle(brush, rect);
+                }
             }
 
             using (var pen = new Pen(LinesColor))
