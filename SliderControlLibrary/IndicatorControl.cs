@@ -42,6 +42,19 @@ namespace T3000Controls
             {
                 e.Graphics.DrawPolygon(pen, polygon);
             }
+
+            for (var i = 2; i < polygon.Length; ++i)
+            {
+                polygon[i].Y += 1;
+            }
+            for (var i = 1; i < 4; ++i)
+            {
+                polygon[i].X += 1;
+            }
+
+            var path = new GraphicsPath();
+            path.AddPolygon(polygon);
+            Region = new Region(path);
         }
     }
 }
