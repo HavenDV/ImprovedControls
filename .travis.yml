@@ -1,5 +1,5 @@
 language: csharp
-solution: T3000 Controls.sln
+solution: T3000Controls.sln
 script:
   - cd SliderControlLibrary.Tests
   - xbuild /p:Configuration=Release
