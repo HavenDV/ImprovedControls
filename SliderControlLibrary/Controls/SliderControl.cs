@@ -214,7 +214,7 @@
                 return;
             }
 
-            var point = Mover.GetPoint(e.Location);
+            var point = Mover.GetPoint(e);
             var value = YToValue(point.Y + handle.Height / 2.0F);
             var maxValue = Math.Max(BottomValue, TopValue);
             var minValue = Math.Min(BottomValue, TopValue);
