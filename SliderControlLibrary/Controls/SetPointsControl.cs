@@ -20,9 +20,9 @@
             Mover = new MouseMover(this);
         }
 
-        private void slider1_MouseDown(object sender, MouseEventArgs args)
+        private void slider1_MouseDown(object sender, MouseEventArgs e)
         {
-            Mover.Start(args.Location, valueSlider);
+            Mover.Start(sender, e);
         }
 
         private void slider1_MouseUp(object sender, MouseEventArgs e)

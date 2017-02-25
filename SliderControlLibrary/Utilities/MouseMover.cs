@@ -19,11 +19,16 @@ namespace T3000Controls
             ParentControl = parentControl;
         }
 
-        public void Start(Point location, Control control)
+        public void Start(Control control, Point location)
         {
             IsMoved = true;
             Offset = new Point(-location.X, -location.Y);
             Control = control;
+        }
+
+        public void Start(object sender, MouseEventArgs e)
+        {
+            Start(sender as Control, e.Location);
         }
 
         public void End()

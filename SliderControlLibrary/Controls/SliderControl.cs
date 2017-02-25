@@ -92,7 +92,7 @@ namespace T3000Controls
 
         private void handle_MouseDown(object sender, MouseEventArgs e)
         {
-            Mover.Start(e.Location, sender as Control);
+            Mover.Start(sender, e);
         }
 
         private void handle_MouseUp(object sender, MouseEventArgs e)
