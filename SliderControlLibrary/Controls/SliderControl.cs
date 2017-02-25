@@ -1,33 +1,132 @@
-﻿using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Windows.Forms;
-
-namespace T3000Controls
+﻿namespace T3000Controls
 {
+    using System;
+    using System.ComponentModel;
+    using System.Windows.Forms;
+
     public partial class SliderControl : UserControl
     {
+        #region DesignerProperties
+
+        private float _topValue = 0;
         [Description("Top value"), Category("Data")]
-        public float TopValue { get; set; } = 100;
+        public float TopValue {
+            get { return _topValue; }
+            set {
+                _topValue = value;
+
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
+
+        private float _bottomValue = 100;
 
         [Description("Bottom value"), Category("Data")]
-        public float BottomValue { get; set; } = 0;
+        public float BottomValue
+        {
+            get { return _bottomValue; }
+            set
+            {
+                _bottomValue = value;
 
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
+
+        private float _currentValue = 50;
         [Description("Current value"), Category("Data")]
-        public float CurrentValue { get; set; } = 50;
+        public float CurrentValue {
+            get { return _currentValue; }
+            set {
+                _currentValue = value;
 
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
+
+        private bool _topZone = true;
         [Description("Top zone"), Category("Data")]
-        public bool TopZone { get; set; } = true;
+        public bool TopZone {
+            get { return _topZone; }
+            set {
+                _topZone = value;
+                topHandle.Visible = _topZone;
 
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
+
+        private bool _bottomZone = true;
         [Description("Bottom zone"), Category("Data")]
-        public bool BottomZone { get; set; } = true;
+        public bool BottomZone {
+            get { return _bottomZone; }
+            set {
+                _bottomZone = value;
+                bottomHandle.Visible = _bottomZone;
 
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
+
+        private float _topZoneValue = 33;
         [Description("Top zone value"), Category("Data")]
-        public float TopZoneValue { get; set; } = 66;
+        public float TopZoneValue {
+            get { return _topZoneValue; }
+            set {
+                _topZoneValue = value;
 
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
+
+        private float _bottomZoneValue = 66;
         [Description("Bottom zone value"), Category("Data")]
-        public float BottomZoneValue { get; set; } = 33;
+        public float BottomZoneValue {
+            get { return _bottomZoneValue; }
+            set
+            {
+                _bottomZoneValue = value;
+
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
+
+        private float _stepValue = 10;
+        [Description("Step value"), Category("Data")]
+        public float StepValue {
+            get { return _stepValue; }
+            set {
+                _stepValue = value;
+
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
+
+        #endregion
 
         public bool IsInverse => TopValue > BottomValue;
 
@@ -57,26 +156,26 @@ namespace T3000Controls
             return IsInverse ? Height - ValueToY(value) : ValueToY(value);
         }
 
-        public float GetOffsetForValue(int value)
+        public float GetOffsetForValue(float value)
         {
             return ValueToHeight(SliderUtilities.GetOffsetValueForValue(value, TopValue, BottomValue));
         }
 
         public void RefreshBackground()
         {
-            //Set top and bottom zone values from handles
-            TopZoneValue = topHandle.Value;
-            BottomZoneValue = bottomHandle.Value;
-
             //Update background control properties
             backgroundControl.TopZone = TopZone;
             backgroundControl.BottomZone = BottomZone;
             backgroundControl.TopZoneValueY = ValueToY(TopZoneValue);
             backgroundControl.BottomZoneValueY = ValueToY(BottomZoneValue);
             backgroundControl.CurrentValueY = ValueToY(CurrentValue);
-            backgroundControl.StepHeight = ValueToHeight(10);
-            backgroundControl.BigOffsetY = GetOffsetForValue(10);
-            backgroundControl.SmallOffsetY = backgroundControl.BigOffsetY + ValueToHeight(5);
+            backgroundControl.StepHeight = ValueToHeight(StepValue);
+            backgroundControl.BigOffsetY = GetOffsetForValue(StepValue);
+            backgroundControl.SmallOffsetY = backgroundControl.BigOffsetY + ValueToHeight(StepValue/2);
+
+            //Set top and bottom zone values from handles
+            topHandle.Value = TopZoneValue;
+            bottomHandle.Value = BottomZoneValue;
 
             //Update handles Y positions
             UpdateHandlePosition(topHandle);
@@ -135,6 +234,7 @@ namespace T3000Controls
             topHandle.Value = IsInverse ?
                 Math.Max(bottomHandle.Value, topHandle.Value) :
                 Math.Min(bottomHandle.Value, topHandle.Value);
+            TopZoneValue = topHandle.Value;
             RefreshBackground();
         }
 
@@ -149,6 +249,7 @@ namespace T3000Controls
             bottomHandle.Value = IsInverse ?
                 Math.Min(bottomHandle.Value, topHandle.Value) :
                 Math.Max(bottomHandle.Value, topHandle.Value);
+            BottomZoneValue = bottomHandle.Value;
             RefreshBackground();
         }
 
