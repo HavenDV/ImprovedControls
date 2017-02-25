@@ -10,6 +10,8 @@ namespace T3000Controls
 {
     public partial class BackgroundControl : UserControl
     {
+        #region DesignerProperties
+
         [Description("Color for lines"), Category("Appearance")]
         public Color LinesColor { get; set; } = Color.DarkGray;
 
@@ -46,9 +48,13 @@ namespace T3000Controls
         [Description("Big offset Y"), Category("Data")]
         public float BigOffsetY { get; set; } = 10;
 
+        #endregion
+
         public BackgroundControl()
         {
             InitializeComponent();
+
+            SetStyle(ControlStyles.ResizeRedraw, true);
         }
 
         protected override void OnPaint(PaintEventArgs args)
@@ -69,8 +75,7 @@ namespace T3000Controls
             {
                 using (var brush = new SolidBrush(BottomZoneColor))
                 {
-                    //RectangleF.FromLTRB()
-                    var rect = new RectangleF(x1, BottomZoneValueY, x2, Height - BottomZoneValueY);
+                    var rect = RectangleF.FromLTRB(x1, BottomZoneValueY, x2, Height - 1);
                     args.Graphics.FillRectangle(brush, rect);
                 }
             }
@@ -93,9 +98,7 @@ namespace T3000Controls
 
             using (var pen = new Pen(BorderColor))
             {
-                //Draw current value
                 args.Graphics.DrawLine(pen, 0, CurrentValueY, Width - 1, CurrentValueY);
-                //Draw borders
                 args.Graphics.DrawRectangle(pen, x1, 0, x2, Height - 1);
             }
         }

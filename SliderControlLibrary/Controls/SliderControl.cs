@@ -45,7 +45,7 @@
             get { return _currentValue; }
             set {
                 _currentValue = value;
-
+                
                 if (DesignMode)
                 {
                     Invalidate();
@@ -53,13 +53,14 @@
             }
         }
 
-        private bool _topZone = true;
         [Description("Top zone"), Category("Data")]
-        public bool TopZone {
-            get { return _topZone; }
-            set {
-                _topZone = value;
-                topHandle.Visible = _topZone;
+        public bool TopZone
+        {
+            get { return backgroundControl.TopZone; }
+            set
+            {
+                backgroundControl.TopZone = value;
+                bottomHandle.Visible = value;
 
                 if (DesignMode)
                 {
@@ -68,13 +69,14 @@
             }
         }
 
-        private bool _bottomZone = true;
         [Description("Bottom zone"), Category("Data")]
-        public bool BottomZone {
-            get { return _bottomZone; }
-            set {
-                _bottomZone = value;
-                bottomHandle.Visible = _bottomZone;
+        public bool BottomZone
+        {
+            get { return backgroundControl.BottomZone; }
+            set
+            {
+                backgroundControl.BottomZone = value;
+                bottomHandle.Visible = value;
 
                 if (DesignMode)
                 {
@@ -89,7 +91,7 @@
             get { return _topZoneValue; }
             set {
                 _topZoneValue = value;
-
+                
                 if (DesignMode)
                 {
                     Invalidate();
@@ -104,7 +106,7 @@
             set
             {
                 _bottomZoneValue = value;
-
+                
                 if (DesignMode)
                 {
                     Invalidate();
@@ -164,8 +166,6 @@
         public void RefreshBackground()
         {
             //Update background control properties
-            backgroundControl.TopZone = TopZone;
-            backgroundControl.BottomZone = BottomZone;
             backgroundControl.TopZoneValueY = ValueToY(TopZoneValue);
             backgroundControl.BottomZoneValueY = ValueToY(BottomZoneValue);
             backgroundControl.CurrentValueY = ValueToY(CurrentValue);
@@ -216,6 +216,8 @@
 
             var point = Mover.GetPoint(e);
             var value = YToValue(point.Y + handle.Height / 2.0F);
+
+            //Restricts value from top and bottom values
             var maxValue = Math.Max(BottomValue, TopValue);
             var minValue = Math.Min(BottomValue, TopValue);
             value = Math.Max(Math.Min(value, maxValue), minValue);
@@ -231,9 +233,11 @@
             }
             handle_MouseMove(sender, e);
 
+            //Restricts value from bottom handle value
             topHandle.Value = IsInverse ?
                 Math.Max(bottomHandle.Value, topHandle.Value) :
                 Math.Min(bottomHandle.Value, topHandle.Value);
+
             TopZoneValue = topHandle.Value;
             RefreshBackground();
         }
@@ -246,9 +250,11 @@
             }
             handle_MouseMove(sender, e);
 
+            //Restricts value from top handle value
             bottomHandle.Value = IsInverse ?
                 Math.Min(bottomHandle.Value, topHandle.Value) :
                 Math.Max(bottomHandle.Value, topHandle.Value);
+
             BottomZoneValue = bottomHandle.Value;
             RefreshBackground();
         }

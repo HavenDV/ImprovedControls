@@ -41,7 +41,7 @@
             this.panel.CurrentValue = 50F;
             this.panel.Location = new System.Drawing.Point(170, 37);
             this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(109, 216);
+            this.panel.Size = new System.Drawing.Size(202, 279);
             this.panel.StepValue = 10F;
             this.panel.TabIndex = 2;
             this.panel.TopValue = 100F;
