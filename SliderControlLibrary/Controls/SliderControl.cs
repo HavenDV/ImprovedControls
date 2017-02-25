@@ -37,12 +37,9 @@ namespace T3000Controls
         {
             InitializeComponent();
 
+            SetStyle(ControlStyles.ResizeRedraw, true);
+
             Mover = new MouseMover(this);
-
-            topHandle.Value = TopZoneValue;
-            bottomHandle.Value = BottomZoneValue;
-
-            RefreshBackground();
         }
 
         public float YToValue(float y)
@@ -55,9 +52,14 @@ namespace T3000Controls
             return SliderUtilities.ValueToY(value, TopValue, BottomValue, Height);
         }
 
+        public float ValueToHeight(float value)
+        {
+            return IsInverse ? Height - ValueToY(value) : ValueToY(value);
+        }
+
         public float GetOffsetForValue(int value)
         {
-            return ValueToY(SliderUtilities.GetOffsetValueForValue(value, TopValue, BottomValue));
+            return ValueToHeight(SliderUtilities.GetOffsetValueForValue(value, TopValue, BottomValue));
         }
 
         public void RefreshBackground()
@@ -72,9 +74,9 @@ namespace T3000Controls
             backgroundControl.TopZoneValueY = ValueToY(TopZoneValue);
             backgroundControl.BottomZoneValueY = ValueToY(BottomZoneValue);
             backgroundControl.CurrentValueY = ValueToY(CurrentValue);
-            backgroundControl.StepHeight = ValueToY(10);
+            backgroundControl.StepHeight = ValueToHeight(10);
             backgroundControl.BigOffsetY = GetOffsetForValue(10);
-            backgroundControl.SmallOffsetY = backgroundControl.BigOffsetY + ValueToY(5);
+            backgroundControl.SmallOffsetY = backgroundControl.BigOffsetY + ValueToHeight(5);
 
             //Update handles Y positions
             UpdateHandlePosition(topHandle);
@@ -130,7 +132,9 @@ namespace T3000Controls
             }
             handle_MouseMove(sender, e);
 
-            topHandle.Value = Math.Min(bottomHandle.Value, topHandle.Value);
+            topHandle.Value = IsInverse ?
+                Math.Max(bottomHandle.Value, topHandle.Value) :
+                Math.Min(bottomHandle.Value, topHandle.Value);
             RefreshBackground();
         }
 
@@ -142,7 +146,16 @@ namespace T3000Controls
             }
             handle_MouseMove(sender, e);
 
-            bottomHandle.Value = Math.Max(bottomHandle.Value, topHandle.Value);
+            bottomHandle.Value = IsInverse ?
+                Math.Min(bottomHandle.Value, topHandle.Value) :
+                Math.Max(bottomHandle.Value, topHandle.Value);
+            RefreshBackground();
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
             RefreshBackground();
         }
     }

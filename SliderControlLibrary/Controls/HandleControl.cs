@@ -31,11 +31,11 @@ namespace T3000Controls
             SetStyle(ControlStyles.ResizeRedraw, true);
         }
 
-        protected override void OnPaint(PaintEventArgs args)
+        protected override void OnPaint(PaintEventArgs e)
         {
-            base.OnPaint(args);
+            base.OnPaint(e);
 
-            var graphics = args.Graphics;
+            var graphics = e.Graphics;
 
             var polygonWidth = Height;
             var smallRadius = 3;
