@@ -2,7 +2,7 @@ language: csharp
 solution: T3000Controls.sln
 script:
   - cd SliderControlLibrary.Tests
-  - nuget restore
+  - nuget restore SliderControlLibrary.Tests.csproj
   - xbuild /p:Configuration=Release
   - cd ..
   - mono ./packages/NUnit.ConsoleRunner.*/tools/nunit3-console.exe ./SliderControlLibrary.Tests/bin/Release/SliderControlLibrary.Tests.dll
