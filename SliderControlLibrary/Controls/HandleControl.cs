@@ -65,13 +65,10 @@ namespace T3000Controls
                 graphics.DrawPolygon(pen, polygon);
             }
 
-
             for (var i = 6; i < polygon.Length; ++i)
             {
                 polygon[i].Y += 1;
             }
-
-
             for (var i = 4; i < 8; ++i)
             {
                 polygon[i].X += 1;

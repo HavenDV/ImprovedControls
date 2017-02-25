@@ -39,59 +39,63 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackgroundControl.cs">
+    <Compile Include="Controls\BackgroundControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="BackgroundControl.Designer.cs">
+    <Compile Include="Controls\BackgroundControl.Designer.cs">
       <DependentUpon>BackgroundControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="MouseMover.cs" />
-    <Compile Include="SliderControl.cs">
+    <Compile Include="Utilities\MouseMover.cs" />
+    <Compile Include="Controls\SliderControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SliderControl.Designer.cs">
+    <Compile Include="Controls\SliderControl.Designer.cs">
       <DependentUpon>SliderControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="HandleControl.cs">
+    <Compile Include="Controls\HandleControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="HandleControl.Designer.cs">
+    <Compile Include="Controls\HandleControl.Designer.cs">
       <DependentUpon>HandleControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="SetPointsControl.cs">
+    <Compile Include="Controls\SetPointsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SetPointsControl.Designer.cs">
+    <Compile Include="Controls\SetPointsControl.Designer.cs">
       <DependentUpon>SetPointsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IndicatorControl.cs">
+    <Compile Include="Controls\IndicatorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="IndicatorControl.Designer.cs">
+    <Compile Include="Controls\IndicatorControl.Designer.cs">
       <DependentUpon>IndicatorControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="TransparentLabel.cs">
+    <Compile Include="Controls\TransparentLabel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Utilities\Utilities.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BackgroundControl.resx">
+    <EmbeddedResource Include="Controls\BackgroundControl.resx">
       <DependentUpon>BackgroundControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SliderControl.resx">
+    <EmbeddedResource Include="Controls\SliderControl.resx">
       <DependentUpon>SliderControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HandleControl.resx">
+    <EmbeddedResource Include="Controls\HandleControl.resx">
       <DependentUpon>HandleControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SetPointsControl.resx">
+    <EmbeddedResource Include="Controls\SetPointsControl.resx">
       <DependentUpon>SetPointsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IndicatorControl.resx">
+    <EmbeddedResource Include="Controls\IndicatorControl.resx">
       <DependentUpon>IndicatorControl.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="project.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

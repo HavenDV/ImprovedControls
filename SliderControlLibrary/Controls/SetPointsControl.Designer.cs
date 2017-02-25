@@ -35,10 +35,17 @@
             // panel
             // 
             this.panel.BackColor = System.Drawing.Color.Transparent;
+            this.panel.BottomValue = 0F;
+            this.panel.BottomZone = true;
+            this.panel.BottomZoneValue = 33F;
+            this.panel.CurrentValue = 50F;
             this.panel.Location = new System.Drawing.Point(170, 37);
             this.panel.Name = "panel";
             this.panel.Size = new System.Drawing.Size(102, 206);
             this.panel.TabIndex = 2;
+            this.panel.TopValue = 100F;
+            this.panel.TopZone = true;
+            this.panel.TopZoneValue = 66F;
             // 
             // valueSlider
             // 

@@ -37,7 +37,7 @@
             // 
             this.bottomHandle.BackColor = System.Drawing.Color.Red;
             this.bottomHandle.BorderColor = System.Drawing.Color.White;
-            this.bottomHandle.Location = new System.Drawing.Point(-1, 174);
+            this.bottomHandle.Location = new System.Drawing.Point(-1, 58);
             this.bottomHandle.Name = "bottomHandle";
             this.bottomHandle.Size = new System.Drawing.Size(98, 17);
             this.bottomHandle.TabIndex = 1;
@@ -49,9 +49,10 @@
             // topHandle
             // 
             this.topHandle.AccessibleRole = System.Windows.Forms.AccessibleRole.Slider;
+            this.topHandle.AutoScroll = true;
             this.topHandle.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.topHandle.BorderColor = System.Drawing.Color.White;
-            this.topHandle.Location = new System.Drawing.Point(-1, 82);
+            this.topHandle.Location = new System.Drawing.Point(-1, 25);
             this.topHandle.Name = "topHandle";
             this.topHandle.Size = new System.Drawing.Size(98, 16);
             this.topHandle.TabIndex = 3;
@@ -63,22 +64,23 @@
             // backgroundControl
             // 
             this.backgroundControl.BackColor = System.Drawing.Color.GreenYellow;
+            this.backgroundControl.BigOffsetY = 10F;
             this.backgroundControl.BorderColor = System.Drawing.Color.Black;
-            this.backgroundControl.BottomValue = 100F;
             this.backgroundControl.BottomZone = true;
             this.backgroundControl.BottomZoneColor = System.Drawing.Color.Red;
-            this.backgroundControl.BottomZoneValue = 66F;
-            this.backgroundControl.CurrentValue = 50F;
+            this.backgroundControl.BottomZoneValueY = 66F;
+            this.backgroundControl.CurrentValueY = 50F;
             this.backgroundControl.Dock = System.Windows.Forms.DockStyle.Left;
             this.backgroundControl.LinesColor = System.Drawing.Color.LightGray;
             this.backgroundControl.Location = new System.Drawing.Point(0, 0);
             this.backgroundControl.Name = "backgroundControl";
-            this.backgroundControl.Size = new System.Drawing.Size(49, 276);
+            this.backgroundControl.Size = new System.Drawing.Size(49, 100);
+            this.backgroundControl.SmallOffsetY = 5F;
+            this.backgroundControl.StepHeight = 10F;
             this.backgroundControl.TabIndex = 2;
-            this.backgroundControl.TopValue = 0F;
             this.backgroundControl.TopZone = true;
             this.backgroundControl.TopZoneColor = System.Drawing.Color.DeepSkyBlue;
-            this.backgroundControl.TopZoneValue = 33F;
+            this.backgroundControl.TopZoneValueY = 33F;
             // 
             // SliderControl
             // 
@@ -87,7 +89,7 @@
             this.Controls.Add(this.topHandle);
             this.Controls.Add(this.backgroundControl);
             this.Name = "SliderControl";
-            this.Size = new System.Drawing.Size(100, 276);
+            this.Size = new System.Drawing.Size(100, 100);
             this.ResumeLayout(false);
 
         }
