@@ -47,17 +47,17 @@ namespace T3000Controls
 
         public float YToValue(float y)
         {
-            return Utilities.YToValue(y, TopValue, BottomValue, Height);
+            return SliderUtilities.YToValue(y, TopValue, BottomValue, Height);
         }
 
         public float ValueToY(float value)
         {
-            return Utilities.ValueToY(value, TopValue, BottomValue, Height);
+            return SliderUtilities.ValueToY(value, TopValue, BottomValue, Height);
         }
 
         public float GetOffsetForValue(int value)
         {
-            return ValueToY(Utilities.GetOffsetValueForValue(value, TopValue, BottomValue));
+            return ValueToY(SliderUtilities.GetOffsetValueForValue(value, TopValue, BottomValue));
         }
 
         public void RefreshBackground()
