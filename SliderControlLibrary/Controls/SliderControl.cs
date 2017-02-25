@@ -86,7 +86,7 @@ namespace T3000Controls
         public void UpdateHandlePosition(HandleControl handle)
         {
             var point = handle.Location;
-            point.Y = (int)ValueToY(handle.Value) - handle.Height / 2;
+            point.Y = (int)(ValueToY(handle.Value) - handle.Height / 2.0F);
             handle.Location = point;
         }
 
