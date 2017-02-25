@@ -43,5 +43,10 @@ namespace T3000Controls
 
             return point;
         }
+
+        public Point GetPoint(MouseEventArgs e)
+        {
+            return GetPoint(e.Location);
+        }
     }
 }
