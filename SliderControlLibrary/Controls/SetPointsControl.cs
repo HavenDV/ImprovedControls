@@ -33,14 +33,12 @@
                 return;
             }
 
-            var point = PointToClient(valueSlider.PointToScreen(e.Location));
-            point.Offset(Mover.Offset);
+            var point = Mover.GetPoint(e);
 
             //Save X coordinate from slider
             point.X = valueSlider.Location.X;
 
             valueSlider.SliderValue = $"{point.Y.ToString()}.5 F";
-
             valueSlider.Location = point;
         }
 
