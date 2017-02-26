@@ -131,8 +131,6 @@
 
         #endregion
 
-        public bool IsInverse => TopValue > BottomValue;
-
         private MouseMover Mover { get; set; }
 
         public SliderControl()
@@ -155,18 +153,20 @@
 
         public float ValueToHeight(float value)
         {
-            return IsInverse ? Height - ValueToY(value) : ValueToY(value);
+            return SliderUtilities.ValueToHeight(value, TopValue, BottomValue, Height);
         }
 
         public float GetOffsetForValue(float value)
         {
-            return ValueToHeight(SliderUtilities.GetOffsetValueForValue(value, TopValue, BottomValue));
+            return SliderUtilities.GetOffsetForValue(value, TopValue, BottomValue, Height);
         }
 
-        public void UpdateHandlePosition(HandleControl handle)
+        public void UpdateHandlePositionFromValue(HandleControl handle)
         {
             var point = handle.Location;
+
             point.Y = (int)(ValueToY(handle.Value) - handle.Height / 2.0F);
+
             handle.Location = point;
         }
 
@@ -213,7 +213,7 @@
             handle_MouseMove(sender, e);
 
             //Restricts value from bottom handle value
-            topHandle.Value = IsInverse ?
+            topHandle.Value = TopValue > BottomValue ?
                 Math.Max(bottomHandle.Value, topHandle.Value) :
                 Math.Min(bottomHandle.Value, topHandle.Value);
 
@@ -230,7 +230,7 @@
             handle_MouseMove(sender, e);
 
             //Restricts value from top handle value
-            bottomHandle.Value = IsInverse ?
+            bottomHandle.Value = TopValue > BottomValue ?
                 Math.Min(bottomHandle.Value, topHandle.Value) :
                 Math.Max(bottomHandle.Value, topHandle.Value);
 
@@ -255,8 +255,8 @@
             bottomHandle.Value = BottomZoneValue;
 
             //Update handles Y positions
-            UpdateHandlePosition(topHandle);
-            UpdateHandlePosition(bottomHandle);
+            UpdateHandlePositionFromValue(topHandle);
+            UpdateHandlePositionFromValue(bottomHandle);
 
             backgroundControl.Refresh();
         }
