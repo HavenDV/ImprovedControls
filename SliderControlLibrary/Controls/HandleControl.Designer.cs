@@ -41,7 +41,7 @@ namespace T3000Controls
             this.valueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.valueLabel.Location = new System.Drawing.Point(54, 0);
             this.valueLabel.Name = "valueLabel";
-            this.valueLabel.Size = new System.Drawing.Size(39, 16);
+            this.valueLabel.Size = new System.Drawing.Size(39, 13);
             this.valueLabel.TabIndex = 1;
             this.valueLabel.Text = "Text";
             this.valueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
