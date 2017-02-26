@@ -139,8 +139,7 @@
         {
             InitializeComponent();
 
-            SetStyle(ControlStyles.ResizeRedraw, true);
-
+            ResizeRedraw = true;
             Mover = new MouseMover(this);
         }
 

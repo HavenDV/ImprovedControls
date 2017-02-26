@@ -54,7 +54,7 @@ namespace T3000Controls
         {
             InitializeComponent();
 
-            SetStyle(ControlStyles.ResizeRedraw, true);
+            ResizeRedraw = true;
         }
 
         protected override void OnPaint(PaintEventArgs args)

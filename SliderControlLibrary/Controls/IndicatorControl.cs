@@ -21,6 +21,8 @@ namespace T3000Controls
         public IndicatorControl()
         {
             InitializeComponent();
+
+            ResizeRedraw = true;
         }
 
         private void Slider_Paint(object sender, PaintEventArgs e)

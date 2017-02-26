@@ -10,8 +10,7 @@
         public SetPointsControl()
         {
             InitializeComponent();
-
-            valueSlider.SliderName = "Temp";
+            
             Mover = new MouseMover(this);
         }
 
