@@ -28,19 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.nameLabel = new T3000Controls.TransparentLabel();
+            this.textLabel = new T3000Controls.TransparentLabel();
             this.valueLabel = new T3000Controls.TransparentLabel();
             this.SuspendLayout();
             // 
-            // nameLabel
+            // textLabel
             // 
-            this.nameLabel.AutoSize = true;
-            this.nameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nameLabel.Location = new System.Drawing.Point(3, 17);
-            this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Size = new System.Drawing.Size(51, 20);
-            this.nameLabel.TabIndex = 0;
-            this.nameLabel.Text = "Name";
+            this.textLabel.AutoSize = true;
+            this.textLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textLabel.Location = new System.Drawing.Point(3, 17);
+            this.textLabel.Name = "textLabel";
+            this.textLabel.Size = new System.Drawing.Size(39, 20);
+            this.textLabel.TabIndex = 0;
+            this.textLabel.Text = "Text";
             // 
             // valueLabel
             // 
@@ -52,13 +52,13 @@
             this.valueLabel.TabIndex = 1;
             this.valueLabel.Text = "Value";
             // 
-            // Slider
+            // IndicatorControl
             // 
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.valueLabel);
-            this.Controls.Add(this.nameLabel);
+            this.Controls.Add(this.textLabel);
             this.DoubleBuffered = true;
-            this.Name = "Slider";
+            this.Name = "IndicatorControl";
             this.Size = new System.Drawing.Size(132, 49);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -67,7 +67,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label nameLabel;
-        private System.Windows.Forms.Label valueLabel;
+        private TransparentLabel textLabel;
+        private TransparentLabel valueLabel;
     }
 }

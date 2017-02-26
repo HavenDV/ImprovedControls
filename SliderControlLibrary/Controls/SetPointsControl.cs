@@ -34,10 +34,10 @@
             var point = Mover.GetPoint(e);
 
             //Save X coordinate from slider
-            point.X = valueSlider.Location.X;
+            point.X = indicator.Location.X;
 
-            valueSlider.SliderValue = $"{point.Y.ToString()}.5 F";
-            valueSlider.Location = point;
+            indicator.Location = point;
+            indicator.Value = panel.CurrentValue;
         }
 
         [ComRegisterFunction()]

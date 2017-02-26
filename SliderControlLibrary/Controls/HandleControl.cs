@@ -9,6 +9,8 @@ namespace T3000Controls
 {
     public partial class HandleControl : UserControl
     {
+        #region DesignerProperties
+
         private float _value = 0.0F;
         [Description("Value for handle"), Category("Data")]
         public float Value
@@ -21,8 +23,23 @@ namespace T3000Controls
             }
         }
 
+        private Color _borderColor = Color.White;
         [Description("Color for border"), Category("Appearance")]
-        public Color BorderColor { get; set; } = Color.White;
+        public Color BorderColor
+        {
+            get { return _borderColor; }
+            set
+            {
+                _borderColor = value;
+
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
+
+        #endregion
 
         public HandleControl()
         {

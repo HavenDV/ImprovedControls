@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.panel = new T3000Controls.SliderControl();
-            this.valueSlider = new T3000Controls.IndicatorControl();
+            this.indicator = new T3000Controls.IndicatorControl();
             this.SuspendLayout();
             // 
             // panel
@@ -48,18 +48,19 @@
             this.panel.TopZone = true;
             this.panel.TopZoneValue = 66F;
             // 
-            // valueSlider
+            // indicator
             // 
-            this.valueSlider.BackColor = System.Drawing.Color.Transparent;
-            this.valueSlider.Location = new System.Drawing.Point(0, 113);
-            this.valueSlider.Name = "valueSlider";
-            this.valueSlider.Size = new System.Drawing.Size(164, 55);
-            this.valueSlider.SliderName = "Name";
-            this.valueSlider.SliderValue = "Value";
-            this.valueSlider.TabIndex = 1;
-            this.valueSlider.MouseDown += new System.Windows.Forms.MouseEventHandler(this.slider1_MouseDown);
-            this.valueSlider.MouseMove += new System.Windows.Forms.MouseEventHandler(this.slider1_MouseMove);
-            this.valueSlider.MouseUp += new System.Windows.Forms.MouseEventHandler(this.slider1_MouseUp);
+            this.indicator.BackColor = System.Drawing.Color.GreenYellow;
+            this.indicator.BorderColor = System.Drawing.Color.Black;
+            this.indicator.IndicatorText = "Temp";
+            this.indicator.Location = new System.Drawing.Point(3, 149);
+            this.indicator.Name = "indicator";
+            this.indicator.Size = new System.Drawing.Size(169, 55);
+            this.indicator.TabIndex = 1;
+            this.indicator.Value = 50F;
+            this.indicator.MouseDown += new System.Windows.Forms.MouseEventHandler(this.slider1_MouseDown);
+            this.indicator.MouseMove += new System.Windows.Forms.MouseEventHandler(this.slider1_MouseMove);
+            this.indicator.MouseUp += new System.Windows.Forms.MouseEventHandler(this.slider1_MouseUp);
             // 
             // SetPointsControl
             // 
@@ -67,7 +68,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.panel);
-            this.Controls.Add(this.valueSlider);
+            this.Controls.Add(this.indicator);
             this.Name = "SetPointsControl";
             this.Size = new System.Drawing.Size(412, 359);
             this.ResumeLayout(false);
@@ -76,7 +77,7 @@
 
         #endregion
 
-        private T3000Controls.IndicatorControl valueSlider;
+        private T3000Controls.IndicatorControl indicator;
         private SliderControl panel;
     }
 }
