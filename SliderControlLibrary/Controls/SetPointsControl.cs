@@ -3,7 +3,6 @@
     using System.Windows.Forms;
     using System.Runtime.InteropServices;
 
-    [ProgId("T3000Controls.SliderControl")]
     public partial class SetPointsControl : UserControl
     {
         private MouseMover Mover { get; set; }
