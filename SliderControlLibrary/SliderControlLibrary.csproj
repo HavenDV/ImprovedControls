@@ -46,6 +46,7 @@
       <DependentUpon>BackgroundControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\ComUtilities.cs" />
+    <Compile Include="Utilities\GraphicsUtilities.cs" />
     <Compile Include="Utilities\MouseMover.cs" />
     <Compile Include="Controls\SliderControl.cs">
       <SubType>UserControl</SubType>
