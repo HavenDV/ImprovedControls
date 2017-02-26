@@ -5,7 +5,7 @@
 
     public partial class SetPointsControl : UserControl
     {
-        private MouseMover Mover { get; set; }
+        private MouseMover Mover { get; }
 
         public SetPointsControl()
         {
@@ -38,6 +38,7 @@
 
             indicator.Location = point;
             indicator.Value = panel.CurrentValue;
+            indicator.Refresh();
         }
 
         [ComRegisterFunction()]

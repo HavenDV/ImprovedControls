@@ -131,7 +131,7 @@
 
         #endregion
 
-        private MouseMover Mover { get; set; }
+        private MouseMover Mover { get; }
 
         public SliderControl()
         {

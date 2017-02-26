@@ -3,7 +3,7 @@
 namespace T3000Controls.Tests
 {
     [TestFixture]
-    public class SliderUtilities_Tests
+    public class SliderUtilitiesTests
     {
         [Test]
         public void YToValue_Direct()

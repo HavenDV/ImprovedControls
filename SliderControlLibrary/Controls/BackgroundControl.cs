@@ -1,13 +1,9 @@
-﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Text;
-using System.Windows.Forms;
-
-namespace T3000Controls
+﻿namespace T3000Controls
 {
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Windows.Forms;
+
     public partial class BackgroundControl : UserControl
     {
         #region DesignerProperties

@@ -20,11 +20,11 @@
             {
                 // And create	the	'Control' key -	this allows	it to show up in
                 // the ActiveX control container
-                using (var ctrl = k.CreateSubKey("Control")) { }
-                using (var server = k.OpenSubKey("InprocServer32", true))
+                using (k?.CreateSubKey("Control")) { }
+                using (var server = k?.OpenSubKey("InprocServer32", true))
                 {
                     // Next create the CodeBase entry	- needed if	not	string named and GACced.
-                    server.SetValue("CodeBase", Assembly.GetExecutingAssembly().CodeBase);
+                    server?.SetValue("CodeBase", Assembly.GetExecutingAssembly().CodeBase);
                 }
             }
         }
@@ -42,13 +42,13 @@
             using (var k = Registry.ClassesRoot.OpenSubKey(key, true))
             {
                 // Delete the 'Control'	key, but don't throw an	exception if it	does not exist
-                k.DeleteSubKey("Control", false);
+                k?.DeleteSubKey("Control", false);
 
                 // Next	open up	InprocServer32
-                using (var server = k.OpenSubKey("InprocServer32", true))
+                using (var server = k?.OpenSubKey("InprocServer32", true))
                 {
                     // And delete the CodeBase key,	again not throwing if missing
-                    server.DeleteValue("CodeBase", false);
+                    server?.DeleteValue("CodeBase", false);
                 }
             }
         }

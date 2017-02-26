@@ -54,7 +54,7 @@
             base.OnPaint(e);
 
             var polygonWidth = Height;
-            var polygon = new Point[] {
+            var polygon = new[] {
                 new Point(0, 0),
                 new Point(Width - polygonWidth, 0),
                 new Point(Width, Height / 2),

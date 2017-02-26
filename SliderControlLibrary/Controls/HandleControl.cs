@@ -1,12 +1,10 @@
-﻿using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
-
-namespace T3000Controls
+﻿namespace T3000Controls
 {
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
+    using System.Windows.Forms;
+
     public partial class HandleControl : UserControl
     {
         #region DesignerProperties
@@ -58,7 +56,7 @@ namespace T3000Controls
             var smallRadius = 3;
             var smallWidth = 50;
             var textRadius = 10;
-            var polygon = new Point[] {
+            var polygon = new[] {
                 new Point(0, Height / 2),
                 new Point(smallRadius, Height / 2 - smallRadius),
                 new Point(smallWidth, Height / 2 - smallRadius),
