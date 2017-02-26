@@ -25,8 +25,10 @@ namespace T3000Controls
             ResizeRedraw = true;
         }
 
-        private void Slider_Paint(object sender, PaintEventArgs e)
+        protected override void OnPaint(PaintEventArgs e)
         {
+            base.OnPaint(e);
+
             var polygonWidth = Height;
             var polygon = new Point[] {
                 new Point(0, 0),

@@ -60,7 +60,6 @@
             this.DoubleBuffered = true;
             this.Name = "Slider";
             this.Size = new System.Drawing.Size(132, 49);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Slider_Paint);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -163,27 +163,6 @@
             return ValueToHeight(SliderUtilities.GetOffsetValueForValue(value, TopValue, BottomValue));
         }
 
-        public void RefreshBackground()
-        {
-            //Update background control properties
-            backgroundControl.TopZoneValueY = ValueToY(TopZoneValue);
-            backgroundControl.BottomZoneValueY = ValueToY(BottomZoneValue);
-            backgroundControl.CurrentValueY = ValueToY(CurrentValue);
-            backgroundControl.StepHeight = ValueToHeight(StepValue);
-            backgroundControl.BigOffsetY = GetOffsetForValue(StepValue);
-            backgroundControl.SmallOffsetY = backgroundControl.BigOffsetY + ValueToHeight(StepValue/2);
-
-            //Set top and bottom zone values from handles
-            topHandle.Value = TopZoneValue;
-            bottomHandle.Value = BottomZoneValue;
-
-            //Update handles Y positions
-            UpdateHandlePosition(topHandle);
-            UpdateHandlePosition(bottomHandle);
-
-            backgroundControl.Refresh();
-        }
-
         public void UpdateHandlePosition(HandleControl handle)
         {
             var point = handle.Location;
@@ -239,7 +218,7 @@
                 Math.Min(bottomHandle.Value, topHandle.Value);
 
             TopZoneValue = topHandle.Value;
-            RefreshBackground();
+            Refresh();
         }
 
         private void bottomHandle_MouseMove(object sender, MouseEventArgs e)
@@ -256,14 +235,30 @@
                 Math.Max(bottomHandle.Value, topHandle.Value);
 
             BottomZoneValue = bottomHandle.Value;
-            RefreshBackground();
+            Refresh();
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
 
-            RefreshBackground();
+            //Update background control properties
+            backgroundControl.TopZoneValueY = ValueToY(TopZoneValue);
+            backgroundControl.BottomZoneValueY = ValueToY(BottomZoneValue);
+            backgroundControl.CurrentValueY = ValueToY(CurrentValue);
+            backgroundControl.StepHeight = ValueToHeight(StepValue);
+            backgroundControl.BigOffsetY = GetOffsetForValue(StepValue);
+            backgroundControl.SmallOffsetY = backgroundControl.BigOffsetY + ValueToHeight(StepValue / 2);
+
+            //Set top and bottom zone values from handles
+            topHandle.Value = TopZoneValue;
+            bottomHandle.Value = BottomZoneValue;
+
+            //Update handles Y positions
+            UpdateHandlePosition(topHandle);
+            UpdateHandlePosition(bottomHandle);
+
+            backgroundControl.Refresh();
         }
 
         [ComRegisterFunction()]
