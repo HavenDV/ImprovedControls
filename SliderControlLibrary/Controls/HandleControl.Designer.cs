@@ -35,13 +35,16 @@ namespace T3000Controls
             // 
             // valueLabel
             // 
-            this.valueLabel.AutoSize = true;
+            this.valueLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.valueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.valueLabel.Location = new System.Drawing.Point(54, 0);
             this.valueLabel.Name = "valueLabel";
-            this.valueLabel.Size = new System.Drawing.Size(39, 13);
+            this.valueLabel.Size = new System.Drawing.Size(39, 16);
             this.valueLabel.TabIndex = 1;
-            this.valueLabel.Text = "Value";
+            this.valueLabel.Text = "Text";
+            this.valueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // HandleControl
             // 
@@ -51,12 +54,11 @@ namespace T3000Controls
             this.Name = "HandleControl";
             this.Size = new System.Drawing.Size(94, 16);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label valueLabel;
+        private TransparentLabel valueLabel;
     }
 }
