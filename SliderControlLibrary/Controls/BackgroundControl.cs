@@ -53,9 +53,13 @@
             ResizeRedraw = true;
         }
 
-        protected override void OnPaint(PaintEventArgs args)
+        protected override void OnPaint(PaintEventArgs e)
         {
-            args.Graphics.Clear(BackColor);
+            base.OnPaint(e);
+
+            var graphics = e.Graphics;
+
+            graphics.Clear(BackColor);
 
             var x1 = 0;
             var x2 = Width - 1;
@@ -64,7 +68,7 @@
                 using (var brush = new SolidBrush(TopZoneColor))
                 {
                     var rect = new RectangleF(x1, 0, x2, TopZoneValueY);
-                    args.Graphics.FillRectangle(brush, rect);
+                    graphics.FillRectangle(brush, rect);
                 }
             }
             if (BottomZone)
@@ -72,7 +76,7 @@
                 using (var brush = new SolidBrush(BottomZoneColor))
                 {
                     var rect = RectangleF.FromLTRB(x1, BottomZoneValueY, x2, Height - 1);
-                    args.Graphics.FillRectangle(brush, rect);
+                    graphics.FillRectangle(brush, rect);
                 }
             }
 
@@ -80,7 +84,7 @@
             {
                 for (var height = SmallOffsetY; height < Height; height += StepHeight)
                 {
-                    args.Graphics.DrawLine(pen, 0.2F * x2, height, 0.8F * x2, height);
+                    graphics.DrawLine(pen, 0.2F * x2, height, 0.8F * x2, height);
                 }
             }
 
@@ -88,14 +92,14 @@
             {
                 for (var height = BigOffsetY; height < Height; height += StepHeight)
                 {
-                    args.Graphics.DrawLine(pen, 0.1F * x2, height, 0.9F * x2, height);
+                    graphics.DrawLine(pen, 0.1F * x2, height, 0.9F * x2, height);
                 }
             }
 
             using (var pen = new Pen(BorderColor))
             {
-                args.Graphics.DrawLine(pen, 0, CurrentValueY, Width - 1, CurrentValueY);
-                args.Graphics.DrawRectangle(pen, x1, 0, x2, Height - 1);
+                graphics.DrawLine(pen, 0, CurrentValueY, Width - 1, CurrentValueY);
+                graphics.DrawRectangle(pen, x1, 0, x2, Height - 1);
             }
         }
     }
