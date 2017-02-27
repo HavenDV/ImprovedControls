@@ -2,39 +2,23 @@
 {
     using System.Windows.Forms;
     using System.Runtime.InteropServices;
+    using System;
 
     public partial class SetPointsControl : UserControl
     {
-        private MouseMover Mover { get; }
-
         public SetPointsControl()
         {
             InitializeComponent();
-            
-            Mover = new MouseMover(this);
+
+            ResizeRedraw = true;
         }
 
-        private void slider1_MouseDown(object sender, MouseEventArgs e)
+        protected override void OnPaint(PaintEventArgs e)
         {
-            Mover.Start(sender, e);
-        }
+            base.OnPaint(e);
 
-        private void slider1_MouseUp(object sender, MouseEventArgs e)
-        {
-            Mover.End();
-        }
-
-        private void slider1_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (!Mover.IsMoved)
-            {
-                return;
-            }
-
-            var point = Mover.GetPoint(e);
-
-            //Save X coordinate from slider
-            point.X = indicator.Location.X;
+            var point = indicator.Location;
+            point.Y = Convert.ToInt32(panel.ValueToY(panel.CurrentValue) - indicator.Height / 2.0F) + panel.Location.Y;
 
             indicator.Location = point;
             indicator.Value = panel.CurrentValue;
