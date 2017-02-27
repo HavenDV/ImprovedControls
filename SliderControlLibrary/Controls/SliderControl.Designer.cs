@@ -28,25 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.middleControl = new T3000Controls.HandleControl();
+            this.middleHandle = new T3000Controls.HandleControl();
             this.bottomHandle = new T3000Controls.HandleControl();
             this.topHandle = new T3000Controls.HandleControl();
             this.backgroundControl = new T3000Controls.BackgroundControl();
             this.SuspendLayout();
             // 
-            // middleControl
+            // middleHandle
             // 
-            this.middleControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.middleHandle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.middleControl.BackColor = System.Drawing.Color.GreenYellow;
-            this.middleControl.BorderColor = System.Drawing.Color.White;
-            this.middleControl.HandleHeight = 10;
-            this.middleControl.HandleWidth = 50;
-            this.middleControl.Location = new System.Drawing.Point(0, 42);
-            this.middleControl.Name = "middleControl";
-            this.middleControl.Size = new System.Drawing.Size(100, 16);
-            this.middleControl.TabIndex = 4;
-            this.middleControl.Value = 50F;
+            this.middleHandle.BackColor = System.Drawing.Color.GreenYellow;
+            this.middleHandle.BorderColor = System.Drawing.Color.White;
+            this.middleHandle.HandleHeight = 10;
+            this.middleHandle.HandleWidth = 50;
+            this.middleHandle.Location = new System.Drawing.Point(0, 42);
+            this.middleHandle.Name = "middleHandle";
+            this.middleHandle.Size = new System.Drawing.Size(100, 16);
+            this.middleHandle.TabIndex = 4;
+            this.middleHandle.Value = 50F;
+            this.middleHandle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.handle_MouseDown);
+            this.middleHandle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.middleHandle_MouseMove);
+            this.middleHandle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.handle_MouseUp);
             // 
             // bottomHandle
             // 
@@ -106,7 +109,7 @@
             // SliderControl
             // 
             this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.middleControl);
+            this.Controls.Add(this.middleHandle);
             this.Controls.Add(this.bottomHandle);
             this.Controls.Add(this.topHandle);
             this.Controls.Add(this.backgroundControl);
@@ -121,6 +124,6 @@
         private HandleControl topHandle;
         private HandleControl bottomHandle;
         private BackgroundControl backgroundControl;
-        private HandleControl middleControl;
+        private HandleControl middleHandle;
     }
 }

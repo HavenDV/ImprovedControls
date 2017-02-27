@@ -129,6 +129,21 @@
             }
         }
 
+        private bool _twoHandleControl = true;
+        [Description("Two handle control"), Category("Appearance")]
+        public bool TwoHandleControl {
+            get { return _twoHandleControl; }
+            set {
+                _twoHandleControl = value;
+                middleHandle.Visible = !value;
+
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
+
         #endregion
 
         private MouseMover Mover { get; }
@@ -238,6 +253,25 @@
             Refresh();
         }
 
+        private void middleHandle_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (TwoHandleControl || !Mover.IsMoved)
+            {
+                return;
+            }
+            var prevValue = middleHandle.Value;
+            handle_MouseMove(sender, e);
+            var delta = middleHandle.Value - prevValue;
+
+            bottomHandle.Value += delta;
+            topHandle.Value += delta;
+
+            TopZoneValue = topHandle.Value;
+            BottomZoneValue = bottomHandle.Value;
+
+            Refresh();
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -257,6 +291,7 @@
             //Update handles Y positions
             UpdateHandlePositionFromValue(topHandle);
             UpdateHandlePositionFromValue(bottomHandle);
+            UpdateHandlePositionFromValue(middleHandle);
 
             backgroundControl.Refresh();
         }

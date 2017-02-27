@@ -47,6 +47,7 @@
             this.panel.TopValue = 100F;
             this.panel.TopZone = true;
             this.panel.TopZoneValue = 66F;
+            this.panel.TwoHandleControl = false;
             // 
             // indicator
             // 
