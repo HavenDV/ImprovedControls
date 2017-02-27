@@ -1,5 +1,6 @@
 ﻿namespace T3000Controls
 {
+    using System;
     using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Drawing2D;
@@ -21,6 +22,34 @@
             }
         }
 
+        private int _handleWidth = 50;
+        [Description("Handle width"), Category("Appearance")]
+        public int HandleWidth {
+            get { return _handleWidth; }
+            set {
+                _handleWidth = value;
+
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
+
+        private int _handleHeight = 10;
+        [Description("Handle height"), Category("Appearance")]
+        public int HandleHeight {
+            get { return _handleHeight; }
+            set {
+                _handleHeight = value;
+
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
+
         private Color _borderColor = Color.White;
         [Description("Color for border"), Category("Appearance")]
         public Color BorderColor
@@ -39,6 +68,11 @@
 
         #endregion
 
+        private Rectangle HandleRectangle { get; set; } = new Rectangle(0,0,0,0);
+        private Rectangle TextRectangle { get; set; } = new Rectangle(0,0,0,0);
+        private GraphicsPath HandlePath { get; set; } = new GraphicsPath();
+        private GraphicsPath TextPath { get; set; } = new GraphicsPath();
+
         public HandleControl()
         {
             InitializeComponent();
@@ -52,46 +86,37 @@
 
             var graphics = e.Graphics;
 
-            var polygonWidth = Height;
-            var smallRadius = 3;
-            var smallWidth = 50;
-            var textRadius = 10;
-            var polygon = new[] {
-                new Point(0, Height / 2),
-                new Point(smallRadius, Height / 2 - smallRadius),
-                new Point(smallWidth, Height / 2 - smallRadius),
-                new Point(smallWidth + textRadius, 0),
-                new Point(Width - textRadius - 1, 0),
-                new Point(Width - 1, Height / 2 - smallRadius),
-                new Point(Width - 1, Height / 2 + smallRadius - 1),
-                new Point(Width - textRadius - 1, Height - 1 - 1),
-                new Point(smallWidth + textRadius, Height - 1 - 1),
-                new Point(smallWidth, Height / 2 + smallRadius - 1),
-                new Point(smallRadius, Height / 2 + smallRadius - 1)
-            };
-
             using (var brush = new SolidBrush(BackColor))
             {
-                graphics.FillPolygon(brush, polygon);
+                graphics.FillPath(brush, HandlePath);
+                graphics.FillPath(brush, TextPath);
             }
-
-            using (var pen = new Pen(BorderColor, 1))
+            using (var pen = new Pen(BorderColor))
             {
-                graphics.DrawPolygon(pen, polygon);
+                pen.StartCap = LineCap.Round;
+                pen.EndCap = LineCap.Round;
+                graphics.DrawPath(pen, HandlePath);
+                graphics.DrawPath(pen, TextPath);
             }
-
-            for (var i = 6; i < polygon.Length; ++i)
+            using (var brush = new SolidBrush(BackColor))
             {
-                polygon[i].Y += 1;
+                var rect = HandleRectangle;
+                rect.Inflate(2, -1);
+                graphics.FillRectangle(brush, rect);
             }
-            for (var i = 4; i < 8; ++i)
-            {
-                polygon[i].X += 1;
-            }
+        }
 
-            var path = new GraphicsPath();
-            path.AddPolygon(polygon);
-            Region = new Region(path);
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+
+            HandleRectangle = new Rectangle(0, Height / 2 - HandleHeight / 2 - 1, HandleWidth, HandleHeight);
+            TextRectangle = new Rectangle(HandleWidth, 0, Width - HandleWidth - 2, Height - 2);
+            HandlePath = GraphicsUtilities.CreateRoundedRectanglePath(HandleRectangle, 4);
+            TextPath = GraphicsUtilities.CreateRoundedRectanglePath(TextRectangle, 8);
+
+            Region = GraphicsUtilities.GetRegionForPath(HandlePath);
+            Region.Union(GraphicsUtilities.GetRegionForPath(TextPath));
         }
     }
 }
