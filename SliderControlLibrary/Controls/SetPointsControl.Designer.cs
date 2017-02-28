@@ -64,18 +64,18 @@
             // panel
             // 
             this.panel.BackColor = System.Drawing.Color.Transparent;
-            this.panel.BottomValue = 0F;
+            this.panel.BottomValue = 34F;
             this.panel.BottomZone = true;
-            this.panel.BottomZoneValue = 33F;
-            this.panel.CurrentValue = 50F;
+            this.panel.BottomZoneValue = 47F;
+            this.panel.CurrentValue = 52F;
             this.panel.Location = new System.Drawing.Point(170, 37);
             this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(116, 279);
+            this.panel.Size = new System.Drawing.Size(127, 279);
             this.panel.StepValue = 10F;
             this.panel.TabIndex = 2;
-            this.panel.TopValue = 100F;
+            this.panel.TopValue = 83F;
             this.panel.TopZone = true;
-            this.panel.TopZoneValue = 66F;
+            this.panel.TopZoneValue = 57F;
             this.panel.TwoHandleControl = false;
             // 
             // indicator

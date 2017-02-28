@@ -25,9 +25,10 @@
 
         public static float ValueToHeight(float value, float topValue, float bottomValue, int height)
         {
-            var y = ValueToY(value, topValue, bottomValue, height);
+            var delta = Math.Abs(topValue - bottomValue);
+            var y = ValueToY(value, 0, delta, height);
 
-            return topValue > bottomValue ? height - y : y;
+            return y;
         }
 
         public static float GetOffsetValueForValue(float value, float topValue, float bottomValue)
