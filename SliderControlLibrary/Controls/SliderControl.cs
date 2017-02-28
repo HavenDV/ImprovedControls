@@ -145,12 +145,12 @@
             }
         }
 
-        private string _handlesText = " F";
+        private string _handlesAdditionalText = " F";
         [Description("Two handle control"), Category("Appearance")]
-        public string HandlesText {
-            get { return _handlesText; }
+        public string HandlesAdditionalText {
+            get { return _handlesAdditionalText; }
             set {
-                _handlesText = value;
+                _handlesAdditionalText = value;
                 topHandle.AdditionalText = value;
                 middleHandle.AdditionalText = value;
                 bottomHandle.AdditionalText = value;

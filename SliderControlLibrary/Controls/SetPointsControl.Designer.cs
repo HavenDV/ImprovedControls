@@ -41,7 +41,7 @@
             this.panel2.BottomZone = true;
             this.panel2.BottomZoneValue = 33F;
             this.panel2.CurrentValue = 50F;
-            this.panel2.HandlesText = " F";
+            this.panel2.HandlesAdditionalText = " F";
             this.panel2.Location = new System.Drawing.Point(350, 37);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(116, 279);
@@ -69,7 +69,7 @@
             this.panel.BottomZone = true;
             this.panel.BottomZoneValue = 47F;
             this.panel.CurrentValue = 52F;
-            this.panel.HandlesText = " C";
+            this.panel.HandlesAdditionalText = " C";
             this.panel.Location = new System.Drawing.Point(170, 37);
             this.panel.Name = "panel";
             this.panel.Size = new System.Drawing.Size(127, 279);
