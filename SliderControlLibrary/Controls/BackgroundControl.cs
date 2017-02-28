@@ -13,13 +13,10 @@
         public Color LinesColor
         {
             get { return _linesColor; }
-            set {
+            set
+            {
                 _linesColor = value;
-
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                Invalidate();
             }
         }
 
@@ -31,11 +28,7 @@
             set
             {
                 _borderColor = value;
-
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                Invalidate();
             }
         }
 
@@ -47,11 +40,7 @@
             set
             {
                 _topZoneColor = value;
-
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                Invalidate();
             }
         }
 
@@ -60,13 +49,10 @@
         public Color BottomZoneColor
         {
             get { return _bottomZoneColor; }
-            set {
+            set
+            {
                 _bottomZoneColor = value;
-
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                Invalidate();
             }
         }
 
@@ -75,13 +61,10 @@
         public Color CurrentValueColor
         {
             get { return _currentValueColor; }
-            set {
+            set
+            {
                 _currentValueColor = value;
-
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                Invalidate();
             }
         }
 
@@ -90,13 +73,10 @@
         public bool TopZone
         {
             get { return _topZone; }
-            set {
+            set
+            {
                 _topZone = value;
-
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                Invalidate();
             }
         }
 
@@ -105,13 +85,10 @@
         public bool BottomZone
         {
             get { return _bottomZone; }
-            set {
+            set
+            {
                 _bottomZone = value;
-
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                Invalidate();
             }
         }
 
@@ -120,13 +97,10 @@
         public float CurrentValueY
         {
             get { return _currentValueY; }
-            set {
+            set
+            {
                 _currentValueY = value;
-
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                Invalidate();
             }
         }
 
@@ -135,13 +109,10 @@
         public float TopZoneValueY
         {
             get { return _topZoneValueY; }
-            set {
+            set
+            {
                 _topZoneValueY = value;
-
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                Invalidate();
             }
         }
 
@@ -150,13 +121,10 @@
         public float BottomZoneValueY
         {
             get { return _bottomZoneValueY; }
-            set {
+            set
+            {
                 _bottomZoneValueY = value;
-
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                Invalidate();
             }
         }
 
@@ -165,13 +133,10 @@
         public float StepHeight
         {
             get { return _stepHeight; }
-            set {
+            set
+            {
                 _stepHeight = value;
-
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                Invalidate();
             }
         }
 
@@ -180,13 +145,10 @@
         public float SmallOffsetY
         {
             get { return _smallOffsetY; }
-            set {
+            set
+            {
                 _smallOffsetY = value;
-
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                Invalidate();
             }
         }
 
@@ -195,13 +157,10 @@
         public float BigOffsetY
         {
             get { return _bigOffsetY; }
-            set {
+            set
+            {
                 _bigOffsetY = value;
-
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                Invalidate();
             }
         }
 

@@ -37,11 +37,15 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Transparent;
+            this.panel2.BorderColor = System.Drawing.Color.Black;
             this.panel2.BottomValue = 0F;
             this.panel2.BottomZone = true;
+            this.panel2.BottomZoneColor = System.Drawing.Color.Red;
             this.panel2.BottomZoneValue = 33F;
             this.panel2.CurrentValue = 50F;
+            this.panel2.CurrentValueColor = System.Drawing.Color.Black;
             this.panel2.HandlesAdditionalText = " F";
+            this.panel2.LinesColorColor = System.Drawing.Color.LightGray;
             this.panel2.Location = new System.Drawing.Point(350, 37);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(116, 279);
@@ -49,6 +53,7 @@
             this.panel2.TabIndex = 4;
             this.panel2.TopValue = 100F;
             this.panel2.TopZone = true;
+            this.panel2.TopZoneColor = System.Drawing.Color.DeepSkyBlue;
             this.panel2.TopZoneValue = 66F;
             this.panel2.TwoHandleControl = false;
             // 
@@ -65,20 +70,25 @@
             // panel
             // 
             this.panel.BackColor = System.Drawing.Color.Transparent;
-            this.panel.BottomValue = 34F;
+            this.panel.BorderColor = System.Drawing.Color.Black;
+            this.panel.BottomValue = -5555F;
             this.panel.BottomZone = true;
-            this.panel.BottomZoneValue = 47F;
+            this.panel.BottomZoneColor = System.Drawing.Color.Red;
+            this.panel.BottomZoneValue = -2222F;
             this.panel.CurrentValue = 52F;
+            this.panel.CurrentValueColor = System.Drawing.Color.Black;
             this.panel.HandlesAdditionalText = " C";
+            this.panel.LinesColorColor = System.Drawing.Color.LightGray;
             this.panel.Location = new System.Drawing.Point(170, 37);
             this.panel.Name = "panel";
             this.panel.Size = new System.Drawing.Size(127, 279);
-            this.panel.StepValue = 10F;
+            this.panel.StepValue = 1000F;
             this.panel.TabIndex = 2;
-            this.panel.TopValue = 83F;
+            this.panel.TopValue = 8300F;
             this.panel.TopZone = true;
-            this.panel.TopZoneValue = 57F;
-            this.panel.TwoHandleControl = false;
+            this.panel.TopZoneColor = System.Drawing.Color.DeepSkyBlue;
+            this.panel.TopZoneValue = 6000F;
+            this.panel.TwoHandleControl = true;
             // 
             // indicator
             // 

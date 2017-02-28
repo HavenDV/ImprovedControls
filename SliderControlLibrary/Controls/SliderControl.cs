@@ -14,18 +14,14 @@
         [Description("Top value"), Category("Data")]
         public float TopValue {
             get { return _topValue; }
-            set {
+            set
+            {
                 _topValue = value;
-
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                Invalidate();
             }
         }
 
         private float _bottomValue = 100;
-
         [Description("Bottom value"), Category("Data")]
         public float BottomValue
         {
@@ -33,11 +29,7 @@
             set
             {
                 _bottomValue = value;
-
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                Invalidate();
             }
         }
 
@@ -45,13 +37,10 @@
         [Description("Current value"), Category("Data")]
         public float CurrentValue {
             get { return _currentValue; }
-            set {
+            set 
+            {
                 _currentValue = value;
-                
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                Invalidate();
             }
         }
 
@@ -62,12 +51,7 @@
             set
             {
                 backgroundControl.TopZone = value;
-                bottomHandle.Visible = value;
-
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                topHandle.Visible = value;
             }
         }
 
@@ -79,11 +63,6 @@
             {
                 backgroundControl.BottomZone = value;
                 bottomHandle.Visible = value;
-
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
             }
         }
 
@@ -91,13 +70,10 @@
         [Description("Top zone value"), Category("Data")]
         public float TopZoneValue {
             get { return _topZoneValue; }
-            set {
+            set
+            {
                 _topZoneValue = value;
-                
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                Invalidate();
             }
         }
 
@@ -108,11 +84,7 @@
             set
             {
                 _bottomZoneValue = value;
-                
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                 Invalidate();
             }
         }
 
@@ -120,13 +92,10 @@
         [Description("Step value"), Category("Data")]
         public float StepValue {
             get { return _stepValue; }
-            set {
+            set
+            {
                 _stepValue = value;
-
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                Invalidate();
             }
         }
 
@@ -134,14 +103,12 @@
         [Description("Two handle control"), Category("Appearance")]
         public bool TwoHandleControl {
             get { return _twoHandleControl; }
-            set {
+            set
+            {
                 _twoHandleControl = value;
                 middleHandle.Visible = !value;
 
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                Invalidate();
             }
         }
 
@@ -155,11 +122,38 @@
                 middleHandle.AdditionalText = value;
                 bottomHandle.AdditionalText = value;
 
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                Invalidate();
             }
+        }
+
+        [Description("Color for lines"), Category("Appearance")]
+        public Color LinesColorColor {
+            get { return backgroundControl.LinesColor; }
+            set { backgroundControl.LinesColor = value; }
+        }
+
+        [Description("Color for borders"), Category("Appearance")]
+        public Color BorderColor {
+            get { return backgroundControl.BorderColor; }
+            set { backgroundControl.BorderColor = value; }
+        }
+
+        [Description("Color for top zone"), Category("Appearance")]
+        public Color TopZoneColor {
+            get { return backgroundControl.TopZoneColor; }
+            set { backgroundControl.TopZoneColor = value; }
+        }
+
+        [Description("Color for bottom zone"), Category("Appearance")]
+        public Color BottomZoneColor {
+            get { return backgroundControl.BottomZoneColor; }
+            set { backgroundControl.BottomZoneColor = value; }
+        }
+
+        [Description("Color for current value"), Category("Appearance")]
+        public Color CurrentValueColor {
+            get { return backgroundControl.CurrentValueColor; }
+            set { backgroundControl.CurrentValueColor = value; }
         }
 
         #endregion
@@ -314,10 +308,13 @@
 
             backgroundControl.Refresh();
 
-            var point = new PointF(backgroundControl.Right, backgroundControl.Top);
-            e.Graphics.DrawString(TopValue.ToString("F1"), DefaultFont, new SolidBrush(Color.Red), point);
-            point.Y = backgroundControl.Bottom - DefaultFont.GetHeight(e.Graphics);
-            e.Graphics.DrawString(BottomValue.ToString("F1"), DefaultFont, new SolidBrush(Color.Red), point);
+            using (var brush = new SolidBrush(Color.Red))
+            {
+                var point = new PointF(backgroundControl.Right, backgroundControl.Top);
+                e.Graphics.DrawString(TopValue.ToString("F1"), DefaultFont, brush, point);
+                point.Y = backgroundControl.Bottom - DefaultFont.GetHeight(e.Graphics);
+                e.Graphics.DrawString(BottomValue.ToString("F1"), DefaultFont, brush, point);
+            }
         }
 
         [ComRegisterFunction()]
