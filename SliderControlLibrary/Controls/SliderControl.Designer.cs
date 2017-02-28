@@ -36,11 +36,12 @@
             // 
             // middleHandle
             // 
+            this.middleHandle.AdditionalText = " F";
             this.middleHandle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.middleHandle.BackColor = System.Drawing.Color.GreenYellow;
             this.middleHandle.BorderColor = System.Drawing.Color.White;
-            this.middleHandle.HandleHeight = 10;
+            this.middleHandle.HandleHeight = 8;
             this.middleHandle.HandleWidth = 50;
             this.middleHandle.Location = new System.Drawing.Point(0, 42);
             this.middleHandle.Name = "middleHandle";
@@ -53,11 +54,12 @@
             // 
             // bottomHandle
             // 
+            this.bottomHandle.AdditionalText = " F";
             this.bottomHandle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.bottomHandle.BackColor = System.Drawing.Color.Red;
             this.bottomHandle.BorderColor = System.Drawing.Color.White;
-            this.bottomHandle.HandleHeight = 10;
+            this.bottomHandle.HandleHeight = 8;
             this.bottomHandle.HandleWidth = 50;
             this.bottomHandle.Location = new System.Drawing.Point(0, 58);
             this.bottomHandle.Name = "bottomHandle";
@@ -70,11 +72,12 @@
             // 
             // topHandle
             // 
+            this.topHandle.AdditionalText = " F";
             this.topHandle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.topHandle.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.topHandle.BorderColor = System.Drawing.Color.White;
-            this.topHandle.HandleHeight = 10;
+            this.topHandle.HandleHeight = 8;
             this.topHandle.HandleWidth = 50;
             this.topHandle.Location = new System.Drawing.Point(0, 25);
             this.topHandle.Name = "topHandle";
@@ -93,6 +96,7 @@
             this.backgroundControl.BottomZone = true;
             this.backgroundControl.BottomZoneColor = System.Drawing.Color.Red;
             this.backgroundControl.BottomZoneValueY = 66F;
+            this.backgroundControl.CurrentValueColor = System.Drawing.Color.Black;
             this.backgroundControl.CurrentValueY = 50F;
             this.backgroundControl.Dock = System.Windows.Forms.DockStyle.Left;
             this.backgroundControl.LinesColor = System.Drawing.Color.LightGray;
