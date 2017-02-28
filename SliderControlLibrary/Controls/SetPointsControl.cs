@@ -23,6 +23,13 @@
             indicator.Location = point;
             indicator.Value = panel.CurrentValue;
             indicator.Refresh();
+
+            point = smallIndicator.Location;
+            point.Y = Convert.ToInt32(panel2.ValueToY(panel2.CurrentValue) - smallIndicator.Height / 2.0F) + panel2.Location.Y;
+
+            smallIndicator.Location = point;
+            smallIndicator.Value = panel2.CurrentValue;
+            smallIndicator.Refresh();
         }
 
         [ComRegisterFunction()]
