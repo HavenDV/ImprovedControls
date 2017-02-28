@@ -8,44 +8,202 @@
     {
         #region DesignerProperties
 
+        private Color _linesColor = Color.DarkGray;
         [Description("Color for lines"), Category("Appearance")]
-        public Color LinesColor { get; set; } = Color.DarkGray;
+        public Color LinesColor
+        {
+            get { return _linesColor; }
+            set {
+                _linesColor = value;
 
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
+
+        private Color _borderColor = Color.Black;
         [Description("Color for borders"), Category("Appearance")]
-        public Color BorderColor { get; set; } = Color.Black;
+        public Color BorderColor
+        {
+            get { return _borderColor; }
+            set
+            {
+                _borderColor = value;
 
-        [Description("Color for cooling"), Category("Appearance")]
-        public Color TopZoneColor { get; set; } = Color.DeepSkyBlue;
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
 
-        [Description("Color for heating"), Category("Appearance")]
-        public Color BottomZoneColor { get; set; } = Color.Red;
+        private Color _topZoneColor = Color.DeepSkyBlue;
+        [Description("Color for top zone"), Category("Appearance")]
+        public Color TopZoneColor
+        {
+            get { return _topZoneColor; }
+            set
+            {
+                _topZoneColor = value;
 
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
+
+        private Color _bottomZoneColor = Color.Red;
+        [Description("Color for bottom zone"), Category("Appearance")]
+        public Color BottomZoneColor
+        {
+            get { return _bottomZoneColor; }
+            set {
+                _bottomZoneColor = value;
+
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
+
+        private Color _currentValueColor = Color.Black;
         [Description("Color for current value"), Category("Appearance")]
-        public Color CurrentValueColor { get; set; } = Color.Black;
+        public Color CurrentValueColor
+        {
+            get { return _currentValueColor; }
+            set {
+                _currentValueColor = value;
 
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
+
+        private bool _topZone = true;
         [Description("Top zone"), Category("Data")]
-        public bool TopZone { get; set; } = true;
+        public bool TopZone
+        {
+            get { return _topZone; }
+            set {
+                _topZone = value;
 
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
+
+        private bool _bottomZone = true;
         [Description("Bottom zone"), Category("Data")]
-        public bool BottomZone { get; set; } = true;
+        public bool BottomZone
+        {
+            get { return _bottomZone; }
+            set {
+                _bottomZone = value;
 
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
+
+        private float _currentValueY = 50;
         [Description("Current value Y"), Category("Data")]
-        public float CurrentValueY { get; set; } = 50;
+        public float CurrentValueY
+        {
+            get { return _currentValueY; }
+            set {
+                _currentValueY = value;
 
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
+
+        private float _topZoneValueY = 33;
         [Description("Top zone value Y"), Category("Data")]
-        public float TopZoneValueY { get; set; } = 66;
+        public float TopZoneValueY
+        {
+            get { return _topZoneValueY; }
+            set {
+                _topZoneValueY = value;
 
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
+
+        private float _bottomZoneValueY = 66;
         [Description("Bottom zone value Y"), Category("Data")]
-        public float BottomZoneValueY { get; set; } = 33;
+        public float BottomZoneValueY
+        {
+            get { return _bottomZoneValueY; }
+            set {
+                _bottomZoneValueY = value;
 
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
+
+        private float _stepHeight = 10;
         [Description("Step height"), Category("Data")]
-        public float StepHeight { get; set; } = 10;
+        public float StepHeight
+        {
+            get { return _stepHeight; }
+            set {
+                _stepHeight = value;
 
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
+
+        private float _smallOffsetY = 5;
         [Description("Small offset Y"), Category("Data")]
-        public float SmallOffsetY { get; set; } = 5;
+        public float SmallOffsetY
+        {
+            get { return _smallOffsetY; }
+            set {
+                _smallOffsetY = value;
 
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
+
+        private float _bigOffsetY = 10;
         [Description("Big offset Y"), Category("Data")]
-        public float BigOffsetY { get; set; } = 10;
+        public float BigOffsetY
+        {
+            get { return _bigOffsetY; }
+            set {
+                _bigOffsetY = value;
+
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
 
         #endregion
 
