@@ -26,13 +26,10 @@
         [Description("Additional text for value"), Category("Appearance")]
         public string AdditionalText {
             get { return _additionalText; }
-            set {
+            set 
+            {
                 _additionalText = value;
-
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                Invalidate();
             }
         }
 
@@ -40,13 +37,10 @@
         [Description("Handle width"), Category("Appearance")]
         public int HandleWidth {
             get { return _handleWidth; }
-            set {
+            set
+            {
                 _handleWidth = value;
-
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                Invalidate();
             }
         }
 
@@ -54,13 +48,10 @@
         [Description("Handle height"), Category("Appearance")]
         public int HandleHeight {
             get { return _handleHeight; }
-            set {
+            set
+            {
                 _handleHeight = value;
-
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                Invalidate();
             }
         }
 
@@ -72,11 +63,7 @@
             set
             {
                 _borderColor = value;
-
-                if (DesignMode)
-                {
-                    Invalidate();
-                }
+                Invalidate();
             }
         }
 

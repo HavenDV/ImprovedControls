@@ -156,6 +156,33 @@
             set { backgroundControl.CurrentValueColor = value; }
         }
 
+        [Description("Width for background panel"), Category("Appearance")]
+        public int BackgroundWidth {
+            get { return backgroundControl.Width; }
+            set
+            {
+                backgroundControl.Width = value;
+                topHandle.HandleWidth = value;
+                middleHandle.HandleWidth = value;
+                bottomHandle.HandleWidth = value;
+
+                Invalidate();
+            }
+        }
+
+        [Description("Height for handles"), Category("Appearance")]
+        public int HandlesHeight {
+            get { return topHandle.HandleHeight; }
+            set
+            {
+                topHandle.HandleHeight = value;
+                middleHandle.HandleHeight = value;
+                bottomHandle.HandleHeight = value;
+
+                Invalidate();
+            }
+        }
+
         #endregion
 
         private MouseMover Mover { get; }

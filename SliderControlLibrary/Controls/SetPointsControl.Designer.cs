@@ -37,6 +37,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Transparent;
+            this.panel2.BackgroundWidth = 49;
             this.panel2.BorderColor = System.Drawing.Color.Black;
             this.panel2.BottomValue = 0F;
             this.panel2.BottomZone = true;
@@ -45,6 +46,7 @@
             this.panel2.CurrentValue = 50F;
             this.panel2.CurrentValueColor = System.Drawing.Color.Black;
             this.panel2.HandlesAdditionalText = " F";
+            this.panel2.HandlesHeight = 8;
             this.panel2.LinesColorColor = System.Drawing.Color.LightGray;
             this.panel2.Location = new System.Drawing.Point(350, 37);
             this.panel2.Name = "panel2";
@@ -70,6 +72,7 @@
             // panel
             // 
             this.panel.BackColor = System.Drawing.Color.Transparent;
+            this.panel.BackgroundWidth = 20;
             this.panel.BorderColor = System.Drawing.Color.Black;
             this.panel.BottomValue = -5555F;
             this.panel.BottomZone = true;
@@ -78,6 +81,7 @@
             this.panel.CurrentValue = 52F;
             this.panel.CurrentValueColor = System.Drawing.Color.Black;
             this.panel.HandlesAdditionalText = " C";
+            this.panel.HandlesHeight = 8;
             this.panel.LinesColorColor = System.Drawing.Color.LightGray;
             this.panel.Location = new System.Drawing.Point(170, 37);
             this.panel.Name = "panel";
