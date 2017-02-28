@@ -53,36 +53,28 @@
         {
             base.OnPaint(e);
 
-            var polygonWidth = Height;
-            var polygon = new[] {
+            var graphics = e.Graphics;
+
+            var path = new GraphicsPath();
+            path.AddPolygon(new[] {
                 new Point(0, 0),
-                new Point(Width - polygonWidth, 0),
+                new Point(Width - Height, 0),
                 new Point(Width, Height / 2),
-                new Point(Width - polygonWidth, Height - 1),
+                new Point(Width - Height, Height - 1),
                 new Point(0, Height - 1),
-            };
+            });
+
             using (var brush = new SolidBrush(BackColor))
             {
-                e.Graphics.FillPolygon(brush, polygon);
+                graphics.FillPath(brush, path);
             }
 
             using (var pen = new Pen(BorderColor, 1))
             {
-                e.Graphics.DrawPolygon(pen, polygon);
+                graphics.DrawPath(pen, path);
             }
 
-            for (var i = 2; i < polygon.Length; ++i)
-            {
-                polygon[i].Y += 1;
-            }
-            for (var i = 1; i < 4; ++i)
-            {
-                polygon[i].X += 1;
-            }
-
-            var path = new GraphicsPath();
-            path.AddPolygon(polygon);
-            Region = new Region(path);
+            Region = GraphicsUtilities.GetRegionForPath(path);
         }
     }
 }

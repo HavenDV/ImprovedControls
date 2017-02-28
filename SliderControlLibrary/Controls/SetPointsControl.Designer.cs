@@ -85,7 +85,7 @@
             this.indicator.IndicatorText = "Temp";
             this.indicator.Location = new System.Drawing.Point(3, 149);
             this.indicator.Name = "indicator";
-            this.indicator.Size = new System.Drawing.Size(169, 55);
+            this.indicator.Size = new System.Drawing.Size(168, 55);
             this.indicator.TabIndex = 1;
             this.indicator.Value = 50F;
             // 
