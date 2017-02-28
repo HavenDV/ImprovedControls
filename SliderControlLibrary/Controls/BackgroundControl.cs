@@ -20,6 +20,9 @@
         [Description("Color for heating"), Category("Appearance")]
         public Color BottomZoneColor { get; set; } = Color.Red;
 
+        [Description("Color for current value"), Category("Appearance")]
+        public Color CurrentValueColor { get; set; } = Color.Black;
+
         [Description("Top zone"), Category("Data")]
         public bool TopZone { get; set; } = true;
 
@@ -98,8 +101,12 @@
 
             using (var pen = new Pen(BorderColor))
             {
-                graphics.DrawLine(pen, 0, CurrentValueY, Width - 1, CurrentValueY);
                 graphics.DrawRectangle(pen, x1, 0, x2, Height - 1);
+            }
+
+            using (var pen = new Pen(CurrentValueColor))
+            {
+                graphics.DrawLine(pen, 0, CurrentValueY, Width - 1, CurrentValueY);
             }
         }
     }
