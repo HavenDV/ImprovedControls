@@ -4,6 +4,7 @@
     using System.ComponentModel;
     using System.Windows.Forms;
     using System.Runtime.InteropServices;
+    using System.Drawing;
 
     public partial class SliderControl : UserControl
     {
@@ -294,6 +295,11 @@
             UpdateHandlePositionFromValue(middleHandle);
 
             backgroundControl.Refresh();
+
+            var point = new PointF(backgroundControl.Right, backgroundControl.Top);
+            e.Graphics.DrawString(TopValue.ToString("F1"), DefaultFont, new SolidBrush(Color.Red), point);
+            point.Y = backgroundControl.Bottom - DefaultFont.GetHeight(e.Graphics);
+            e.Graphics.DrawString(BottomValue.ToString("F1"), DefaultFont, new SolidBrush(Color.Red), point);
         }
 
         [ComRegisterFunction()]
