@@ -288,6 +288,7 @@
             //Set top and bottom zone values from handles
             topHandle.Value = TopZoneValue;
             bottomHandle.Value = BottomZoneValue;
+            middleHandle.Value = (TopZoneValue + BottomZoneValue)/2;
 
             //Update handles Y positions
             UpdateHandlePositionFromValue(topHandle);
