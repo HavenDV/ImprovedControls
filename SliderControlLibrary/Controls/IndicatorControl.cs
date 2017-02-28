@@ -57,11 +57,11 @@
 
             var path = new GraphicsPath();
             path.AddPolygon(new[] {
-                new Point(0, 0),
-                new Point(Width - Height, 0),
-                new Point(Width, Height / 2),
-                new Point(Width - Height, Height - 1),
-                new Point(0, Height - 1),
+                new PointF(0, 0),
+                new PointF(Width - Height, 0),
+                new PointF(Width - 1, Height / 2.0F),
+                new PointF(Width - Height, Height - 1),
+                new PointF(0, Height - 1),
             });
 
             using (var brush = new SolidBrush(BackColor))
