@@ -9,42 +9,7 @@
 #define new DEBUG_NEW
 #endif
 
-
-// CAboutDlg dialog used for App About
-
-class CAboutDlg : public CDialog
-{
-public:
-	CAboutDlg();
-
-// Dialog Data
-	enum { IDD = IDD_ABOUTBOX };
-
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
-
-// Implementation
-protected:
-	DECLARE_MESSAGE_MAP()
-};
-
-CAboutDlg::CAboutDlg() : CDialog(CAboutDlg::IDD)
-{
-}
-
-void CAboutDlg::DoDataExchange(CDataExchange* pDX)
-{
-	CDialog::DoDataExchange(pDX);
-}
-
-BEGIN_MESSAGE_MAP(CAboutDlg, CDialog)
-END_MESSAGE_MAP()
-
-
 // CDialogFormsDlg dialog
-
-
-
 
 CDialogFormsDlg::CDialogFormsDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CDialogFormsDlg::IDD, pParent)
@@ -98,19 +63,6 @@ BOOL CDialogFormsDlg::OnInitDialog()
 	//m_MaskedEdit->MaskInputRejected +=
 	//	MAKE_DELEGATE( System::Windows::Forms::MaskInputRejectedEventHandler, OnMaskInputRejected) ;
 	return TRUE;  
-}
-
-void CDialogFormsDlg::OnSysCommand(UINT nID, LPARAM lParam)
-{
-	if ((nID & 0xFFF0) == IDM_ABOUTBOX)
-	{
-		CAboutDlg dlgAbout;
-		dlgAbout.DoModal();
-	}
-	else
-	{
-		CDialog::OnSysCommand(nID, lParam);
-	}
 }
 
 // If you add a minimize button to your dialog, you will need the code below
