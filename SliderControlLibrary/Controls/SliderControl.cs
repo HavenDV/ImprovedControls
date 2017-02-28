@@ -145,6 +145,23 @@
             }
         }
 
+        private string _handlesText = " F";
+        [Description("Two handle control"), Category("Appearance")]
+        public string HandlesText {
+            get { return _handlesText; }
+            set {
+                _handlesText = value;
+                topHandle.AdditionalText = value;
+                middleHandle.AdditionalText = value;
+                bottomHandle.AdditionalText = value;
+
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
+            }
+        }
+
         #endregion
 
         private MouseMover Mover { get; }

@@ -18,7 +18,21 @@
             set
             {
                 _value = value;
-                valueLabel.Text = $"{_value.ToString("F1")} F";
+                valueLabel.Text = $"{_value.ToString("F1")}{AdditionalText}";
+            }
+        }
+
+        private string _additionalText = " F";
+        [Description("Additional text for value"), Category("Appearance")]
+        public string AdditionalText {
+            get { return _additionalText; }
+            set {
+                _additionalText = value;
+
+                if (DesignMode)
+                {
+                    Invalidate();
+                }
             }
         }
 
