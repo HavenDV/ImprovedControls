@@ -12,4 +12,4 @@ before_build:
 build:
   project: .\T3000Controls.sln
 test_script:
-  - nunit3-console.exe ".\SliderControlLibrary.Tests\bin\$env:CONFIGURATION\SliderControlLibrary.Tests.dll"
+  - nunit3-console.exe ./SliderControlLibrary.Tests/bin/Release/SliderControlLibrary.Tests.dll
