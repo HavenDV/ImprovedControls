@@ -1,4 +1,4 @@
-version: 1.0.{build}
+version: {build}
 skip_tags: true
 configuration: Release
 assembly_info:
@@ -7,20 +7,9 @@ assembly_info:
   assembly_version: '{version}'
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
-environment:
-  COVERALLS_REPO_TOKEN:
-    secure: KpiTfIbQk+PcMCpKW3yXLfzskVq/Lcx96nN6e0cnnRMahxZWU4BOt80zgUxV7E7i
 before_build:
   - nuget restore ".\T3000Controls.sln"
 build:
   project: .\T3000Controls.sln
-  verbosity: minimal
 test_script:
-- ps: >-
-    .\packages\OpenCover.*\tools\OpenCover.Console.exe -register:user -target:nunit3-console.exe "-targetargs:"".\SliderControlLibrary.Tests\bin\$env:CONFIGURATION\SliderControlLibrary.Tests.dll" -output:opencoverCoverage.xml
-
-    $coveralls = (Resolve-Path "./packages/coveralls.net.*/tools/csmacnz.coveralls.exe").ToString()
-    
-    $env:APPVEYOR_BUILD_NUMBER
-    
-    & $coveralls --opencover -i opencoverCoverage.xml --repoToken $env:COVERALLS_REPO_TOKEN --useRelativePaths --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_BUILD_NUMBER --serviceName appveyor
+  - nunit3-console.exe ".\SliderControlLibrary.Tests\bin\$env:CONFIGURATION\SliderControlLibrary.Tests.dll"
