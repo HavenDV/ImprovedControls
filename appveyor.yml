@@ -11,7 +11,7 @@ environment:
   COVERALLS_REPO_TOKEN:
     secure: KpiTfIbQk+PcMCpKW3yXLfzskVq/Lcx96nN6e0cnnRMahxZWU4BOt80zgUxV7E7i
 before_build:
-  - nuget restore ".\.sln"
+  - nuget restore ".\T3000Controls.sln"
 build:
   project: .\T3000Controls.sln
   verbosity: minimal
