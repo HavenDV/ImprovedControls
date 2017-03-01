@@ -141,13 +141,21 @@
         [Description("Color for top zone"), Category("Appearance")]
         public Color TopZoneColor {
             get { return backgroundControl.TopZoneColor; }
-            set { backgroundControl.TopZoneColor = value; }
+            set
+            {
+                backgroundControl.TopZoneColor = value;
+                topHandle.BackColor = value;
+            }
         }
 
         [Description("Color for bottom zone"), Category("Appearance")]
         public Color BottomZoneColor {
             get { return backgroundControl.BottomZoneColor; }
-            set { backgroundControl.BottomZoneColor = value; }
+            set
+            {
+                backgroundControl.BottomZoneColor = value;
+                bottomHandle.BackColor = value;
+            }
         }
 
         [Description("Color for current value"), Category("Appearance")]
@@ -181,6 +189,23 @@
 
                 Invalidate();
             }
+        }
+
+        [Description("Color for handles border"), Category("Appearance")]
+        public Color HandlesBorderColor {
+            get { return topHandle.BorderColor; }
+            set
+            {
+                topHandle.BorderColor = value;
+                middleHandle.BorderColor = value;
+                bottomHandle.BorderColor = value;
+            }
+        }
+
+        [Description("Color for handles border"), Category("Appearance")]
+        public Color MiddleHandleColor {
+            get { return middleHandle.BackColor; }
+            set { middleHandle.BackColor = value; }
         }
 
         #endregion

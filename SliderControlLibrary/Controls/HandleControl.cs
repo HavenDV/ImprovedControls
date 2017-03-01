@@ -80,6 +80,9 @@
         {
             base.OnPaint(e);
 
+            valueLabel.Location = new Point(HandleWidth, 1);
+            valueLabel.Size = new Size(Width - HandleWidth, Height - 3);
+
             var handleRectangle = new Rectangle(0, Height / 2 - HandleHeight / 2 - 1, HandleWidth, HandleHeight);
             var textRectangle = new Rectangle(HandleWidth, 0, Width - HandleWidth - 2, Height - 2);
             var handlePath = GraphicsUtilities.CreateRoundedRectanglePath(handleRectangle, 4);

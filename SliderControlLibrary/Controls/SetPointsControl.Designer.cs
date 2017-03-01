@@ -46,9 +46,11 @@
             this.panel2.CurrentValue = 50F;
             this.panel2.CurrentValueColor = System.Drawing.Color.Black;
             this.panel2.HandlesAdditionalText = " F";
+            this.panel2.HandlesBorderColor = System.Drawing.Color.White;
             this.panel2.HandlesHeight = 8;
             this.panel2.LinesColorColor = System.Drawing.Color.LightGray;
             this.panel2.Location = new System.Drawing.Point(350, 37);
+            this.panel2.MiddleHandleColor = System.Drawing.Color.GreenYellow;
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(116, 279);
             this.panel2.StepValue = 10F;
@@ -81,18 +83,20 @@
             this.panel.CurrentValue = 52F;
             this.panel.CurrentValueColor = System.Drawing.Color.Black;
             this.panel.HandlesAdditionalText = " C";
+            this.panel.HandlesBorderColor = System.Drawing.Color.White;
             this.panel.HandlesHeight = 8;
             this.panel.LinesColorColor = System.Drawing.Color.LightGray;
             this.panel.Location = new System.Drawing.Point(170, 37);
+            this.panel.MiddleHandleColor = System.Drawing.Color.Yellow;
             this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(127, 279);
+            this.panel.Size = new System.Drawing.Size(100, 300);
             this.panel.StepValue = 1000F;
             this.panel.TabIndex = 2;
             this.panel.TopValue = 8300F;
             this.panel.TopZone = true;
             this.panel.TopZoneColor = System.Drawing.Color.DeepSkyBlue;
             this.panel.TopZoneValue = 6000F;
-            this.panel.TwoHandleControl = true;
+            this.panel.TwoHandleControl = false;
             // 
             // indicator
             // 
