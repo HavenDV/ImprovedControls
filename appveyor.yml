@@ -17,7 +17,7 @@ build:
   verbosity: minimal
 test_script:
 - ps: >-
-    .\packages\OpenCover.*\tools\OpenCover.Console.exe -register:user -target:nunit3-console.exe "-targetargs:"".\SliderControlLibrary.Tests\bin\$env:CONFIGURATION\SliderControlLibrary.Tests.dll"" /noshadow" -filter:"+[SliderControlLibrary*]*" -output:opencoverCoverage.xml
+    .\packages\OpenCover.*\tools\OpenCover.Console.exe -register:user -target:nunit3-console.exe "-targetargs:"".\SliderControlLibrary.Tests\bin\$env:CONFIGURATION\SliderControlLibrary.Tests.dll" -filter:"+[SliderControlLibrary*]*" -output:opencoverCoverage.xml
 
     $coveralls = (Resolve-Path "./packages/coveralls.net.*/tools/csmacnz.coveralls.exe").ToString()
     
