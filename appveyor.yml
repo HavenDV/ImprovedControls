@@ -17,9 +17,9 @@ build:
   verbosity: minimal
 test_script:
 - ps: >-
-    .\src\packages\OpenCover.*\tools\OpenCover.Console.exe -register:user -target:nunit-console.exe "-targetargs:""src\SliderControlLibrary.Tests\bin\$env:CONFIGURATION\SliderControlLibrary.Tests.dll"" /noshadow" -filter:"+[SliderControlLibrary*]*" -output:opencoverCoverage.xml
+    .\packages\OpenCover.*\tools\OpenCover.Console.exe -register:user -target:nunit-console.exe "-targetargs:"".\SliderControlLibrary.Tests\bin\$env:CONFIGURATION\SliderControlLibrary.Tests.dll"" /noshadow" -filter:"+[SliderControlLibrary*]*" -output:opencoverCoverage.xml
 
-    $coveralls = (Resolve-Path "src/packages/coveralls.net.*/tools/csmacnz.coveralls.exe").ToString()
+    $coveralls = (Resolve-Path "./packages/coveralls.net.*/tools/csmacnz.coveralls.exe").ToString()
     
     $env:APPVEYOR_BUILD_NUMBER
     
