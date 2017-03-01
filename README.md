@@ -5,7 +5,9 @@ Branches
 
 master (stable)
 ---------------
-[![Build Status](https://api.travis-ci.org/HavenDV/ImprovedControls.svg?branch=master)](https://travis-ci.org/HavenDV/ImprovedControls)
+Travic CI(Mono) | AppVeyor
+--------------- | -------------
+[![Build Status](https://api.travis-ci.org/HavenDV/ImprovedControls.svg?branch=master)](https://travis-ci.org/HavenDV/ImprovedControls) | [![Build status](https://ci.appveyor.com/api/projects/status/github/HavenDV/ImprovedControls?branch=master&svg=true)](https://ci.appveyor.com/project/HavenDV/ImprovedControls/branch/master)
 
 # Requirements
 + msvc14+/mono4.6.2+
