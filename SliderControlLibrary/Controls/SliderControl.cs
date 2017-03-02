@@ -292,6 +292,15 @@
 
         #endregion
 
+        [Browsable(false)]
+        public bool IsInverse => TopValue > BottomValue;
+
+        [Browsable(false)]
+        public bool InTopZone => IsInverse ? CurrentValue >= TopZoneValue : CurrentValue <= TopZoneValue;
+
+        [Browsable(false)]
+        public bool InBottomZone => IsInverse ? CurrentValue <= BottomZoneValue : CurrentValue >= BottomZoneValue;
+
         private MouseMover Mover { get; }
 
         public SliderControl()
