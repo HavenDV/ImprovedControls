@@ -24,7 +24,8 @@
 
         private string _additionalText = " F";
         [Description("Additional text for value"), Category("Appearance")]
-        public string AdditionalText {
+        public string AdditionalText
+        {
             get { return _additionalText; }
             set 
             {
@@ -35,7 +36,8 @@
 
         private int _handleWidth = 50;
         [Description("Handle width"), Category("Appearance")]
-        public int HandleWidth {
+        public int HandleWidth
+        {
             get { return _handleWidth; }
             set
             {
@@ -46,7 +48,8 @@
 
         private int _handleHeight = 10;
         [Description("Handle height"), Category("Appearance")]
-        public int HandleHeight {
+        public int HandleHeight
+        {
             get { return _handleHeight; }
             set
             {
