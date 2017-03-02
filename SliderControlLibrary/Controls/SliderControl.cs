@@ -43,8 +43,6 @@
             {
                 _currentValue = value;
                 indicator.Value = value;
-                indicator.Location = new Point(0,
-                    Convert.ToInt32(ValueToY(value) - indicator.Height / 2.0F));
 
                 Invalidate();
             }
@@ -262,9 +260,6 @@
                 topHandle.Width = handleWidth;
                 middleHandle.Width = handleWidth;
                 bottomHandle.Width = handleWidth;
-
-                //Update indicator control Y
-                CurrentValue = CurrentValue;
             }
         }
 
@@ -427,6 +422,9 @@
         {
             base.OnPaint(e);
 
+            //Update indicator control properties
+            indicator.Location = new Point(0, 
+                Convert.ToInt32(ValueToY(CurrentValue) - indicator.Height / 2.0F));
             
             //Update background control properties
             backgroundControl.TopZoneValueY = ValueToY(TopZoneValue);
