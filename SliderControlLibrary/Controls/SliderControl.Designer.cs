@@ -28,11 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.indicator = new T3000Controls.IndicatorControl();
             this.middleHandle = new T3000Controls.HandleControl();
             this.bottomHandle = new T3000Controls.HandleControl();
             this.topHandle = new T3000Controls.HandleControl();
             this.backgroundControl = new T3000Controls.BackgroundControl();
             this.SuspendLayout();
+            // 
+            // indicator
+            // 
+            this.indicator.BackColor = System.Drawing.Color.GreenYellow;
+            this.indicator.BorderColor = System.Drawing.Color.Black;
+            this.indicator.IndicatorText = "";
+            this.indicator.IsSimple = true;
+            this.indicator.Location = new System.Drawing.Point(0, 40);
+            this.indicator.Name = "indicator";
+            this.indicator.Size = new System.Drawing.Size(20, 20);
+            this.indicator.TabIndex = 5;
+            this.indicator.Value = 50F;
             // 
             // middleHandle
             // 
@@ -43,7 +56,7 @@
             this.middleHandle.BorderColor = System.Drawing.Color.White;
             this.middleHandle.HandleHeight = 8;
             this.middleHandle.HandleWidth = 50;
-            this.middleHandle.Location = new System.Drawing.Point(0, 42);
+            this.middleHandle.Location = new System.Drawing.Point(20, 42);
             this.middleHandle.Name = "middleHandle";
             this.middleHandle.Size = new System.Drawing.Size(100, 16);
             this.middleHandle.TabIndex = 4;
@@ -61,7 +74,7 @@
             this.bottomHandle.BorderColor = System.Drawing.Color.White;
             this.bottomHandle.HandleHeight = 8;
             this.bottomHandle.HandleWidth = 50;
-            this.bottomHandle.Location = new System.Drawing.Point(0, 58);
+            this.bottomHandle.Location = new System.Drawing.Point(20, 58);
             this.bottomHandle.Name = "bottomHandle";
             this.bottomHandle.Size = new System.Drawing.Size(100, 16);
             this.bottomHandle.TabIndex = 1;
@@ -79,7 +92,7 @@
             this.topHandle.BorderColor = System.Drawing.Color.White;
             this.topHandle.HandleHeight = 8;
             this.topHandle.HandleWidth = 50;
-            this.topHandle.Location = new System.Drawing.Point(0, 25);
+            this.topHandle.Location = new System.Drawing.Point(20, 25);
             this.topHandle.Name = "topHandle";
             this.topHandle.Size = new System.Drawing.Size(100, 16);
             this.topHandle.TabIndex = 3;
@@ -90,6 +103,8 @@
             // 
             // backgroundControl
             // 
+            this.backgroundControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.backgroundControl.BackColor = System.Drawing.Color.GreenYellow;
             this.backgroundControl.BigOffsetY = 10F;
             this.backgroundControl.BorderColor = System.Drawing.Color.Black;
@@ -98,11 +113,10 @@
             this.backgroundControl.BottomZoneValueY = 66F;
             this.backgroundControl.CurrentValueColor = System.Drawing.Color.Black;
             this.backgroundControl.CurrentValueY = 50F;
-            this.backgroundControl.Dock = System.Windows.Forms.DockStyle.Left;
             this.backgroundControl.LinesColor = System.Drawing.Color.LightGray;
-            this.backgroundControl.Location = new System.Drawing.Point(0, 0);
+            this.backgroundControl.Location = new System.Drawing.Point(20, 0);
             this.backgroundControl.Name = "backgroundControl";
-            this.backgroundControl.Size = new System.Drawing.Size(49, 100);
+            this.backgroundControl.Size = new System.Drawing.Size(50, 100);
             this.backgroundControl.SmallOffsetY = 5F;
             this.backgroundControl.StepHeight = 10F;
             this.backgroundControl.TabIndex = 2;
@@ -113,12 +127,13 @@
             // SliderControl
             // 
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.indicator);
             this.Controls.Add(this.middleHandle);
             this.Controls.Add(this.bottomHandle);
             this.Controls.Add(this.topHandle);
             this.Controls.Add(this.backgroundControl);
             this.Name = "SliderControl";
-            this.Size = new System.Drawing.Size(100, 100);
+            this.Size = new System.Drawing.Size(120, 100);
             this.ResumeLayout(false);
 
         }
@@ -129,5 +144,6 @@
         private HandleControl bottomHandle;
         private BackgroundControl backgroundControl;
         private HandleControl middleHandle;
+        private IndicatorControl indicator;
     }
 }

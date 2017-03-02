@@ -11,8 +11,9 @@
         #region DesignerProperties
 
         private float _topValue = 0;
-        [Description("Top value"), Category("Data")]
-        public float TopValue {
+        [Description("Top value"), Category("Slider")]
+        public float TopValue
+        {
             get { return _topValue; }
             set
             {
@@ -22,7 +23,7 @@
         }
 
         private float _bottomValue = 100;
-        [Description("Bottom value"), Category("Data")]
+        [Description("Bottom value"), Category("Slider")]
         public float BottomValue
         {
             get { return _bottomValue; }
@@ -34,17 +35,22 @@
         }
 
         private float _currentValue = 50;
-        [Description("Current value"), Category("Data")]
-        public float CurrentValue {
+        [Description("Current value"), Category("Slider")]
+        public float CurrentValue
+        {
             get { return _currentValue; }
             set 
             {
                 _currentValue = value;
+                indicator.Value = value;
+                indicator.Location = new Point(0,
+                    Convert.ToInt32(ValueToY(value) - indicator.Height / 2.0F));
+
                 Invalidate();
             }
         }
 
-        [Description("Top zone"), Category("Data")]
+        [Description("Top zone"), Category("Slider")]
         public bool TopZone
         {
             get { return backgroundControl.TopZone; }
@@ -55,7 +61,7 @@
             }
         }
 
-        [Description("Bottom zone"), Category("Data")]
+        [Description("Bottom zone"), Category("Slider")]
         public bool BottomZone
         {
             get { return backgroundControl.BottomZone; }
@@ -67,8 +73,9 @@
         }
 
         private float _topZoneValue = 33;
-        [Description("Top zone value"), Category("Data")]
-        public float TopZoneValue {
+        [Description("Top zone value"), Category("Slider")]
+        public float TopZoneValue
+        {
             get { return _topZoneValue; }
             set
             {
@@ -78,8 +85,9 @@
         }
 
         private float _bottomZoneValue = 66;
-        [Description("Bottom zone value"), Category("Data")]
-        public float BottomZoneValue {
+        [Description("Bottom zone value"), Category("Slider")]
+        public float BottomZoneValue
+        {
             get { return _bottomZoneValue; }
             set
             {
@@ -89,8 +97,9 @@
         }
 
         private float _stepValue = 10;
-        [Description("Step value"), Category("Data")]
-        public float StepValue {
+        [Description("Step value"), Category("Slider")]
+        public float StepValue
+        {
             get { return _stepValue; }
             set
             {
@@ -100,8 +109,9 @@
         }
 
         private bool _twoHandleControl = true;
-        [Description("Two handle control"), Category("Appearance")]
-        public bool TwoHandleControl {
+        [Description("Two handle control"), Category("Slider")]
+        public bool TwoHandleControl
+        {
             get { return _twoHandleControl; }
             set
             {
@@ -112,34 +122,40 @@
             }
         }
 
-        private string _handlesAdditionalText = " F";
-        [Description("Two handle control"), Category("Appearance")]
-        public string HandlesAdditionalText {
-            get { return _handlesAdditionalText; }
-            set {
-                _handlesAdditionalText = value;
+        private string _additionalText = " F";
+        [Description("Additional text for handles and for indicator"), Category("Slider")]
+        public string AdditionalText
+        {
+            get { return _additionalText; }
+            set
+            {
+                _additionalText = value;
                 topHandle.AdditionalText = value;
                 middleHandle.AdditionalText = value;
                 bottomHandle.AdditionalText = value;
+                indicator.AdditionalText = value;
 
                 Invalidate();
             }
         }
 
-        [Description("Color for lines"), Category("Appearance")]
-        public Color LinesColorColor {
+        [Description("Color for lines"), Category("Background")]
+        public Color LinesColorColor
+        {
             get { return backgroundControl.LinesColor; }
             set { backgroundControl.LinesColor = value; }
         }
 
-        [Description("Color for borders"), Category("Appearance")]
-        public Color BorderColor {
+        [Description("Color for borders"), Category("Background")]
+        public Color BorderColor
+        {
             get { return backgroundControl.BorderColor; }
             set { backgroundControl.BorderColor = value; }
         }
 
-        [Description("Color for top zone"), Category("Appearance")]
-        public Color TopZoneColor {
+        [Description("Color for top zone"), Category("Background")]
+        public Color TopZoneColor
+        {
             get { return backgroundControl.TopZoneColor; }
             set
             {
@@ -148,8 +164,9 @@
             }
         }
 
-        [Description("Color for bottom zone"), Category("Appearance")]
-        public Color BottomZoneColor {
+        [Description("Color for bottom zone"), Category("Background")]
+        public Color BottomZoneColor
+        {
             get { return backgroundControl.BottomZoneColor; }
             set
             {
@@ -158,14 +175,16 @@
             }
         }
 
-        [Description("Color for current value"), Category("Appearance")]
-        public Color CurrentValueColor {
+        [Description("Color for current value"), Category("Background")]
+        public Color CurrentValueColor
+        {
             get { return backgroundControl.CurrentValueColor; }
             set { backgroundControl.CurrentValueColor = value; }
         }
 
-        [Description("Width for background panel"), Category("Appearance")]
-        public int BackgroundWidth {
+        [Description("Width for background panel"), Category("Background")]
+        public int BackgroundWidth
+        {
             get { return backgroundControl.Width; }
             set
             {
@@ -178,8 +197,9 @@
             }
         }
 
-        [Description("Height for handles"), Category("Appearance")]
-        public int HandlesHeight {
+        [Description("Height for handles"), Category("Handles")]
+        public int HandlesHeight
+        {
             get { return topHandle.HandleHeight; }
             set
             {
@@ -191,8 +211,9 @@
             }
         }
 
-        [Description("Color for handles border"), Category("Appearance")]
-        public Color HandlesBorderColor {
+        [Description("Color for handles border"), Category("Handles")]
+        public Color HandlesBorderColor
+        {
             get { return topHandle.BorderColor; }
             set
             {
@@ -202,10 +223,76 @@
             }
         }
 
-        [Description("Color for handles border"), Category("Appearance")]
-        public Color MiddleHandleColor {
+        [Description("Color for handles border"), Category("Handles")]
+        public Color MiddleHandleColor
+        {
             get { return middleHandle.BackColor; }
             set { middleHandle.BackColor = value; }
+        }
+
+        [Description("Color for indicator"), Category("Indicator")]
+        public Color IndicatorColor
+        {
+            get { return indicator.BackColor; }
+            set { indicator.BackColor = value; }
+        }
+
+        [Description("Color for indicator border"), Category("Indicator")]
+        public Color IndicatorBorderColor
+        {
+            get { return indicator.BorderColor; }
+            set { indicator.BorderColor = value; }
+        }
+
+        [Description("Size for indicator"), Category("Indicator")]
+        public Size IndicatorSize
+        {
+            get { return indicator.Size; }
+            set
+            {
+                indicator.Size = value;
+
+                var x = EnableIndicator ? value.Width : 0;
+                backgroundControl.Left = x;
+                topHandle.Left = x;
+                middleHandle.Left = x;
+                bottomHandle.Left = x;
+
+                var handleWidth = EnableIndicator ? Width - value.Width : Width;
+                topHandle.Width = handleWidth;
+                middleHandle.Width = handleWidth;
+                bottomHandle.Width = handleWidth;
+
+                //Update indicator control Y
+                CurrentValue = CurrentValue;
+            }
+        }
+
+        private bool _enableIndicator = true;
+        [Description("Enable/disable indicator for current value"), Category("Indicator")]
+        public bool EnableIndicator
+        {
+            get { return _enableIndicator; }
+            set
+            {
+                _enableIndicator = value;
+                indicator.Visible = value;
+                //Update positions and widths
+                IndicatorSize = IndicatorSize;
+            }
+        }
+
+        [Description("Indicator is simple"), Category("Indicator")]
+        public bool IsSimpleIndicator
+        {
+            get { return indicator.IsSimple; }
+            set { indicator.IsSimple = value; }
+        }
+
+        [Description("Indicator text"), Category("Indicator")]
+        public string IndicatorText {
+            get { return indicator.IndicatorText; }
+            set { indicator.IndicatorText = value; }
         }
 
         #endregion
@@ -340,6 +427,7 @@
         {
             base.OnPaint(e);
 
+            
             //Update background control properties
             backgroundControl.TopZoneValueY = ValueToY(TopZoneValue);
             backgroundControl.BottomZoneValueY = ValueToY(BottomZoneValue);
