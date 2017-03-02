@@ -3,7 +3,9 @@
     using System.Windows.Forms;
     using System.Runtime.InteropServices;
 
-    public partial class SetPointsControl : UserControl
+    [Guid("A7CFC298-FE4E-4819-B868-2C014BA244DE")]
+    [ClassInterface(ClassInterfaceType.None)]
+    public partial class SetPointsControl : UserControl, ISetPointsControl
     {
         public SetPointsControl()
         {

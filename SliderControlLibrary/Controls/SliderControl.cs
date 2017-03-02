@@ -6,7 +6,9 @@
     using System.Runtime.InteropServices;
     using System.Drawing;
 
-    public partial class SliderControl : UserControl
+    [Guid("ABA068FC-6B49-3031-B74A-1C51A3C8833A")]
+    [ClassInterface(ClassInterfaceType.None)]
+    public partial class SliderControl : UserControl, ISliderControl
     {
         #region DesignerProperties
 
@@ -138,7 +140,7 @@
         }
 
         [Description("Color for lines"), Category("Background")]
-        public Color LinesColorColor
+        public Color LinesColor
         {
             get { return backgroundControl.LinesColor; }
             set { backgroundControl.LinesColor = value; }

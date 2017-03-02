@@ -52,7 +52,7 @@
             this.panel2.IndicatorSize = new System.Drawing.Size(23, 19);
             this.panel2.IndicatorText = "";
             this.panel2.IsSimpleIndicator = true;
-            this.panel2.LinesColorColor = System.Drawing.Color.LightGray;
+            this.panel2.LinesColor = System.Drawing.Color.LightGray;
             this.panel2.Location = new System.Drawing.Point(316, 39);
             this.panel2.MiddleHandleColor = System.Drawing.Color.GreenYellow;
             this.panel2.Name = "panel2";
@@ -85,7 +85,7 @@
             this.panel.IndicatorSize = new System.Drawing.Size(168, 50);
             this.panel.IndicatorText = "Temp";
             this.panel.IsSimpleIndicator = false;
-            this.panel.LinesColorColor = System.Drawing.Color.LightGray;
+            this.panel.LinesColor = System.Drawing.Color.LightGray;
             this.panel.Location = new System.Drawing.Point(15, 19);
             this.panel.MiddleHandleColor = System.Drawing.Color.Yellow;
             this.panel.Name = "panel";
