@@ -1,4 +1,6 @@
-﻿namespace T3000Controls
+﻿using System;
+
+namespace T3000Controls
 {
     using System.Windows.Forms;
     using System.Runtime.InteropServices;
@@ -21,6 +23,13 @@
         private void panel1TwoSliderModeCheckBox_CheckedChanged(object sender, System.EventArgs e)
         {
             panel.TwoSliderMode = panel1TwoSliderModeCheckBox.Checked;
+
+            panel.CurrentValue += new Random().Next() % 1000 - 500;
+        }
+
+        private void panel_CurrentValueChanged(object sender, System.EventArgs e)
+        {
+            panel2.CurrentValue = (e as SliderEventArgs).CurrentValue;
         }
     }
 }

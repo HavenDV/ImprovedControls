@@ -1,5 +1,6 @@
 ﻿namespace T3000Controls
 {
+    using System;
     using System.Drawing;
     using System.Runtime.InteropServices;
 
@@ -32,5 +33,7 @@
         bool EnableIndicator { get; set; }
         bool IsSimpleIndicator { get; set; }
         string IndicatorText { get; set; }
+
+        event EventHandler CurrentValueChanged;
     }
 }

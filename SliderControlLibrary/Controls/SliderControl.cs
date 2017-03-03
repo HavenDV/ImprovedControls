@@ -45,6 +45,7 @@
             {
                 _currentValue = value;
                 indicator.Value = value;
+                OnCurrentValueChanged(new SliderEventArgs(value));
 
                 Invalidate();
             }
@@ -304,6 +305,22 @@
 
         [Browsable(false)]
         public bool InBottomZone => IsInverse ? CurrentValue <= BottomZoneValue : CurrentValue >= BottomZoneValue;
+
+        #endregion
+
+        #region Events
+
+        [Description("Causes if current value is changed"), Category("Slider")]
+        public event EventHandler CurrentValueChanged;
+        protected virtual void OnCurrentValueChanged(EventArgs e)
+        {
+            if (CurrentValueChanged == null)
+            {
+                return;
+            }
+
+            CurrentValueChanged(this, e);
+        }
 
         #endregion
 

@@ -28,10 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.panel1TwoSliderModeCheckBox = new System.Windows.Forms.CheckBox();
             this.panel2 = new T3000Controls.SliderControl();
             this.panel = new T3000Controls.SliderControl();
-            this.panel1TwoSliderModeCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
+            // 
+            // panel1TwoSliderModeCheckBox
+            // 
+            this.panel1TwoSliderModeCheckBox.AutoSize = true;
+            this.panel1TwoSliderModeCheckBox.Location = new System.Drawing.Point(187, 77);
+            this.panel1TwoSliderModeCheckBox.Name = "panel1TwoSliderModeCheckBox";
+            this.panel1TwoSliderModeCheckBox.Size = new System.Drawing.Size(100, 17);
+            this.panel1TwoSliderModeCheckBox.TabIndex = 5;
+            this.panel1TwoSliderModeCheckBox.Text = "TwoSliderMode";
+            this.panel1TwoSliderModeCheckBox.UseVisualStyleBackColor = true;
+            this.panel1TwoSliderModeCheckBox.CheckedChanged += new System.EventHandler(this.panel1TwoSliderModeCheckBox_CheckedChanged);
             // 
             // panel2
             // 
@@ -98,17 +109,7 @@
             this.panel.TopZoneColor = System.Drawing.Color.DeepSkyBlue;
             this.panel.TopZoneValue = 6000F;
             this.panel.TwoSliderMode = false;
-            // 
-            // panel1TwoSliderModeCheckBox
-            // 
-            this.panel1TwoSliderModeCheckBox.AutoSize = true;
-            this.panel1TwoSliderModeCheckBox.Location = new System.Drawing.Point(187, 77);
-            this.panel1TwoSliderModeCheckBox.Name = "panel1TwoSliderModeCheckBox";
-            this.panel1TwoSliderModeCheckBox.Size = new System.Drawing.Size(100, 17);
-            this.panel1TwoSliderModeCheckBox.TabIndex = 5;
-            this.panel1TwoSliderModeCheckBox.Text = "TwoSliderMode";
-            this.panel1TwoSliderModeCheckBox.UseVisualStyleBackColor = true;
-            this.panel1TwoSliderModeCheckBox.CheckedChanged += new System.EventHandler(this.panel1TwoSliderModeCheckBox_CheckedChanged);
+            this.panel.CurrentValueChanged += new System.EventHandler(this.panel_CurrentValueChanged);
             // 
             // SetPointsControl
             // 

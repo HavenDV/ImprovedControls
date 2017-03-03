@@ -47,6 +47,7 @@
     </Compile>
     <Compile Include="Controls\ISetPointsControl.cs" />
     <Compile Include="Controls\ISliderControl.cs" />
+    <Compile Include="Controls\SliderEventArgs.cs" />
     <Compile Include="Utilities\ComUtilities.cs" />
     <Compile Include="Utilities\GraphicsUtilities.cs" />
     <Compile Include="Utilities\MouseMover.cs" />
