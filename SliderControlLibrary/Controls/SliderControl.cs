@@ -108,14 +108,14 @@
             }
         }
 
-        private bool _twoHandleControl = true;
+        private bool _twoSliderMode = true;
         [Description("Two handle control"), Category("Slider")]
-        public bool TwoHandleControl
+        public bool TwoSliderMode
         {
-            get { return _twoHandleControl; }
+            get { return _twoSliderMode; }
             set
             {
-                _twoHandleControl = value;
+                _twoSliderMode = value;
                 middleHandle.Visible = !value;
 
                 Invalidate();
@@ -294,6 +294,8 @@
 
         #endregion
 
+        #region PublicProperties
+
         [Browsable(false)]
         public bool IsInverse => TopValue > BottomValue;
 
@@ -302,6 +304,8 @@
 
         [Browsable(false)]
         public bool InBottomZone => IsInverse ? CurrentValue <= BottomZoneValue : CurrentValue >= BottomZoneValue;
+
+        #endregion
 
         private MouseMover Mover { get; }
 
@@ -328,18 +332,9 @@
             return SliderUtilities.ValueToHeight(value, TopValue, BottomValue, Height);
         }
 
-        public float GetOffsetForValue(float value)
+        private float GetOffsetForValue(float value)
         {
             return SliderUtilities.GetOffsetForValue(value, TopValue, BottomValue, Height);
-        }
-
-        public void UpdateHandlePositionFromValue(HandleControl handle)
-        {
-            var point = handle.Location;
-
-            point.Y = (int)(ValueToY(handle.Value) - handle.Height / 2.0F);
-
-            handle.Location = point;
         }
 
         private void handle_MouseDown(object sender, MouseEventArgs e)
@@ -382,6 +377,11 @@
             {
                 return;
             }
+            if (!TwoSliderMode)
+            {
+                oneSliderMode_MouseMove(sender, e);
+                return;
+            }
             handle_MouseMove(sender, e);
 
             //Restricts value from bottom handle value
@@ -399,6 +399,11 @@
             {
                 return;
             }
+            if (!TwoSliderMode)
+            {
+                oneSliderMode_MouseMove(sender, e);
+                return;
+            }
             handle_MouseMove(sender, e);
 
             //Restricts value from top handle value
@@ -410,18 +415,36 @@
             Refresh();
         }
 
-        private void middleHandle_MouseMove(object sender, MouseEventArgs e)
+        private void oneSliderMode_MouseMove(object sender, MouseEventArgs e)
         {
-            if (TwoHandleControl || !Mover.IsMoved)
+            if (TwoSliderMode || !Mover.IsMoved)
             {
                 return;
             }
-            var prevValue = middleHandle.Value;
-            handle_MouseMove(sender, e);
-            var delta = middleHandle.Value - prevValue;
 
-            bottomHandle.Value += delta;
+            var handle = sender as HandleControl;
+            if (handle == null)
+            {
+                return;
+            }
+
+            var prevValue = handle.Value;
+            handle_MouseMove(sender, e);
+            var delta = handle.Value - prevValue;
+            handle.Value -= delta;
+
+            //Constraints
+            var maxValue = Math.Max(BottomValue, TopValue);
+            var minValue = Math.Min(BottomValue, TopValue);
+            Action<float> restrictsDeltaForValue = (value) =>
+                delta = Math.Max(Math.Min(value + delta, maxValue), minValue) - value;
+            restrictsDeltaForValue(topHandle.Value);
+            restrictsDeltaForValue(middleHandle.Value);
+            restrictsDeltaForValue(bottomHandle.Value);
+            
             topHandle.Value += delta;
+            middleHandle.Value += delta;
+            bottomHandle.Value += delta;
 
             TopZoneValue = topHandle.Value;
             BottomZoneValue = bottomHandle.Value;
@@ -432,10 +455,6 @@
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-
-            //Update indicator control properties
-            indicator.Location = new Point(0, 
-                Convert.ToInt32(ValueToY(CurrentValue) - indicator.Height / 2.0F));
             
             //Update background control properties
             backgroundControl.TopZoneValueY = ValueToY(TopZoneValue);
@@ -450,20 +469,18 @@
             bottomHandle.Value = BottomZoneValue;
             middleHandle.Value = (TopZoneValue + BottomZoneValue)/2;
 
+            Func<float, Control, int> getYForHandleFromValue = (value, control) =>
+                Convert.ToInt32(ValueToY(value) - control.Height / 2.0F);
+
+            //Update indicator control Y position
+            indicator.Top = getYForHandleFromValue(indicator.Value, indicator);
+
             //Update handles Y positions
-            UpdateHandlePositionFromValue(topHandle);
-            UpdateHandlePositionFromValue(bottomHandle);
-            UpdateHandlePositionFromValue(middleHandle);
+            topHandle.Top = getYForHandleFromValue(topHandle.Value, topHandle);
+            bottomHandle.Top = getYForHandleFromValue(bottomHandle.Value, bottomHandle);
+            middleHandle.Top = getYForHandleFromValue(middleHandle.Value, middleHandle);
 
             backgroundControl.Refresh();
-
-            using (var brush = new SolidBrush(Color.Red))
-            {
-                var point = new PointF(backgroundControl.Right, backgroundControl.Top);
-                e.Graphics.DrawString(TopValue.ToString("F1"), DefaultFont, brush, point);
-                point.Y = backgroundControl.Bottom - DefaultFont.GetHeight(e.Graphics);
-                e.Graphics.DrawString(BottomValue.ToString("F1"), DefaultFont, brush, point);
-            }
         }
 
         [ComRegisterFunction()]

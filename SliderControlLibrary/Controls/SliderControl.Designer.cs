@@ -62,7 +62,7 @@
             this.middleHandle.TabIndex = 4;
             this.middleHandle.Value = 50F;
             this.middleHandle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.handle_MouseDown);
-            this.middleHandle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.middleHandle_MouseMove);
+            this.middleHandle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.oneSliderMode_MouseMove);
             this.middleHandle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.handle_MouseUp);
             // 
             // bottomHandle

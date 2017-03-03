@@ -15,7 +15,7 @@
         float TopZoneValue { get; set; }
         float BottomZoneValue { get; set; }
         float StepValue { get; set; }
-        bool TwoHandleControl { get; set; }
+        bool TwoSliderMode { get; set; }
         string AdditionalText { get; set; }
         Color LinesColor { get; set; }
         Color BorderColor { get; set; }

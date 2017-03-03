@@ -17,5 +17,10 @@
 
         [ComUnregisterFunction()]
         public static void UnregisterClass(string key) => ComUtilities.UnregisterControlClass(key);
+
+        private void panel1TwoSliderModeCheckBox_CheckedChanged(object sender, System.EventArgs e)
+        {
+            panel.TwoSliderMode = panel1TwoSliderModeCheckBox.Checked;
+        }
     }
 }
