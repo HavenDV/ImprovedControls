@@ -27,13 +27,11 @@ END_DELEGATE_MAP()
 
 // Implementation
 protected:
-	HICON m_hIcon;
-	//CWinFormsControl<System::Windows::Forms::MaskedTextBox> m_MaskedEdit;
-	CWinFormsControl<T3000Controls::SetPointsControl> m_MaskedEdit;
+	CWinFormsControl<T3000Controls::SetPointsControl> m_setPointsControl;
+	CWinFormsControl<T3000Controls::SliderControl> m_sliderControl;
 
 	// Generated message map functions
 	virtual BOOL OnInitDialog();
 	afx_msg void OnPaint();
-	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 };

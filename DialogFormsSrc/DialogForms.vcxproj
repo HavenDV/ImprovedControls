@@ -133,13 +133,7 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\DialogForms.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <ResourceCompile Include="DialogForms.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="res\DialogForms.rc2" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

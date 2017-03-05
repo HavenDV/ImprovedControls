@@ -13,21 +13,19 @@
 
 CDialogFormsDlg::CDialogFormsDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CDialogFormsDlg::IDD, pParent)
-{
-	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
-}
+{}
 
 void CDialogFormsDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	DDX_ManagedControl(pDX, IDC_MASKED_EDIT1, m_MaskedEdit);
+	DDX_ManagedControl(pDX, IDC_SET_POINTS, m_setPointsControl);
+	DDX_ManagedControl(pDX, IDC_SLIDERCONTROL1, m_sliderControl);
 }
 
 BEGIN_MESSAGE_MAP(CDialogFormsDlg, CDialog)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 // CDialogFormsDlg message handlers
@@ -36,69 +34,15 @@ BOOL CDialogFormsDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	// Add "About..." menu item to system menu.
-
-	// IDM_ABOUTBOX must be in the system command range.
-	ASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX);
-	ASSERT(IDM_ABOUTBOX < 0xF000);
-
-	CMenu* pSysMenu = GetSystemMenu(FALSE);
-	if (pSysMenu != NULL)
-	{
-		CString strAboutMenu;
-		strAboutMenu.LoadString(IDS_ABOUTBOX);
-		if (!strAboutMenu.IsEmpty())
-		{
-			pSysMenu->AppendMenu(MF_SEPARATOR);
-			pSysMenu->AppendMenu(MF_STRING, IDM_ABOUTBOX, strAboutMenu);
-		}
-	}
-
-	// Set the icon for this dialog.  The framework does this automatically
-	//  when the application's main window is not a dialog
-	SetIcon(m_hIcon, TRUE);			// Set big icon
-	SetIcon(m_hIcon, FALSE);		// Set small icon
-
 	// TODO: Add extra initialization here
 	//m_MaskedEdit->MaskInputRejected +=
 	//	MAKE_DELEGATE( System::Windows::Forms::MaskInputRejectedEventHandler, OnMaskInputRejected) ;
 	return TRUE;  
 }
 
-// If you add a minimize button to your dialog, you will need the code below
-//  to draw the icon.  For MFC applications using the document/view model,
-//  this is automatically done for you by the framework.
-
 void CDialogFormsDlg::OnPaint()
 {
-	if (IsIconic())
-	{
-		CPaintDC dc(this); // device context for painting
-
-		SendMessage(WM_ICONERASEBKGND, reinterpret_cast<WPARAM>(dc.GetSafeHdc()), 0);
-
-		// Center icon in client rectangle
-		int cxIcon = GetSystemMetrics(SM_CXICON);
-		int cyIcon = GetSystemMetrics(SM_CYICON);
-		CRect rect;
-		GetClientRect(&rect);
-		int x = (rect.Width() - cxIcon + 1) / 2;
-		int y = (rect.Height() - cyIcon + 1) / 2;
-
-		// Draw the icon
-		dc.DrawIcon(x, y, m_hIcon);
-	}
-	else
-	{
-		CDialog::OnPaint();
-	}
-}
-
-// The system calls this function to obtain the cursor to display while the user drags
-//  the minimized window.
-HCURSOR CDialogFormsDlg::OnQueryDragIcon()
-{
-	return static_cast<HCURSOR>(m_hIcon);
+	CDialog::OnPaint();
 }
 
 void CDialogFormsDlg::OnMaskInputRejected(System::Object^, 
