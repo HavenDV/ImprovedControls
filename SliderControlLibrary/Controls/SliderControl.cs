@@ -314,7 +314,7 @@
 
         [Browsable(true)]
         [Description("Causes if current value is changed"), Category("Slider")]
-        public event Action<object, SliderEventArgs> CurrentValueChanged;
+        public event SliderEventHandler CurrentValueChanged;
 
         protected void OnCurrentValueChanged(SliderEventArgs e) =>
             CurrentValueChanged?.Invoke(this, e);
