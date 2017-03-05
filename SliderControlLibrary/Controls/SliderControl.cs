@@ -83,6 +83,8 @@
             set
             {
                 _topZoneValue = value;
+                OnTopZoneValueChanged(new SliderEventArgs(value));
+
                 Invalidate();
             }
         }
@@ -95,7 +97,9 @@
             set
             {
                 _bottomZoneValue = value;
-                 Invalidate();
+                OnBottomZoneValueChanged(new SliderEventArgs(value));
+
+                Invalidate();
             }
         }
 
@@ -316,8 +320,22 @@
         [Description("Causes if current value is changed"), Category("Slider")]
         public event SliderEventHandler CurrentValueChanged;
 
+        [Browsable(true)]
+        [Description("Causes if top zone value is changed"), Category("Slider")]
+        public event SliderEventHandler TopZoneValueChanged;
+
+        [Browsable(true)]
+        [Description("Causes if bottom zone value is changed"), Category("Slider")]
+        public event SliderEventHandler BottomZoneValueChanged;
+
         protected void OnCurrentValueChanged(SliderEventArgs e) =>
             CurrentValueChanged?.Invoke(this, e);
+
+        protected void OnTopZoneValueChanged(SliderEventArgs e) =>
+            TopZoneValueChanged?.Invoke(this, e);
+
+        protected void OnBottomZoneValueChanged(SliderEventArgs e) =>
+            BottomZoneValueChanged?.Invoke(this, e);
 
 
         //public delegate void ControlEventHandler(int NumVal);

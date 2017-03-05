@@ -9,5 +9,7 @@
     public interface ISliderControlEvents
     {
         event SliderEventHandler CurrentValueChanged;
+        event SliderEventHandler TopZoneValueChanged;
+        event SliderEventHandler BottomZoneValueChanged;
     }
 }
