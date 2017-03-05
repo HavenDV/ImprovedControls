@@ -37,6 +37,7 @@
             // 
             // indicator
             // 
+            this.indicator.AdditionalText = " F";
             this.indicator.BackColor = System.Drawing.Color.GreenYellow;
             this.indicator.BorderColor = System.Drawing.Color.Black;
             this.indicator.IndicatorText = "";
@@ -61,6 +62,7 @@
             this.middleHandle.Size = new System.Drawing.Size(100, 16);
             this.middleHandle.TabIndex = 4;
             this.middleHandle.Value = 50F;
+            this.middleHandle.Visible = false;
             this.middleHandle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.handle_MouseDown);
             this.middleHandle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.oneSliderMode_MouseMove);
             this.middleHandle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.handle_MouseUp);

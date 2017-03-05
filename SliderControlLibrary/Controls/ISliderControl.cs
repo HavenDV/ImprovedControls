@@ -3,10 +3,10 @@
     using System;
     using System.Drawing;
     using System.Runtime.InteropServices;
-
+    
     [Guid("02D50671-77C4-411A-B6F4-1C29C44814CC")]
     [InterfaceType(ComInterfaceType.InterfaceIsIDispatch)]
-    public interface ISliderControl
+    public interface ISliderControl : ISliderControlEvents
     {
         float TopValue { get; set; }
         float BottomValue { get; set; }
@@ -33,7 +33,5 @@
         bool EnableIndicator { get; set; }
         bool IsSimpleIndicator { get; set; }
         string IndicatorText { get; set; }
-
-        event EventHandler CurrentValueChanged;
     }
 }

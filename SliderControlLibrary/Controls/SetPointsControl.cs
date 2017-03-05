@@ -24,12 +24,12 @@ namespace T3000Controls
         {
             panel.TwoSliderMode = panel1TwoSliderModeCheckBox.Checked;
 
-            panel.CurrentValue += new Random().Next() % 1000 - 500;
+            panel.CurrentValue += new Random().Next() % 10 - 5;
         }
 
-        private void panel_CurrentValueChanged(object sender, System.EventArgs e)
+        private void panel_CurrentValueChanged(object sender, EventArgs e)
         {
-            panel2.CurrentValue = (e as SliderEventArgs).CurrentValue;
+            panel2.CurrentValue = panel.CurrentValue;
         }
     }
 }

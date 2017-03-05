@@ -6,8 +6,10 @@
     using System.Runtime.InteropServices;
     using System.Drawing;
 
+    [ComVisible(true)]
     [Guid("ABA068FC-6B49-3031-B74A-1C51A3C8833A")]
     [ClassInterface(ClassInterfaceType.None)]
+    [ComSourceInterfaces(typeof(ISliderControlEvents))]
     public partial class SliderControl : UserControl, ISliderControl
     {
         #region DesignerProperties
@@ -310,17 +312,20 @@
 
         #region Events
 
+        [Browsable(true)]
         [Description("Causes if current value is changed"), Category("Slider")]
-        public event EventHandler CurrentValueChanged;
-        protected virtual void OnCurrentValueChanged(EventArgs e)
-        {
-            if (CurrentValueChanged == null)
-            {
-                return;
-            }
+        public event Action<object, SliderEventArgs> CurrentValueChanged;
 
-            CurrentValueChanged(this, e);
-        }
+        protected void OnCurrentValueChanged(SliderEventArgs e) =>
+            CurrentValueChanged?.Invoke(this, e);
+
+
+        //public delegate void ControlEventHandler(int NumVal);
+        //public event ControlEventHandler OnButtonClick = null;
+
+        //[Browsable(true)]
+        //[Description("Causes if current value is changed"), Category("Slider")]
+        //public void OnButtonClick(int NumVal) {}
 
         #endregion
 

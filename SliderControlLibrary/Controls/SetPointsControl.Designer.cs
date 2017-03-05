@@ -65,10 +65,10 @@
             this.panel2.IndicatorText = "";
             this.panel2.IsSimpleIndicator = true;
             this.panel2.LinesColor = System.Drawing.Color.LightGray;
-            this.panel2.Location = new System.Drawing.Point(347, 125);
+            this.panel2.Location = new System.Drawing.Point(345, 110);
             this.panel2.MiddleHandleColor = System.Drawing.Color.GreenYellow;
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(179, 263);
+            this.panel2.Size = new System.Drawing.Size(179, 310);
             this.panel2.StepValue = 10F;
             this.panel2.TabIndex = 4;
             this.panel2.TopValue = 100F;
@@ -87,7 +87,7 @@
             this.panel.BottomZone = true;
             this.panel.BottomZoneColor = System.Drawing.Color.Red;
             this.panel.BottomZoneValue = -2222F;
-            this.panel.CurrentValue = 188F;
+            this.panel.CurrentValue = 66F;
             this.panel.CurrentValueColor = System.Drawing.Color.Black;
             this.panel.EnableIndicator = true;
             this.panel.HandlesBorderColor = System.Drawing.Color.White;
