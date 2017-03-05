@@ -29,8 +29,10 @@
         private void InitializeComponent()
         {
             this.panel1TwoSliderModeCheckBox = new System.Windows.Forms.CheckBox();
+            this.topValueLabel = new System.Windows.Forms.Label();
             this.panel2 = new T3000Controls.SliderControl();
             this.panel = new T3000Controls.SliderControl();
+            this.bottomValueLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // panel1TwoSliderModeCheckBox
@@ -43,6 +45,14 @@
             this.panel1TwoSliderModeCheckBox.Text = "TwoSliderMode";
             this.panel1TwoSliderModeCheckBox.UseVisualStyleBackColor = true;
             this.panel1TwoSliderModeCheckBox.CheckedChanged += new System.EventHandler(this.panel1TwoSliderModeCheckBox_CheckedChanged);
+            // 
+            // topValueLabel
+            // 
+            this.topValueLabel.AutoSize = true;
+            this.topValueLabel.Location = new System.Drawing.Point(120, 94);
+            this.topValueLabel.Name = "topValueLabel";
+            this.topValueLabel.Size = new System.Drawing.Size(0, 13);
+            this.topValueLabel.TabIndex = 6;
             // 
             // panel2
             // 
@@ -65,10 +75,10 @@
             this.panel2.IndicatorText = "";
             this.panel2.IsSimpleIndicator = true;
             this.panel2.LinesColor = System.Drawing.Color.LightGray;
-            this.panel2.Location = new System.Drawing.Point(345, 110);
+            this.panel2.Location = new System.Drawing.Point(302, 110);
             this.panel2.MiddleHandleColor = System.Drawing.Color.GreenYellow;
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(179, 310);
+            this.panel2.Size = new System.Drawing.Size(171, 310);
             this.panel2.StepValue = 10F;
             this.panel2.TabIndex = 4;
             this.panel2.TopValue = 100F;
@@ -94,7 +104,7 @@
             this.panel.HandlesHeight = 8;
             this.panel.IndicatorBorderColor = System.Drawing.Color.Black;
             this.panel.IndicatorColor = System.Drawing.Color.GreenYellow;
-            this.panel.IndicatorSize = new System.Drawing.Size(168, 50);
+            this.panel.IndicatorSize = new System.Drawing.Size(168, 30);
             this.panel.IndicatorText = "Temp";
             this.panel.IsSimpleIndicator = false;
             this.panel.LinesColor = System.Drawing.Color.LightGray;
@@ -110,11 +120,21 @@
             this.panel.TopZoneValue = 6000F;
             this.panel.TwoSliderMode = false;
             // 
+            // bottomValueLabel
+            // 
+            this.bottomValueLabel.AutoSize = true;
+            this.bottomValueLabel.Location = new System.Drawing.Point(120, 423);
+            this.bottomValueLabel.Name = "bottomValueLabel";
+            this.bottomValueLabel.Size = new System.Drawing.Size(0, 13);
+            this.bottomValueLabel.TabIndex = 7;
+            // 
             // SetPointsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.bottomValueLabel);
+            this.Controls.Add(this.topValueLabel);
             this.Controls.Add(this.panel1TwoSliderModeCheckBox);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel);
@@ -129,5 +149,7 @@
         private SliderControl panel;
         private SliderControl panel2;
         private System.Windows.Forms.CheckBox panel1TwoSliderModeCheckBox;
+        private System.Windows.Forms.Label topValueLabel;
+        private System.Windows.Forms.Label bottomValueLabel;
     }
 }

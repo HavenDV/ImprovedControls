@@ -6,5 +6,10 @@
     [InterfaceType(ComInterfaceType.InterfaceIsIDispatch)]
     public interface ISetPointsControl
     {
+        float TopValue { get; set; }
+        float BottomValue { get; set; }
+        float CurrentValue { get; set; }
+        float TopZoneValue { get; set; }
+        float BottomZoneValue { get; set; }
     }
 }

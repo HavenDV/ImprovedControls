@@ -35,8 +35,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\BackgroundControl.cs">
@@ -49,6 +51,12 @@
     <Compile Include="Controls\Interfaces\ISliderControl.cs" />
     <Compile Include="Controls\Interfaces\ISliderControlEvents.cs" />
     <Compile Include="Controls\Interfaces\SliderEventArgs.cs" />
+    <Compile Include="Forms\SetPointsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SetPointsForm.Designer.cs">
+      <DependentUpon>SetPointsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\ComUtilities.cs" />
     <Compile Include="Utilities\GraphicsUtilities.cs" />
     <Compile Include="Utilities\MouseMover.cs" />
@@ -98,6 +106,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\IndicatorControl.resx">
       <DependentUpon>IndicatorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SetPointsForm.resx">
+      <DependentUpon>SetPointsForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
