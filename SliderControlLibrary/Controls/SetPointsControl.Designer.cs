@@ -109,7 +109,6 @@
             this.panel.TopZoneColor = System.Drawing.Color.DeepSkyBlue;
             this.panel.TopZoneValue = 6000F;
             this.panel.TwoSliderMode = false;
-            this.panel.CurrentValueChanged += new System.EventHandler(this.panel_CurrentValueChanged);
             // 
             // SetPointsControl
             // 

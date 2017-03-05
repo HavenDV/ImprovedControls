@@ -45,10 +45,10 @@
     <Compile Include="Controls\BackgroundControl.Designer.cs">
       <DependentUpon>BackgroundControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ISetPointsControl.cs" />
-    <Compile Include="Controls\ISliderControl.cs" />
-    <Compile Include="Controls\ISliderControlEvents.cs" />
-    <Compile Include="Controls\SliderEventArgs.cs" />
+    <Compile Include="Controls\Interfaces\ISetPointsControl.cs" />
+    <Compile Include="Controls\Interfaces\ISliderControl.cs" />
+    <Compile Include="Controls\Interfaces\ISliderControlEvents.cs" />
+    <Compile Include="Controls\Interfaces\SliderEventArgs.cs" />
     <Compile Include="Utilities\ComUtilities.cs" />
     <Compile Include="Utilities\GraphicsUtilities.cs" />
     <Compile Include="Utilities\MouseMover.cs" />
