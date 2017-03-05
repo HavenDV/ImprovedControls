@@ -34,6 +34,11 @@ BOOL CDialogFormsDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
+	m_setPointsControl->TopValue = 100;
+	m_setPointsControl->BottomValue = 0;
+	m_setPointsControl->TopZoneValue = 66;
+	m_setPointsControl->BottomZoneValue = 33;
+	m_setPointsControl->CurrentValue = 51;
 	// TODO: Add extra initialization here
 	//m_MaskedEdit->MaskInputRejected +=
 	//	MAKE_DELEGATE( System::Windows::Forms::MaskInputRejectedEventHandler, OnMaskInputRejected) ;
