@@ -131,5 +131,19 @@
         {
             panel2.TopZoneValue = e.Value;
         }
+
+        private void slider1BottomValueCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            var enabled = slider1BottomZoneCheckBox.Checked;
+            panel.TopZone = enabled;
+            slider1BottomZoneCheckBox.Text = enabled ? panel.BottomZoneValue.ToString("F1") : "-";
+        }
+
+        private void slider1TopZoneCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            var enabled = slider1TopZoneCheckBox.Checked;
+            panel.TopZone = enabled;
+            slider1TopZoneCheckBox.Text = enabled ? panel.TopZoneValue.ToString("F1") : "-";
+        }
     }
 }
