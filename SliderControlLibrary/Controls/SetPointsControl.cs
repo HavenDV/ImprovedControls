@@ -135,7 +135,7 @@
         private void slider1BottomValueCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             var enabled = slider1BottomZoneCheckBox.Checked;
-            panel.TopZone = enabled;
+            panel.BottomZone = enabled;
             slider1BottomZoneCheckBox.Text = enabled ? panel.BottomZoneValue.ToString("F1") : "-";
         }
 
