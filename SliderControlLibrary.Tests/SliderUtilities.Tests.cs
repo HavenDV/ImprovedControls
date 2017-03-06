@@ -1,8 +1,7 @@
-﻿using System;
-using NUnit.Framework;
-
-namespace T3000Controls.Tests
+﻿namespace T3000Controls.Tests
 {
+    using NUnit.Framework;
+
     [TestFixture]
     public class SliderUtilitiesTests
     {
