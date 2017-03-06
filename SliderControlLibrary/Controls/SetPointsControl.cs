@@ -119,7 +119,17 @@
 
         private void panel_CurrentValueChanged(object sender, SliderEventArgs e)
         {
-            panel2.CurrentValue = panel.CurrentValue;
+            panel2.CurrentValue = e.Value;
+        }
+
+        private void panel_BottomZoneValueChanged(object sender, SliderEventArgs e)
+        {
+            panel2.BottomZoneValue = e.Value;
+        }
+
+        private void panel_TopZoneValueChanged(object sender, SliderEventArgs e)
+        {
+            panel2.TopZoneValue = e.Value;
         }
     }
 }

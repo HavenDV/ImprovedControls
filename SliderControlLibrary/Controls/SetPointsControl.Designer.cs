@@ -49,7 +49,7 @@
             // 
             this.topValueLabel.Location = new System.Drawing.Point(120, 0);
             this.topValueLabel.Name = "topValueLabel";
-            this.topValueLabel.Size = new System.Drawing.Size(0, 20);
+            this.topValueLabel.Size = new System.Drawing.Size(50, 20);
             this.topValueLabel.TabIndex = 6;
             // 
             // bottomValueLabel
@@ -57,7 +57,7 @@
             this.bottomValueLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bottomValueLabel.Location = new System.Drawing.Point(120, 480);
             this.bottomValueLabel.Name = "bottomValueLabel";
-            this.bottomValueLabel.Size = new System.Drawing.Size(0, 20);
+            this.bottomValueLabel.Size = new System.Drawing.Size(50, 20);
             this.bottomValueLabel.TabIndex = 7;
             // 
             // panel2
@@ -129,6 +129,9 @@
             this.panel.TopZoneColor = System.Drawing.Color.DeepSkyBlue;
             this.panel.TopZoneValue = 50F;
             this.panel.TwoSliderMode = false;
+            this.panel.CurrentValueChanged += new T3000Controls.SliderEventHandler(this.panel_CurrentValueChanged);
+            this.panel.TopZoneValueChanged += new T3000Controls.SliderEventHandler(this.panel_TopZoneValueChanged);
+            this.panel.BottomZoneValueChanged += new T3000Controls.SliderEventHandler(this.panel_BottomZoneValueChanged);
             // 
             // SetPointsControl
             // 
