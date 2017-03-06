@@ -34,16 +34,16 @@
             // setPointsControl1
             // 
             this.setPointsControl1.BackColor = System.Drawing.Color.Transparent;
-            this.setPointsControl1.BottomValue = 100F;
-            this.setPointsControl1.BottomZoneValue = 66F;
-            this.setPointsControl1.CurrentValue = 51F;
+            this.setPointsControl1.BottomValue = -100F;
+            this.setPointsControl1.BottomZoneValue = -50F;
+            this.setPointsControl1.CurrentValue = -5F;
             this.setPointsControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.setPointsControl1.Location = new System.Drawing.Point(0, 0);
             this.setPointsControl1.Name = "setPointsControl1";
             this.setPointsControl1.Size = new System.Drawing.Size(846, 505);
             this.setPointsControl1.TabIndex = 0;
-            this.setPointsControl1.TopValue = 0F;
-            this.setPointsControl1.TopZoneValue = 33F;
+            this.setPointsControl1.TopValue = 100F;
+            this.setPointsControl1.TopZoneValue = 50F;
             // 
             // SetPointsForm
             // 

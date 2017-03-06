@@ -17,9 +17,8 @@
             get { return _topValue; }
             set {
                 _topValue = value;
-                topValueLabel.Text = value.ToString("F1");
-                panel.TopValue = value;
-                panel2.TopValue = value;
+
+                UpdateTopBottomValues();
             }
         }
 
@@ -29,9 +28,8 @@
             get { return _bottomValue; }
             set {
                 _bottomValue = value;
-                bottomValueLabel.Text = value.ToString("F1");
-                panel.BottomValue = value;
-                panel2.BottomValue = value;
+
+                UpdateTopBottomValues();
             }
         }
 
@@ -77,6 +75,33 @@
         public SetPointsControl()
         {
             InitializeComponent();
+        }
+
+        public void UpdateTopBottomValues()
+        {
+            var topValue = TopValue;
+            var bottomValue = BottomValue;
+            var delta = Math.Abs(TopValue - BottomValue); // % of this
+            var multiplier = 0.05F; //5%
+            var divider = 10; //to .. , 10, 20, .. , 80, 90, ..
+            if (TopValue > BottomValue)
+            {
+                topValue = SliderUtilities.RoundUp(TopValue, delta, multiplier, divider);
+                bottomValue = SliderUtilities.RoundDown(BottomValue, delta, multiplier, divider);
+            }
+            else
+            {
+                topValue = SliderUtilities.RoundDown(TopValue, delta, multiplier, divider);
+                bottomValue = SliderUtilities.RoundUp(BottomValue, delta, multiplier, divider);
+            }
+
+            topValueLabel.Text = topValue.ToString("F1");
+            panel.TopValue = topValue;
+            panel2.TopValue = topValue;
+
+            bottomValueLabel.Text = bottomValue.ToString("F1");
+            panel.BottomValue = bottomValue;
+            panel2.BottomValue = bottomValue;
         }
 
         [ComRegisterFunction()]
