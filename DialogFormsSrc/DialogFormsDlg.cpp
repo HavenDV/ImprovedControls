@@ -18,8 +18,9 @@ CDialogFormsDlg::CDialogFormsDlg(CWnd* pParent /*=NULL*/)
 void CDialogFormsDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	DDX_ManagedControl(pDX, IDC_SET_POINTS, m_setPointsControl);
-	DDX_ManagedControl(pDX, IDC_SLIDERCONTROL1, m_sliderControl);
+	//DDX_ManagedControl(pDX, IDC_SET_POINTS, m_setPointsControl);
+	//DDX_ManagedControl(pDX, IDC_SLIDERCONTROL1, m_sliderControl);
+	DDX_ManagedControl(pDX, IDC_SETPOINTSCONTROL1, m_setPointsControl);
 }
 
 BEGIN_MESSAGE_MAP(CDialogFormsDlg, CDialog)
@@ -34,11 +35,6 @@ BOOL CDialogFormsDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	m_setPointsControl->TopValue = 100;
-	m_setPointsControl->BottomValue = 0;
-	m_setPointsControl->TopZoneValue = 66;
-	m_setPointsControl->BottomZoneValue = 33;
-	m_setPointsControl->CurrentValue = 51;
 	// TODO: Add extra initialization here
 	//m_MaskedEdit->MaskInputRejected +=
 	//	MAKE_DELEGATE( System::Windows::Forms::MaskInputRejectedEventHandler, OnMaskInputRejected) ;
