@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
 namespace T3000Controls.Tests
 {
@@ -219,6 +220,22 @@ namespace T3000Controls.Tests
 
             Assert.AreEqual(5, SliderUtilities.GetOffsetForValue(10, 95, 0, 100), 0.5);
             Assert.AreEqual(5, SliderUtilities.GetOffsetForValue(10, 195, 100, 100), 0.5);
+        }
+
+        [Test]
+        public void RoundUp()
+        {
+            Assert.AreEqual(90, SliderUtilities.RoundUp(81, 100.0F, 0.05F, 10), 0.01);
+            Assert.AreEqual(100, SliderUtilities.RoundUp(81, 100.0F, 0.15F, 10), 0.01);
+            Assert.AreEqual(20, SliderUtilities.RoundUp(1, 100.0F, 0.15F, 10), 0.01);
+        }
+
+        [Test]
+        public void RoundDown()
+        {
+            Assert.AreEqual(70, SliderUtilities.RoundDown(81, 100.0F, 0.05F, 10), 0.01);
+            Assert.AreEqual(60, SliderUtilities.RoundDown(81, 100.0F, 0.15F, 10), 0.01);
+            Assert.AreEqual(-20, SliderUtilities.RoundDown(1, 100.0F, 0.15F, 10), 0.01);
         }
     }
 }

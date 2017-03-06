@@ -7,15 +7,15 @@
         public static float YToValue(float y, float topValue, float bottomValue, int height)
         {
             var delta = Math.Abs(topValue - bottomValue);
-            var oneValue = delta/height;
+            var oneValue = delta/Math.Max(height, 1);
             var value = y*oneValue;
-
+            
             return topValue > bottomValue ? (topValue - value) : (topValue + value);
         }
 
         public static float ValueToY(float value, float topValue, float bottomValue, int height)
         {
-            var delta = Math.Abs(topValue - bottomValue);
+            var delta = Math.Max(Math.Abs(topValue - bottomValue), 1);
             var oneValueHeight = height/delta;
             var valueFromTop = topValue > bottomValue ? (value - bottomValue) : (value - topValue);
             var y = valueFromTop*oneValueHeight;
@@ -50,6 +50,16 @@
             return ValueToHeight(
                 GetOffsetValueForValue(value, topValue, bottomValue), 
                 topValue, bottomValue, height);
+        }
+
+        public static float RoundUp(float value, float delta, float multiplier, int divider = 10)
+        {
+            return ((float)Math.Ceiling((value + delta * multiplier) / divider)) * divider;
+        }
+
+        public static float RoundDown(float value, float delta, float multiplier, int divider = 10)
+        {
+            return ((float)Math.Floor((value - delta * multiplier) / divider)) * divider;
         }
     }
 }
