@@ -6,7 +6,6 @@
     using System.Runtime.InteropServices;
     using System.Drawing;
 
-    [ComVisible(true)]
     [Guid("ABA068FC-6B49-3031-B74A-1C51A3C8833A")]
     [ClassInterface(ClassInterfaceType.None)]
     [ComSourceInterfaces(typeof(ISliderControlEvents))]
@@ -524,9 +523,9 @@
         }
 
         [ComRegisterFunction()]
-        public static void RegisterClass(string key) => ComUtilities.RegisterControlClass(key);
+        public static void RegisterClass(Type type) => ComUtilities.RegisterControlClass(type);
 
         [ComUnregisterFunction()]
-        public static void UnregisterClass(string key) => ComUtilities.UnregisterControlClass(key);
+        public static void UnregisterClass(Type type) => ComUtilities.UnregisterControlClass(type);
     }
 }

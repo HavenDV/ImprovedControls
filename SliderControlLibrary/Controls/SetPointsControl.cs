@@ -105,10 +105,10 @@
         }
 
         [ComRegisterFunction()]
-        public static void RegisterClass(string key) => ComUtilities.RegisterControlClass(key);
+        public static void RegisterClass(Type type) => ComUtilities.RegisterControlClass(type);
 
         [ComUnregisterFunction()]
-        public static void UnregisterClass(string key) => ComUtilities.UnregisterControlClass(key);
+        public static void UnregisterClass(Type type) => ComUtilities.UnregisterControlClass(type);
 
         private void panel1TwoSliderModeCheckBox_CheckedChanged(object sender, System.EventArgs e)
         {
