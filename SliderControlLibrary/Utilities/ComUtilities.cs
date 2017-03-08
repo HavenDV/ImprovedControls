@@ -100,7 +100,6 @@
         /// Key format: "HKEY_CLASSES_ROOT\CLSID\{guid}"
         ///	</summary>
         ///	<param name="type">The type of the control</param>
-        [ComUnregisterFunction()]
         public static void UnregisterControlClass(Type type)
         {
             Registry.ClassesRoot.DeleteSubKeyTree(@"CLSID\" + type.GUID.ToString("B"), false);
