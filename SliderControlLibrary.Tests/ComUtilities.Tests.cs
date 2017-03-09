@@ -33,7 +33,8 @@
             var text = File.ReadAllText(file);
             
             var expected = typeof(ISliderControlEvents).GetMethods().GetLength(0);
-            var actual = Regex.Matches(text, "ValueChanged").Count;
+            var actual = Regex.Matches(text, "ValueChanged").Count +
+               Regex.Matches(text, "Click").Count;
 
             Assert.AreEqual(expected, actual);
 
