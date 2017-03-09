@@ -3,10 +3,11 @@
     using System;
     using System.IO;
     using System.Reflection;
+    using System.Text.RegularExpressions;
     using NUnit.Framework;
 
     [TestFixture]
-    public class ComUtilitiesTests
+    class ComUtilitiesTests
     {
         /// <summary>
         /// Check registration in registry. After creation 
@@ -17,8 +18,8 @@
         {
             var expected = typeof(SliderControl);
 
-            //Assert.AreEqual(expected, Type.GetTypeFromProgID("T3000Controls.SliderControl"));
-            //Assert.AreEqual(expected, Type.GetTypeFromCLSID(new Guid("ABA068FC-6B49-3031-B74A-1C51A3C8833A")));
+            Assert.AreEqual(expected, Type.GetTypeFromProgID("T3000Controls.SliderControl"));
+            Assert.AreEqual(expected, Type.GetTypeFromCLSID(new Guid("ABA068FC-6B49-3031-B74A-1C51A3C8833A")));
         }
 
         [Test]
@@ -31,9 +32,16 @@
             var file = $"SliderControlLibrary/bin/Release/SliderControlLibrary.tlb";
             var text = File.ReadAllText(file);
             
+            var expected = typeof(ISliderControlEvents).GetMethods().GetLength(0);
+            var actual = Regex.Matches(text, "ValueChanged").Count;
+
+            Assert.AreEqual(expected, actual);
+
             StringAssert.Contains("CurrentValueChanged", text);
             StringAssert.Contains("TopZoneValueChanged", text);
-            StringAssert.DoesNotContain("BottomZoneValueChanged", text);
+            StringAssert.Contains("BottomZoneValueChanged", text);
+            StringAssert.Contains("TopValueChanged", text);
+            StringAssert.Contains("BottomValueChanged", text);
         }
     }
 }

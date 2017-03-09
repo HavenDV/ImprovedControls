@@ -3,7 +3,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class SliderUtilitiesTests
+    class SliderUtilitiesTests
     {
         [Test]
         public void YToValue_Direct()
