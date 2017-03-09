@@ -339,12 +339,6 @@
         [Description("Causes if bottom value is changed"), Category("Slider")]
         public virtual event ValueChangedEventHandler BottomValueChanged;
 
-        //protected void OnClick() =>
-        //    Click?.Invoke();
-
-        //protected void OnError(short number, string desc, int code, string source, string helpFile, int helpContext, bool cancel) =>
-        //    Error?.Invoke(number, desc, code, source, helpFile, helpContext, cancel);
-
         protected void OnTopZoneValueChanged(float value) =>
             TopZoneValueChanged?.Invoke(this, value);
 
