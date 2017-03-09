@@ -46,6 +46,8 @@
             var keyName = @"CLSID\" + type.GUID.ToString("B");
             using (var key = Registry.ClassesRoot.OpenSubKey(keyName, true))
             {
+                key.SetValue(null, type.ToString() + " Class");
+
                 key.CreateSubKey("Programmable").Close();
                 key.CreateSubKey("Control").Close();
                 key.CreateSubKey("Insertable").Close();
@@ -63,10 +65,13 @@
                     var libid = Marshal.GetTypeLibGuidForAssembly(type.Assembly);
                     subkey.SetValue(null, libid.ToString("B"));
                 }
-                using (var subkey = key.OpenSubKey("InprocServer32", true))
+                //key.DeleteSubKeyTree("InprocServer32");
+                using (var subkey = key.CreateSubKey("InprocServer32"))
                 {
                     //subkey.SetValue(null, Environment.SystemDirectory + @"\mscoree.dll");
                     subkey.SetValue("CodeBase", Assembly.GetExecutingAssembly().CodeBase);
+                    //subkey.SetValue(null, Assembly.GetExecutingAssembly().Location);
+                    //subkey.SetValue("ThreadingModel", "Apartment");
                 }
                 //using (var subkey = key.CreateSubKey("ToolboxBitmap32"))
                 //{
@@ -81,6 +86,10 @@
                     subkey.CreateSubKey("{40FC6ED3-2438-11CF-A3DB-080036F12502}");
                     subkey.CreateSubKey("{40FC6ED4-2438-11CF-A3DB-080036F12502}");
                     subkey.CreateSubKey("{40FC6ED5-2438-11CF-A3DB-080036F12502}");
+                    subkey.CreateSubKey("{4FED769C-D8DB-44ea-99EA-65135757C156}");
+                    subkey.CreateSubKey("{0DE86A52-2BAA-11CF-A229-00AA003D7352}");
+                    subkey.CreateSubKey("{0DE86A53-2BAA-11CF-A229-00AA003D7352}");
+                    subkey.CreateSubKey("{0DE86A57-2BAA-11CF-A229-00AA003D7352}");
                 }
                 using (var subkey = key.CreateSubKey("Version"))
                 {

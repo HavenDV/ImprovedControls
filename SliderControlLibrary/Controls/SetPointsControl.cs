@@ -117,19 +117,19 @@
             panel.CurrentValue += new Random().Next() % 10 - 5;
         }
 
-        private void panel_CurrentValueChanged(object sender, SliderEventArgs e)
+        private void panel_CurrentValueChanged(float newValue)
         {
-            panel2.CurrentValue = e.Value;
+            panel2.CurrentValue = newValue;
         }
 
-        private void panel_BottomZoneValueChanged(object sender, SliderEventArgs e)
+        private void panel_BottomZoneValueChanged(float newValue)
         {
-            panel2.BottomZoneValue = e.Value;
+            panel2.BottomZoneValue = newValue;
         }
 
-        private void panel_TopZoneValueChanged(object sender, SliderEventArgs e)
+        private void panel_TopZoneValueChanged(float newValue)
         {
-            panel2.TopZoneValue = e.Value;
+            panel2.TopZoneValue = newValue;
         }
 
         private void slider1BottomValueCheckBox_CheckedChanged(object sender, EventArgs e)

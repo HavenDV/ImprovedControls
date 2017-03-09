@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace T3000Controls
+﻿namespace T3000Controls
 {
+    using System;
     using System.Drawing;
     using System.Drawing.Drawing2D;
 

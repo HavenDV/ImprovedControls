@@ -131,9 +131,6 @@
             this.panel.TopZoneColor = System.Drawing.Color.DeepSkyBlue;
             this.panel.TopZoneValue = 50F;
             this.panel.TwoSliderMode = false;
-            this.panel.CurrentValueChanged += new T3000Controls.SliderEventHandler(this.panel_CurrentValueChanged);
-            this.panel.TopZoneValueChanged += new T3000Controls.SliderEventHandler(this.panel_TopZoneValueChanged);
-            this.panel.BottomZoneValueChanged += new T3000Controls.SliderEventHandler(this.panel_BottomZoneValueChanged);
             // 
             // slider1BottomZoneCheckBox
             // 
