@@ -4,7 +4,7 @@
     using System.Drawing;
     using System.Drawing.Drawing2D;
 
-    public static class GraphicsUtilities
+    internal static class GraphicsUtilities
     {
         /// <summary>
         /// Returns rounded rectangle path for selected rect and radius.

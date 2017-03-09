@@ -34,7 +34,7 @@
         }
     }
 
-    public static class ComUtilities
+    internal static class ComUtilities
     {
         ///	<summary>
         ///	Register the class as a	control	and	set	it's CodeBase entry.

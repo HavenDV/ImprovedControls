@@ -3,7 +3,7 @@
     using System.Drawing;
     using System.Windows.Forms;
 
-    public class MouseMover
+    internal class MouseMover
     {
         public bool IsMoved { get; set; } = false;
         public Point Offset { get; set; }
