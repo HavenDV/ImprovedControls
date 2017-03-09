@@ -6,17 +6,10 @@
     using System.Runtime.InteropServices;
     using System.Drawing;
 
-    //[UnmanagedFunctionPointer(CallingConvention.StdCall)]
-    //public delegate void ValueEventHandler(float newValue);
-
-    [ComVisible(true)]
     [Guid("ABA068FC-6B49-3031-B74A-1C51A3C8833A")]
     [ClassInterface(ClassInterfaceType.None)]
-    [TypeLibType(TypeLibTypeFlags.FControl)]
     [ComSourceInterfaces(typeof(ISliderControlEvents))]
-    [ComDefaultInterface(typeof(ISliderControl))]
-    //[ComImport]
-    public partial class SliderControl : UserControl, ISliderControl, ISliderControlEvents_Event
+    public partial class SliderControl : UserControl, ISliderControl
     {
         #region DesignerProperties
 
@@ -28,6 +21,8 @@
             set
             {
                 _topValue = value;
+                OnTopValueChanged(value);
+
                 Invalidate();
             }
         }
@@ -40,6 +35,8 @@
             set
             {
                 _bottomValue = value;
+                OnBottomValueChanged(value);
+
                 Invalidate();
             }
         }
@@ -53,7 +50,7 @@
             {
                 _currentValue = value;
                 indicator.Value = value;
-                //OnCurrentValueChanged(new SliderEventArgs(value));
+                OnCurrentValueChanged(value);
 
                 Invalidate();
             }
@@ -321,69 +318,29 @@
         #endregion
 
         #region Events
-        /*
-        [Browsable(true)]
-        [Description("Causes if current value is changed"), Category("Slider")]
-        public virtual event SliderEventHandler CurrentValueChanged;
-
-        //public new event ClickEventHandler Click;
 
         [Browsable(true)]
         [Description("Causes if top zone value is changed"), Category("Slider")]
-        public virtual event SliderEventHandler TopZoneValueChanged;
-
-        [Browsable(true)]
-        [Description("Causes if bottom zone value is changed"), Category("Slider")]
-        public virtual event SliderEventHandler BottomZoneValueChanged;
-
-        [Browsable(true)]
-        [Description("Causes if top value is changed"), Category("Slider")]
-        public virtual event SliderEventHandler TopValueChanged;
-
-        [Browsable(true)]
-        [Description("Causes if bottom value is changed"), Category("Slider")]
-        public virtual event SliderEventHandler BottomValueChanged;
-        
-        protected void OnCurrentValueChanged(SliderEventArgs e) =>
-            CurrentValueChanged?.Invoke(e.Value);
-
-        protected void OnTopZoneValueChanged(SliderEventArgs e) =>
-            TopZoneValueChanged?.Invoke(e.Value);
-
-        protected void OnBottomZoneValueChanged(SliderEventArgs e) =>
-            BottomZoneValueChanged?.Invoke(e.Value);
-
-        //protected new void OnClick(EventArgs e) =>
-        //    Click?.Invoke();
-
-        protected void OnTopValueChanged(SliderEventArgs e) =>
-            TopValueChanged?.Invoke(e.Value);
-
-        protected void OnBottomValueChanged(SliderEventArgs e) =>
-            BottomValueChanged?.Invoke(e.Value);
-        */
-
-
-        [Browsable(true)]
-        public new virtual event ClickEventHandler Click;
-
-        //[Browsable(true)]
-        //public virtual event DblClickEventHandler DblClick;
-
-        //[Browsable(true)]
-        //public virtual event ErrorEventHandler Error;
-
-        [Browsable(true)]
         public virtual event ValueChangedEventHandler TopZoneValueChanged;
 
         [Browsable(true)]
+        [Description("Causes if bottom zone value is changed"), Category("Slider")]
         public virtual event ValueChangedEventHandler BottomZoneValueChanged;
 
-        protected void OnClick() =>
-            Click?.Invoke();
+        [Browsable(true)]
+        [Description("Causes if current value is changed"), Category("Slider")]
+        public virtual event ValueChangedEventHandler CurrentValueChanged;
 
-        //protected void OnDblClick(bool value) =>
-        //    DblClick?.Invoke(value);
+        [Browsable(true)]
+        [Description("Causes if top value is changed"), Category("Slider")]
+        public virtual event ValueChangedEventHandler TopValueChanged;
+
+        [Browsable(true)]
+        [Description("Causes if bottom value is changed"), Category("Slider")]
+        public virtual event ValueChangedEventHandler BottomValueChanged;
+
+        //protected void OnClick() =>
+        //    Click?.Invoke();
 
         //protected void OnError(short number, string desc, int code, string source, string helpFile, int helpContext, bool cancel) =>
         //    Error?.Invoke(number, desc, code, source, helpFile, helpContext, cancel);
@@ -394,12 +351,14 @@
         protected void OnBottomZoneValueChanged(float value) =>
             BottomZoneValueChanged?.Invoke(this, value);
 
-        //public delegate void ControlEventHandler(int NumVal);
-        //public event ControlEventHandler OnButtonClick = null;
+        protected void OnCurrentValueChanged(float value) =>
+            CurrentValueChanged?.Invoke(this, value);
 
-        //[Browsable(true)]
-        //[Description("Causes if current value is changed"), Category("Slider")]
-        //public void OnButtonClick(int NumVal) {}
+        protected void OnTopValueChanged(float value) =>
+            TopValueChanged?.Invoke(this, value);
+
+        protected void OnBottomValueChanged(float value) =>
+            BottomValueChanged?.Invoke(this, value);
 
         #endregion
 
