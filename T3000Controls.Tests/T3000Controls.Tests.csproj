@@ -6,8 +6,8 @@
     <ProjectGuid>{C5AF7F4E-4EC4-4F09-999D-F3296194A4C2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SliderControlLibrary.Tests</RootNamespace>
-    <AssemblyName>SliderControlLibrary.Tests</AssemblyName>
+    <RootNamespace>T3000Controls.Tests</RootNamespace>
+    <AssemblyName>T3000Controls.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
