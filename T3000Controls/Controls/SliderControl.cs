@@ -6,6 +6,23 @@
     using System.Runtime.InteropServices;
     using System.Drawing;
 
+    public static class IntegerExtensions
+    {
+        public static T Clamp<T>(this T value, T min, T max) where T : IComparable<T>
+        {
+            if (value.CompareTo(min) < 0)
+            {
+                return min;
+            }
+            else if (value.CompareTo(max) > 0)
+            {
+                return max;
+            }
+
+            return value;
+        }
+    }
+
     [Guid("ABA068FC-6B49-3031-B74A-1C51A3C8833A")]
     [ClassInterface(ClassInterfaceType.None)]
     [ComSourceInterfaces(typeof(ISliderControlEvents))]
@@ -407,6 +424,14 @@
             return SliderUtilities.GetOffsetForValue(value, TopValue, BottomValue, Height);
         }
 
+        public float Clamp(float value)
+        {
+            var maxValue = Math.Max(BottomValue, TopValue);
+            var minValue = Math.Min(BottomValue, TopValue);
+
+            return value.Clamp(minValue, maxValue);
+        }
+
         private void handle_MouseDown(object sender, MouseEventArgs e)
         {
             Mover.Start(sender, e);
@@ -433,12 +458,7 @@
             var point = Mover.GetPoint(e);
             var value = YToValue(point.Y + handle.Height / 2.0F);
 
-            //Restricts value from top and bottom values
-            var maxValue = Math.Max(BottomValue, TopValue);
-            var minValue = Math.Min(BottomValue, TopValue);
-            value = Math.Max(Math.Min(value, maxValue), minValue);
-
-            handle.Value = value;
+            handle.Value = Clamp(value);
         }
 
         private void topHandle_MouseMove(object sender, MouseEventArgs e)
@@ -503,15 +523,6 @@
             var delta = handle.Value - prevValue;
             handle.Value -= delta;
 
-            //Constraints
-            var maxValue = Math.Max(BottomValue, TopValue);
-            var minValue = Math.Min(BottomValue, TopValue);
-            Action<float> restrictsDeltaForValue = (value) =>
-                delta = Math.Max(Math.Min(value + delta, maxValue), minValue) - value;
-            restrictsDeltaForValue(topHandle.Value);
-            restrictsDeltaForValue(middleHandle.Value);
-            restrictsDeltaForValue(bottomHandle.Value);
-            
             topHandle.Value += delta;
             middleHandle.Value += delta;
             bottomHandle.Value += delta;
@@ -540,7 +551,7 @@
             middleHandle.Value = (TopZoneValue + BottomZoneValue)/2;
 
             Func<float, Control, int> getYForHandleFromValue = (value, control) =>
-                Convert.ToInt32(ValueToY(value) - control.Height / 2.0F);
+                Convert.ToInt32(ValueToY(Clamp(value)) - control.Height / 2.0F);
 
             //Update indicator control Y position
             indicator.Top = getYForHandleFromValue(indicator.Value, indicator);
