@@ -73,11 +73,16 @@
                     //subkey.SetValue(null, Assembly.GetExecutingAssembly().Location);
                     //subkey.SetValue("ThreadingModel", "Apartment");
                 }
+                //using (var subkey = key.CreateSubKey("Server"))
+                //{
+                //    subkey.SetValue(null, "mscorld.dll");
+                //}
+                //
                 //using (var subkey = key.CreateSubKey("ToolboxBitmap32"))
                 //{
-                    //subkey.SetValue(null,
-                    //    Assembly.GetExecutingAssembly().Location + ", " +
-                    //    bitmapId.ToString());
+                //subkey.SetValue(null,
+                //    Assembly.GetExecutingAssembly().Location + ", " +
+                //    bitmapId.ToString());
                 //}
                 using (var subkey = key.CreateSubKey("Implemented Categories"))
                 {
