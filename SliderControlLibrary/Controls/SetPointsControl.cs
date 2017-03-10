@@ -112,13 +112,14 @@
                 bottomValue = SliderUtilities.RoundUp(BottomValue, delta, multiplier, divider);
             }
 
-            topValueLabel.Text = panel.TopValueText;
             panel.TopValue = topValue;
             panel2.TopValue = topValue;
 
-            bottomValueLabel.Text = panel.BottomValueText;
             panel.BottomValue = bottomValue;
             panel2.BottomValue = bottomValue;
+
+            topValueLabel.Text = panel.TopValueText;
+            bottomValueLabel.Text = panel.BottomValueText;
         }
 
         [ComRegisterFunction()]

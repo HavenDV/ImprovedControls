@@ -316,7 +316,7 @@
         public bool InBottomZone => IsInverse ? CurrentValue <= BottomZoneValue : CurrentValue >= BottomZoneValue;
 
         [Browsable(false)]
-        public string ValueToText(float value) => TopZoneValue.ToString("F1") + AdditionalText;
+        public string ValueToText(float value) => value.ToString("F1") + AdditionalText;
 
         [Browsable(false)]
         public string UnknownValueText = "-";
