@@ -132,19 +132,6 @@
             }
         }
 
-        private bool _showLabels = false;
-        [Description("Show labels for top and bottom values"), Category("Slider")]
-        public bool ShowLabels {
-            get { return _showLabels; }
-            set {
-                _showLabels = value;
-                //topLabel.Visible = value;
-                //bottomLabel.Visible = value;
-
-                Invalidate();
-            }
-        }
-
         private string _additionalText = " F";
         [Description("Additional text for handles and for indicator"), Category("Slider")]
         public string AdditionalText
