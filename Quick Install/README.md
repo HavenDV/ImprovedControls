@@ -28,12 +28,14 @@ typedef std::pair<float, float> SizeF;
 14. Enter need properties ![](14-1.png) and get results![](14-2.png).
 15. Thanks!
 
-Alternative:
-1. run Visual Studio Native Tools Command Promt in administator mode 
-2. go to SliderControlLibrary dll path
+#Alternative:
+1. Run Visual Studio Native Tools Command Promt in administator mode 
+2. Go to SliderControlLibrary dll path
 3. regasm SliderControlLibrary.dll /codebase /tlb SliderControlLibrary.tlb
 4. Go to 3-15 first method.
 
-For internal usage in the resource file:
+#For internal usage in the resource file:
+
 SliderControl guid: "ABA068FC-6B49-3031-B74A-1C51A3C8833A"
+
 SetPointsControl guid: "A7CFC298-FE4E-4819-B868-2C014BA244DE"
