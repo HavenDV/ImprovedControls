@@ -25,6 +25,11 @@
         [Test]
         public void TypeLib_CompareEvents()
         {
+            if (Environment.OSVersion.Platform != PlatformID.Win32NT)
+            {
+                return;
+            }
+
             var currentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var projectDirectory = Directory.GetParent(Directory.GetParent(currentDirectory).FullName).FullName;
             var solutionDirectory = Directory.GetParent(projectDirectory).FullName;
