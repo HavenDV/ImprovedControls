@@ -47,9 +47,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SliderControlLibrary\SliderControlLibrary.csproj">
+    <ProjectReference Include="..\T3000Controls\T3000Controls.csproj">
       <Project>{0d845aa6-e9b7-4542-9a2d-eb371076c021}</Project>
-      <Name>SliderControlLibrary</Name>
+      <Name>T3000Controls</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

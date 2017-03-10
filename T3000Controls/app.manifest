@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <assembly manifestVersion="1.0" xmlns="urn:schemas-microsoft-com:asm.v1">
-  <assemblyIdentity version="1.0.0.0" name="SliderControlLibrary.app" type="win32" publicKeyToken="D2D6345C4DBAF058"/>
+  <assemblyIdentity version="1.0.0.0" name="T3000Controls.app" type="win32" publicKeyToken="D2D6345C4DBAF058"/>
   <trustInfo xmlns="urn:schemas-microsoft-com:asm.v2">
     <security>
       <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
@@ -88,8 +88,8 @@
      runtimeVersion=""
   />
 
-  <file name="SliderControlLibrary.dll" hashalg="SHA1"></file>
-  <file name="SliderControlLibrary.tlb">
+  <file name="T3000Controls.dll" hashalg="SHA1"></file>
+  <file name="T3000Controls.tlb">
     <typelib
         tlbid="{EC0D6915-1D83-4E46-9447-568A63B0E82C}"
         version="1.0"

@@ -2,6 +2,6 @@ language: csharp
 solution: T3000Controls.sln
 script:
   - xbuild /p:Configuration=Release
-  - mono ./packages/NUnit.ConsoleRunner.*/tools/nunit3-console.exe ./SliderControlLibrary.Tests/bin/Release/SliderControlLibrary.Tests.dll
+  - mono ./packages/NUnit.ConsoleRunner.*/tools/nunit3-console.exe ./T3000Controls.Tests/bin/Release/T3000Controls.Tests.dll
 notifications:
   email: false

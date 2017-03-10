@@ -11,7 +11,7 @@
     {
         /// <summary>
         /// Check registration in registry. After creation 
-        /// SliderControlLibrary automatically use regasm.exe
+        /// T3000Controls automatically use regasm.exe
         /// </summary>
         [Test]
         public void IsRegistered()
@@ -29,7 +29,7 @@
             var projectDirectory = Directory.GetParent(Directory.GetParent(currentDirectory).FullName).FullName;
             var solutionDirectory = Directory.GetParent(projectDirectory).FullName;
             Directory.SetCurrentDirectory(solutionDirectory);
-            var file = $"SliderControlLibrary/bin/Release/SliderControlLibrary.tlb";
+            var file = $"T3000Controls/bin/Release/T3000Controls.tlb";
             var text = File.ReadAllText(file);
             
             var expected = typeof(ISliderControlEvents).GetMethods().GetLength(0);

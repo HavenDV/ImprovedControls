@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Application", "Application\Application.vcxproj", "{262A8CA3-5AF0-43FC-8B99-959A98353B78}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -21,9 +21,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TCProps", "TstCon\TCProps\T
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DialogForms", "DialogFormsSrc\DialogForms.vcxproj", "{530B8576-79DC-4FB6-B0A6-702B22276998}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SliderControlLibrary", "SliderControlLibrary\SliderControlLibrary.csproj", "{0D845AA6-E9B7-4542-9A2D-EB371076C021}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T3000Controls", "T3000Controls\T3000Controls.csproj", "{0D845AA6-E9B7-4542-9A2D-EB371076C021}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SliderControlLibrary.Tests", "SliderControlLibrary.Tests\SliderControlLibrary.Tests.csproj", "{C5AF7F4E-4EC4-4F09-999D-F3296194A4C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T3000Controls.Tests", "T3000Controls.Tests\T3000Controls.Tests.csproj", "{C5AF7F4E-4EC4-4F09-999D-F3296194A4C2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A9309349-A131-42C9-B790-39F1A7562B45}"
 	ProjectSection(SolutionItems) = preProject
