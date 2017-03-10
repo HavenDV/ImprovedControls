@@ -5,7 +5,7 @@
     using System.Drawing.Drawing2D;
     using System.Windows.Forms;
 
-    public partial class IndicatorControl : UserControl
+    public partial class IndicatorControl : Label
     {
         #region DesignerProperties
 
@@ -17,18 +17,22 @@
             set
             {
                 _isSimple = value;
-                textLabel.Visible = !value;
-                valueLabel.Visible = !value;
 
                 Invalidate();
             }
         }
 
+        private string _indicatorText = "";
         [Description("Indicator text"), Category("Appearance")]
         public string IndicatorText
         {
-            get { return textLabel.Text; }
-            set { textLabel.Text = value; }
+            get { return _indicatorText; }
+            set
+            {
+                _indicatorText = value;
+
+                Invalidate();
+            }
         }
 
         private float _value = 0.0F;
@@ -36,9 +40,11 @@
         public float Value
         {
             get { return _value; }
-            set {
+            set
+            {
                 _value = value;
-                valueLabel.Text = $"{_value.ToString("F1")}{AdditionalText}";
+
+                Invalidate();
             }
         }
 
@@ -50,8 +56,8 @@
             set
             {
                 _additionalText = value;
-                //Update value label text
-                Value = Value;
+
+                Invalidate();
             }
         }
 
@@ -60,7 +66,8 @@
         public Color BorderColor
         {
             get { return _borderColor; }
-            set {
+            set
+            {
                 _borderColor = value;
 
                 Invalidate();
@@ -80,7 +87,7 @@
         {
             base.OnPaint(e);
 
-            var graphics = e.Graphics;
+            Text = IsSimple ? "" : $"{IndicatorText} {_value.ToString("F1")}{AdditionalText}";
 
             var path = new GraphicsPath();
             if (IsSimple)
@@ -102,14 +109,9 @@
                 });
             }
 
-            using (var brush = new SolidBrush(BackColor))
-            {
-                graphics.FillPath(brush, path);
-            }
-
             using (var pen = new Pen(BorderColor, 1))
             {
-                graphics.DrawPath(pen, path);
+                e.Graphics.DrawPath(pen, path);
             }
 
             Region = GraphicsUtilities.GetRegionForPath(path);
