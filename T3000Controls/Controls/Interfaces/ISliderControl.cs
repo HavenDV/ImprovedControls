@@ -29,5 +29,11 @@
         bool EnableIndicator { get; set; }
         bool IsSimpleIndicator { get; set; }
         string IndicatorText { get; set; }
+
+        //User control properties
+        Color ForeColor { get; set; }
+        bool Enabled { get; set; }
+        Point Location { get; set; }
+        Size Size { get; set; }
     }
 }
