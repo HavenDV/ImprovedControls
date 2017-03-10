@@ -40,12 +40,14 @@
             this.indicator.AdditionalText = " F";
             this.indicator.BackColor = System.Drawing.Color.GreenYellow;
             this.indicator.BorderColor = System.Drawing.Color.Black;
+            this.indicator.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.indicator.IndicatorText = "";
             this.indicator.IsSimple = true;
             this.indicator.Location = new System.Drawing.Point(0, 40);
             this.indicator.Name = "indicator";
             this.indicator.Size = new System.Drawing.Size(20, 20);
             this.indicator.TabIndex = 5;
+            this.indicator.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.indicator.Value = 50F;
             // 
             // middleHandle
@@ -134,6 +136,7 @@
             this.Controls.Add(this.bottomHandle);
             this.Controls.Add(this.topHandle);
             this.Controls.Add(this.backgroundControl);
+            this.DoubleBuffered = true;
             this.Name = "SliderControl";
             this.Size = new System.Drawing.Size(120, 100);
             this.ResumeLayout(false);
