@@ -315,6 +315,27 @@
         [Browsable(false)]
         public bool InBottomZone => IsInverse ? CurrentValue <= BottomZoneValue : CurrentValue >= BottomZoneValue;
 
+        [Browsable(false)]
+        public string ValueToText(float value) => TopZoneValue.ToString("F1") + AdditionalText;
+
+        [Browsable(false)]
+        public string UnknownValueText = "-";
+
+        [Browsable(false)]
+        public string TopZoneText => TopZone ? ValueToText(TopZoneValue) : UnknownValueText;
+
+        [Browsable(false)]
+        public string BottomZoneText => BottomZone ? ValueToText(BottomZoneValue) : UnknownValueText;
+
+        [Browsable(false)]
+        public string TopValueText => ValueToText(TopValue);
+
+        [Browsable(false)]
+        public string BottomValueText => ValueToText(BottomValue);
+
+        [Browsable(false)]
+        public string CurrentValueText => ValueToText(CurrentValue);
+
         #endregion
 
         #region Events

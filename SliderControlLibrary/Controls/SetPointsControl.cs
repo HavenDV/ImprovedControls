@@ -45,7 +45,7 @@
         }
 
         private float _topZoneValue = 33;
-        [Description("Top zone value"), Category("Slider")]
+        [Description("Top zone value"), Category("SetPointsControl")]
         public float TopZoneValue {
             get { return _topZoneValue; }
             set {
@@ -58,13 +58,30 @@
         }
 
         private float _bottomZoneValue = 66;
-        [Description("Bottom zone value"), Category("Slider")]
+        [Description("Bottom zone value"), Category("SetPointsControl")]
         public float BottomZoneValue {
             get { return _bottomZoneValue; }
             set {
                 _bottomZoneValue = value;
                 panel.BottomZoneValue = value;
                 panel2.BottomZoneValue = value;
+
+                Invalidate();
+            }
+        }
+
+        private string _additionalText = " F";
+        [Description("Additional text"), Category("SetPointsControl")]
+        public string AdditionalText
+        {
+            get { return _additionalText; }
+            set 
+            {
+                _additionalText = value;
+                panel.AdditionalText = value;
+                panel2.AdditionalText = value;
+                slider1TopZoneCheckBox.Text = panel.TopZoneText;
+                slider1BottomZoneCheckBox.Text = panel.BottomZoneText;
 
                 Invalidate();
             }
@@ -95,11 +112,11 @@
                 bottomValue = SliderUtilities.RoundUp(BottomValue, delta, multiplier, divider);
             }
 
-            topValueLabel.Text = topValue.ToString("F1");
+            topValueLabel.Text = panel.TopValueText;
             panel.TopValue = topValue;
             panel2.TopValue = topValue;
 
-            bottomValueLabel.Text = bottomValue.ToString("F1");
+            bottomValueLabel.Text = panel.BottomValueText;
             panel.BottomValue = bottomValue;
             panel2.BottomValue = bottomValue;
         }
@@ -134,16 +151,14 @@
 
         private void slider1BottomValueCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            var enabled = slider1BottomZoneCheckBox.Checked;
-            panel.BottomZone = enabled;
-            slider1BottomZoneCheckBox.Text = enabled ? panel.BottomZoneValue.ToString("F1") : "-";
+            panel.BottomZone = slider1BottomZoneCheckBox.Checked;
+            slider1BottomZoneCheckBox.Text = panel.BottomZoneText;
         }
 
         private void slider1TopZoneCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            var enabled = slider1TopZoneCheckBox.Checked;
-            panel.TopZone = enabled;
-            slider1TopZoneCheckBox.Text = enabled ? panel.TopZoneValue.ToString("F1") : "-";
+            panel.TopZone = slider1TopZoneCheckBox.Checked;
+            slider1TopZoneCheckBox.Text = panel.TopZoneText;
         }
     }
 }

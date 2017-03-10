@@ -33,10 +33,11 @@
             // 
             // setPointsControl1
             // 
+            this.setPointsControl1.AdditionalText = " C";
             this.setPointsControl1.BackColor = System.Drawing.Color.Transparent;
             this.setPointsControl1.BottomValue = -100F;
-            this.setPointsControl1.BottomZoneValue = -50F;
-            this.setPointsControl1.CurrentValue = -5F;
+            this.setPointsControl1.BottomZoneValue = -30F;
+            this.setPointsControl1.CurrentValue = 0F;
             this.setPointsControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.setPointsControl1.Location = new System.Drawing.Point(0, 0);
             this.setPointsControl1.Name = "setPointsControl1";
