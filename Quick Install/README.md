@@ -39,3 +39,17 @@ typedef std::pair<float, float> SizeF;
 SliderControl guid: "ABA068FC-6B49-3031-B74A-1C51A3C8833A"
 
 SetPointsControl guid: "A7CFC298-FE4E-4819-B868-2C014BA244DE"
+
+#Other
+
+Please, add post build events(for release and debug): 
+```
+copy /Y "..\SQLiteDriver\sqlite3.dll" "..\T3000 Output\release\"
+copy /Y "..\SQLiteDriver\sqlite3.dll" "..\T3000 Output\debug\"
+```
+You can also add dependencies (Solution -> Properties -> Project Dependencies) to exclude situations where, after the build, the old version of the lib file of the dependent projects is used
+
+Still, it is desirable to add a standard .gitignore .gitattribute files and Visual Studio.
+https://github.com/HavenDV/ImprovedControls/blob/master/.gitattributes
+https://github.com/HavenDV/ImprovedControls/blob/master/.gitignore
+
