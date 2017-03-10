@@ -6,23 +6,6 @@
     using System.Runtime.InteropServices;
     using System.Drawing;
 
-    public static class IntegerExtensions
-    {
-        public static T Clamp<T>(this T value, T min, T max) where T : IComparable<T>
-        {
-            if (value.CompareTo(min) < 0)
-            {
-                return min;
-            }
-            else if (value.CompareTo(max) > 0)
-            {
-                return max;
-            }
-
-            return value;
-        }
-    }
-
     [Guid("ABA068FC-6B49-3031-B74A-1C51A3C8833A")]
     [ClassInterface(ClassInterfaceType.None)]
     [ComSourceInterfaces(typeof(ISliderControlEvents))]
@@ -136,7 +119,7 @@
         }
 
         private bool _twoSliderMode = true;
-        [Description("Two handle control"), Category("Slider")]
+        [Description("Two handle control mode"), Category("Slider")]
         public bool TwoSliderMode
         {
             get { return _twoSliderMode; }
@@ -144,6 +127,19 @@
             {
                 _twoSliderMode = value;
                 middleHandle.Visible = !value;
+
+                Invalidate();
+            }
+        }
+
+        private bool _showLabels = false;
+        [Description("Show labels for top and bottom values"), Category("Slider")]
+        public bool ShowLabels {
+            get { return _showLabels; }
+            set {
+                _showLabels = value;
+                //topLabel.Visible = value;
+                //bottomLabel.Visible = value;
 
                 Invalidate();
             }

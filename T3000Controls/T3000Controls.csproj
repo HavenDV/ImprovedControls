@@ -54,6 +54,7 @@
     <Compile Include="Controls\BackgroundControl.Designer.cs">
       <DependentUpon>BackgroundControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\IntegerExtensions.cs" />
     <Compile Include="Controls\Interfaces\ISetPointsControl.cs" />
     <Compile Include="Controls\Interfaces\ISliderControl.cs" />
     <Compile Include="Controls\Interfaces\ISliderControlEvents.cs" />
