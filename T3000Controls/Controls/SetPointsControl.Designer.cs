@@ -81,7 +81,8 @@
             this.panel2.HandlesHeight = 8;
             this.panel2.IndicatorBorderColor = System.Drawing.Color.Black;
             this.panel2.IndicatorColor = System.Drawing.Color.GreenYellow;
-            this.panel2.IndicatorSize = new System.Drawing.Size(20, 20);
+            this.panel2.IndicatorWidth = 20;
+            this.panel2.IndicatorHeight = 20;
             this.panel2.IndicatorText = "";
             this.panel2.IsSimpleIndicator = true;
             this.panel2.LinesColor = System.Drawing.Color.LightGray;
@@ -116,7 +117,8 @@
             this.panel.HandlesHeight = 8;
             this.panel.IndicatorBorderColor = System.Drawing.Color.Black;
             this.panel.IndicatorColor = System.Drawing.Color.GreenYellow;
-            this.panel.IndicatorSize = new System.Drawing.Size(200, 30);
+            this.panel.IndicatorWidth = 200;
+            this.panel.IndicatorHeight = 30;
             this.panel.IndicatorText = "Temp";
             this.panel.IsSimpleIndicator = false;
             this.panel.LinesColor = System.Drawing.Color.LightGray;
