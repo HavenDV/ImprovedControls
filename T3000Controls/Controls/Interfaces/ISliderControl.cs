@@ -31,6 +31,17 @@
         bool IsSimpleIndicator { get; set; }
         string IndicatorText { get; set; }
 
+        //Public methods
+        bool IsInverse { get; }
+        bool InTopZone { get; }
+        bool InBottomZone { get; }
+        string ValueToText(float value);
+        string TopZoneText { get; }
+        string BottomZoneText { get; }
+        string TopValueText { get; }
+        string BottomValueText { get; }
+        string CurrentValueText { get; }
+
         //User control properties
         Color ForeColor { get; set; }
         bool Visible { get; set; }

@@ -11,7 +11,7 @@
     [ComSourceInterfaces(typeof(ISliderControlEvents))]
     public partial class SliderControl : UserControl, ISliderControl
     {
-        #region DesignerProperties
+        #region Properties
 
         private float _topValue = 0;
         [Description("Top value"), Category("Slider")]
@@ -310,7 +310,7 @@
 
         #endregion
 
-        #region PublicProperties
+        #region PublicMethods
 
         [Browsable(false)]
         public bool IsInverse => TopValue > BottomValue;
@@ -388,7 +388,7 @@
         public SliderControl()
         {
             InitializeComponent();
-
+            
             ResizeRedraw = true;
             Mover = new MouseMover(this);
         }
