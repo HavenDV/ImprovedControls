@@ -53,3 +53,12 @@ Still, it is desirable to add a standard .gitignore .gitattribute files and Visu
 https://github.com/HavenDV/ImprovedControls/blob/master/.gitattributes
 https://github.com/HavenDV/ImprovedControls/blob/master/.gitignore
 
+Before closing, need delete control with next code:
+```
+m_slider.OnFinalRelease();
+```
+
+In control .h file use next #import directive
+```
+#import "progid:T3000Controls.SliderControl" no_namespace
+```
