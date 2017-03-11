@@ -254,25 +254,31 @@
             set { indicator.BorderColor = value; }
         }
 
-        [Description("Size for indicator"), Category("Indicator")]
-        public Size IndicatorSize
+        [Description("Width for indicator"), Category("Indicator")]
+        public int IndicatorWidth
         {
-            get { return indicator.Size; }
+            get { return indicator.Width; }
             set
             {
-                indicator.Size = value;
+                indicator.Width = value;
 
-                var x = EnableIndicator ? value.Width : 0;
+                var x = EnableIndicator ? value : 0;
                 backgroundControl.Left = x;
                 topHandle.Left = x;
                 middleHandle.Left = x;
                 bottomHandle.Left = x;
 
-                var handleWidth = EnableIndicator ? Width - value.Width : Width;
+                var handleWidth = EnableIndicator ? Width - value : Width;
                 topHandle.Width = handleWidth;
                 middleHandle.Width = handleWidth;
                 bottomHandle.Width = handleWidth;
             }
+        }
+
+        [Description("Height for indicator"), Category("Indicator")]
+        public int IndicatorHeight {
+            get { return indicator.Height; }
+            set { indicator.Height = value; }
         }
 
         private bool _enableIndicator = true;
@@ -285,7 +291,7 @@
                 _enableIndicator = value;
                 indicator.Visible = value;
                 //Update positions and widths
-                IndicatorSize = IndicatorSize;
+                IndicatorWidth = IndicatorWidth;
             }
         }
 

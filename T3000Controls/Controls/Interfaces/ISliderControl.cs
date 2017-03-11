@@ -25,15 +25,19 @@
         Color MiddleHandleColor { get; set; }
         Color IndicatorColor { get; set; }
         Color IndicatorBorderColor { get; set; }
-        Size IndicatorSize { get; set; }
+        int IndicatorWidth { get; set; }
+        int IndicatorHeight { get; set; }
         bool EnableIndicator { get; set; }
         bool IsSimpleIndicator { get; set; }
         string IndicatorText { get; set; }
 
         //User control properties
         Color ForeColor { get; set; }
+        bool Visible { get; set; }
         bool Enabled { get; set; }
-        Point Location { get; set; }
-        Size Size { get; set; }
+        int Top { get; set; }
+        int Left { get; set; }
+        int Width { get; set; }
+        int Height { get; set; }
     }
 }
