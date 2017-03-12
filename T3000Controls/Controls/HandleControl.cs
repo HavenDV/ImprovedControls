@@ -4,8 +4,8 @@
     using System.Drawing;
     using System.Drawing.Drawing2D;
     using System.Windows.Forms;
-
-    public partial class HandleControl : UserControl
+    
+    internal partial class HandleControl : UserControl
     {
         #region DesignerProperties
 

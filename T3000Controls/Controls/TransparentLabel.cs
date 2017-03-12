@@ -3,7 +3,7 @@
     using System;
     using System.Windows.Forms;
 
-    class TransparentLabel : Label
+    internal class TransparentLabel : Label
     {
         protected override void WndProc(ref Message m)
         {

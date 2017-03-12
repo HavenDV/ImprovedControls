@@ -4,7 +4,7 @@
     using System.Drawing;
     using System.Windows.Forms;
 
-    public partial class BackgroundControl : UserControl
+    internal partial class BackgroundControl : UserControl
     {
         #region DesignerProperties
 

@@ -5,7 +5,7 @@
     using System.Drawing.Drawing2D;
     using System.Windows.Forms;
 
-    public partial class IndicatorControl : Label
+    internal partial class IndicatorControl : Label
     {
         #region DesignerProperties
 

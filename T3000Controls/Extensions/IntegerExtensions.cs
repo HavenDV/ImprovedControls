@@ -2,7 +2,7 @@
 {
     using System;
 
-    public static class IntegerExtensions
+    internal static class IntegerExtensions
     {
         public static T Clamp<T>(this T value, T min, T max) where T : IComparable<T>
         {
