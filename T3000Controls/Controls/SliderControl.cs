@@ -64,6 +64,7 @@
             {
                 backgroundControl.TopZone = value;
                 topHandle.Visible = value;
+                UpdateMiddleHandleVisible();
             }
         }
 
@@ -75,6 +76,7 @@
             {
                 backgroundControl.BottomZone = value;
                 bottomHandle.Visible = value;
+                UpdateMiddleHandleVisible();
             }
         }
 
@@ -86,7 +88,10 @@
             set
             {
                 _topZoneValue = value;
-                OnTopZoneValueChanged(value);
+                if (TopZone)
+                {
+                    OnTopZoneValueChanged(value);
+                }
 
                 Invalidate();
             }
@@ -100,10 +105,19 @@
             set
             {
                 _bottomZoneValue = value;
-                OnBottomZoneValueChanged(value);
+                if (BottomZone)
+                {
+                    OnBottomZoneValueChanged(value);
+                }
 
                 Invalidate();
             }
+        }
+
+        [Description("Bottom zone value"), Category("Slider")]
+        public float MiddleZoneValue
+        {
+            get { return (TopZoneValue + BottomZoneValue) / 2; }
         }
 
         private float _stepValue = 10;
@@ -126,7 +140,7 @@
             set
             {
                 _twoSliderMode = value;
-                middleHandle.Visible = !value;
+                UpdateMiddleHandleVisible();
 
                 Invalidate();
             }
@@ -334,6 +348,9 @@
         public string BottomZoneText => BottomZone ? ValueToText(BottomZoneValue) : UnknownValueText;
 
         [Browsable(false)]
+        public string MiddleZoneText => BottomZone && TopZone ? ValueToText(MiddleZoneValue) : UnknownValueText;
+
+        [Browsable(false)]
         public string TopValueText => ValueToText(TopValue);
 
         [Browsable(false)]
@@ -341,6 +358,20 @@
 
         [Browsable(false)]
         public string CurrentValueText => ValueToText(CurrentValue);
+
+        [Browsable(false)]
+        public void SetRange(float topValue, float bottomValue)
+        {
+            TopValue = topValue;
+            BottomValue = bottomValue;
+        }
+
+        [Browsable(false)]
+        public void SetZoneValues(float topZoneValue, float bottomZoneValue)
+        {
+            TopZoneValue = topZoneValue;
+            BottomZoneValue = bottomZoneValue;
+        }
 
         #endregion
 
@@ -392,6 +423,9 @@
             ResizeRedraw = true;
             Mover = new MouseMover(this);
         }
+
+        private void UpdateMiddleHandleVisible() => 
+            middleHandle.Visible = !TwoSliderMode && TopZone && BottomZone;
 
         public float YToValue(float y)
         {
@@ -537,7 +571,7 @@
             //Set top and bottom zone values from handles
             topHandle.Value = TopZoneValue;
             bottomHandle.Value = BottomZoneValue;
-            middleHandle.Value = (TopZoneValue + BottomZoneValue)/2;
+            middleHandle.Value = MiddleZoneValue;
 
             Func<float, Control, int> getYForHandleFromValue = (value, control) =>
                 Convert.ToInt32(ValueToY(Clamp(value)) - control.Height / 2.0F);
