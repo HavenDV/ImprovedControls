@@ -1,6 +1,7 @@
 ﻿namespace T3000Controls
 {
     using System;
+    using System.Windows.Forms;
     using System.Runtime.InteropServices;
 
     [ComVisible(false)]
@@ -24,7 +25,32 @@
         [DispId(5)]
         void BottomValueChanged(object sender, float newValue);
 
+        #region User control events
+        
         [DispId(-610)]
         void Click(object sender, EventArgs e);
+
+        [DispId(-601)]
+        void DblClick(object sender, EventArgs e);
+
+        [DispId(-602)]
+        void KeyDown(object sender, KeyEventArgs e);
+
+        [DispId(-603)]
+        void KeyPress(object sender, KeyEventArgs e);
+
+        [DispId(-604)]
+        void KeyUp(object sender, KeyEventArgs e);
+
+        [DispId(-605)]
+        void MouseDown(object sender, MouseEventArgs e);
+
+        [DispId(-606)]
+        void MouseMove(object sender, MouseEventArgs e);
+
+        [DispId(-607)]
+        void MouseUp(object sender, MouseEventArgs e);
+
+        #endregion
     }
 }
