@@ -55,7 +55,7 @@ https://github.com/HavenDV/ImprovedControls/blob/master/.gitignore
 
 Before closing, need delete control with next code:
 ```
-m_slider.OnFinalRelease();
+m_slider.Dispose();
 ```
 
 In control .h file use next #import directive
