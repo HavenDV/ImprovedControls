@@ -160,7 +160,7 @@
                 middleHandle.AdditionalText = value;
                 bottomHandle.AdditionalText = value;
                 indicator.AdditionalText = value;
-
+                
                 Invalidate();
             }
         }
@@ -232,6 +232,9 @@
                 topHandle.HandleHeight = value;
                 middleHandle.HandleHeight = value;
                 bottomHandle.HandleHeight = value;
+                topHandle.Height = value * 2;
+                middleHandle.Height = value * 2;
+                bottomHandle.Height = value * 2;
 
                 Invalidate();
             }

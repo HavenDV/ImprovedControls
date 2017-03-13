@@ -17,7 +17,8 @@
             set
             {
                 _value = value;
-                valueLabel.Text = $"{_value.ToString("F1")}{AdditionalText}";
+
+                Invalidate();
             }
         }
 
@@ -29,6 +30,7 @@
             set 
             {
                 _additionalText = value;
+
                 Invalidate();
             }
         }
@@ -41,6 +43,7 @@
             set
             {
                 _handleWidth = value;
+
                 Invalidate();
             }
         }
@@ -53,6 +56,7 @@
             set
             {
                 _handleHeight = value;
+
                 Invalidate();
             }
         }
@@ -65,6 +69,7 @@
             set
             {
                 _borderColor = value;
+
                 Invalidate();
             }
         }
@@ -82,6 +87,7 @@
         {
             base.OnPaint(e);
 
+            valueLabel.Text = $"{_value.ToString("F1")}{AdditionalText}";
             valueLabel.Location = new Point(HandleWidth, 1);
             valueLabel.Size = new Size(Width - HandleWidth, Height - 3);
 
