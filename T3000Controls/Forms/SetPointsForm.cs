@@ -2,7 +2,7 @@
 {
     using System.Windows.Forms;
 
-    public partial class SetPointsForm : Form
+    internal partial class SetPointsForm : Form
     {
         public SetPointsForm()
         {
