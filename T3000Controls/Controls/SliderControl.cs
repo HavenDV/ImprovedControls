@@ -321,7 +321,12 @@
         public bool IsSimpleIndicator
         {
             get { return indicator.IsSimple; }
-            set { indicator.IsSimple = value; }
+            set
+            {
+                indicator.IsSimple = value;
+                
+                Invalidate();
+            }
         }
 
         [Description("Indicator text"), Category("Indicator")]
