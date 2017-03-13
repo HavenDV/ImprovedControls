@@ -64,10 +64,9 @@
             this.middleHandle.Size = new System.Drawing.Size(100, 16);
             this.middleHandle.TabIndex = 4;
             this.middleHandle.Value = 50F;
-            this.middleHandle.Visible = false;
             this.middleHandle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.handle_MouseDown);
             this.middleHandle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.oneSliderMode_MouseMove);
-            this.middleHandle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.handle_MouseUp);
+            this.middleHandle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.middleHandle_MouseUp);
             // 
             // bottomHandle
             // 
@@ -85,7 +84,7 @@
             this.bottomHandle.Value = 66F;
             this.bottomHandle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.handle_MouseDown);
             this.bottomHandle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.bottomHandle_MouseMove);
-            this.bottomHandle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.handle_MouseUp);
+            this.bottomHandle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bottomHandle_MouseUp);
             // 
             // topHandle
             // 
@@ -103,7 +102,7 @@
             this.topHandle.Value = 33F;
             this.topHandle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.handle_MouseDown);
             this.topHandle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.topHandle_MouseMove);
-            this.topHandle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.handle_MouseUp);
+            this.topHandle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.topHandle_MouseUp);
             // 
             // backgroundControl
             // 

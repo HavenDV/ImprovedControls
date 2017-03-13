@@ -24,6 +24,7 @@
         int HandlesHeight { get; set; }
         Color HandlesBorderColor { get; set; }
         Color MiddleHandleColor { get; set; }
+        bool LowEventMode { get; set; }
         Color IndicatorColor { get; set; }
         Color IndicatorBorderColor { get; set; }
         int IndicatorWidth { get; set; }

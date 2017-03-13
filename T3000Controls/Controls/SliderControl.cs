@@ -132,7 +132,7 @@
             }
         }
 
-        private bool _twoSliderMode = true;
+        private bool _twoSliderMode = false;
         [Description("Two handle control mode"), Category("Slider")]
         public bool TwoSliderMode
         {
@@ -253,6 +253,9 @@
             get { return middleHandle.BackColor; }
             set { middleHandle.BackColor = value; }
         }
+
+        [Description("Low event mode for handles"), Category("Handles")]
+        public bool LowEventMode { get; set; } = true;
 
         [Description("Color for indicator"), Category("Indicator")]
         public Color IndicatorColor
@@ -465,6 +468,37 @@
             Mover.End();
         }
 
+        private void topHandle_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (!TwoSliderMode)
+            {
+                middleHandle_MouseUp(sender, e);
+                return;
+            }
+
+            handle_MouseUp(sender, e);
+            TopZoneValue = topHandle.Value;
+        }
+
+        private void middleHandle_MouseUp(object sender, MouseEventArgs e)
+        {
+            handle_MouseUp(sender, e);
+            TopZoneValue = topHandle.Value;
+            BottomZoneValue = bottomHandle.Value;
+        }
+
+        private void bottomHandle_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (!TwoSliderMode)
+            {
+                middleHandle_MouseUp(sender, e);
+                return;
+            }
+
+            handle_MouseUp(sender, e);
+            BottomZoneValue = bottomHandle.Value;
+        }
+
         private void handle_MouseMove(object sender, MouseEventArgs e)
         {
             if (!Mover.IsMoved)
@@ -502,7 +536,10 @@
                 Math.Max(bottomHandle.Value, topHandle.Value) :
                 Math.Min(bottomHandle.Value, topHandle.Value);
 
-            TopZoneValue = topHandle.Value;
+            if (!LowEventMode)
+            {
+                TopZoneValue = topHandle.Value;
+            }
             Refresh();
         }
 
@@ -524,7 +561,10 @@
                 Math.Min(bottomHandle.Value, topHandle.Value) :
                 Math.Max(bottomHandle.Value, topHandle.Value);
 
-            BottomZoneValue = bottomHandle.Value;
+            if (!LowEventMode)
+            {
+                BottomZoneValue = bottomHandle.Value;
+            }
             Refresh();
         }
 
@@ -550,8 +590,11 @@
             middleHandle.Value += delta;
             bottomHandle.Value += delta;
 
-            TopZoneValue = topHandle.Value;
-            BottomZoneValue = bottomHandle.Value;
+            if (!LowEventMode)
+            {
+                TopZoneValue = topHandle.Value;
+                BottomZoneValue = bottomHandle.Value;
+            }
 
             Refresh();
         }
@@ -561,17 +604,12 @@
             base.OnPaint(e);
             
             //Update background control properties
-            backgroundControl.TopZoneValueY = ValueToY(TopZoneValue);
-            backgroundControl.BottomZoneValueY = ValueToY(BottomZoneValue);
+            backgroundControl.TopZoneValueY = ValueToY(topHandle.Value);
+            backgroundControl.BottomZoneValueY = ValueToY(bottomHandle.Value);
             backgroundControl.CurrentValueY = ValueToY(CurrentValue);
             backgroundControl.StepHeight = ValueToHeight(StepValue);
             backgroundControl.BigOffsetY = GetOffsetForValue(StepValue);
             backgroundControl.SmallOffsetY = backgroundControl.BigOffsetY + ValueToHeight(StepValue / 2);
-
-            //Set top and bottom zone values from handles
-            topHandle.Value = TopZoneValue;
-            bottomHandle.Value = BottomZoneValue;
-            middleHandle.Value = MiddleZoneValue;
 
             Func<float, Control, int> getYForHandleFromValue = (value, control) =>
                 Convert.ToInt32(ValueToY(Clamp(value)) - control.Height / 2.0F);
