@@ -55,5 +55,8 @@
         int Left { get; set; }
         int Width { get; set; }
         int Height { get; set; }
+
+        //User control methods
+        void Dispose();
     }
 }
