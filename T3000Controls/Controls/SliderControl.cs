@@ -613,7 +613,7 @@
             backgroundControl.BigOffsetY = GetOffsetForValue(StepValue);
             backgroundControl.SmallOffsetY = backgroundControl.BigOffsetY + ValueToHeight(StepValue / 2);
 
-            middleHandle.Value = MiddleZoneValue;
+            middleHandle.Value = (topHandle.Value + bottomHandle.Value) / 2; ;
 
             Func<float, Control, int> getYForHandleFromValue = (value, control) =>
                 Convert.ToInt32(ValueToY(Clamp(value)) - control.Height / 2.0F);
