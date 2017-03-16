@@ -12,7 +12,7 @@
         /// <param name="rect">Input rect</param>
         /// <param name="radius">Rounding radius</param>
         /// <returns></returns>
-        public static GraphicsPath CreateRoundedRectanglePath(Rectangle rect, int radius)
+        public static GraphicsPath CreateRoundedRectanglePath(RectangleF rect, int radius)
         {   
             var path = new GraphicsPath();
             path.AddArc(rect.X, rect.Y, radius, radius, 180, 90);

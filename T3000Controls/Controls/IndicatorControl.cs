@@ -111,6 +111,7 @@
 
             using (var pen = new Pen(BorderColor, 1))
             {
+                e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
                 e.Graphics.DrawPath(pen, path);
             }
 

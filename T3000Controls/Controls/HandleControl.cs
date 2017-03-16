@@ -87,16 +87,20 @@
         {
             base.OnPaint(e);
 
-            valueLabel.Text = $"{_value.ToString("F1")}{AdditionalText}";
-            valueLabel.Location = new Point(HandleWidth, 1);
-            valueLabel.Size = new Size(Width - HandleWidth, Height - 3);
+            var handleRectangleRadius = HandleHeight / 4;
+            var textRectangleRadius = HandleHeight / 2;
 
-            var handleRectangle = new Rectangle(0, Height / 2 - HandleHeight / 2 - 1, HandleWidth, HandleHeight);
-            var textRectangle = new Rectangle(HandleWidth, 0, Width - HandleWidth - 2, Height - 2);
-            var handlePath = GraphicsUtilities.CreateRoundedRectanglePath(handleRectangle, 4);
-            var textPath = GraphicsUtilities.CreateRoundedRectanglePath(textRectangle, 8);
+            valueLabel.Text = $"{_value.ToString("F1")}{AdditionalText}";
+            valueLabel.Location = new Point(HandleWidth + textRectangleRadius, 1);
+            valueLabel.Size = new Size(Width - HandleWidth - 2 * textRectangleRadius, Height - 2);
+
+            var handleRectangle = new RectangleF(0, Height / 2.0F - HandleHeight / 2.0F, HandleWidth, HandleHeight);
+            var textRectangle = new Rectangle(HandleWidth, 0, Width - HandleWidth, Height);
+            var handlePath = GraphicsUtilities.CreateRoundedRectanglePath(handleRectangle, handleRectangleRadius);
+            var textPath = GraphicsUtilities.CreateRoundedRectanglePath(textRectangle, textRectangleRadius);
 
             var graphics = e.Graphics;
+            graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
             using (var brush = new SolidBrush(BackColor))
             {
@@ -105,8 +109,6 @@
             }
             using (var pen = new Pen(BorderColor))
             {
-                pen.StartCap = LineCap.Round;
-                pen.EndCap = LineCap.Round;
                 graphics.DrawPath(pen, handlePath);
                 graphics.DrawPath(pen, textPath);
             }
@@ -114,6 +116,7 @@
             {
                 var rect = handleRectangle;
                 rect.Inflate(2, -1);
+                rect.X += 3;
                 graphics.FillRectangle(brush, rect);
             }
 

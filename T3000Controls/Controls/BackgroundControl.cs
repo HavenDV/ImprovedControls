@@ -3,6 +3,7 @@
     using System.ComponentModel;
     using System.Drawing;
     using System.Windows.Forms;
+    using System.Drawing.Drawing2D;
 
     internal partial class BackgroundControl : UserControl
     {
@@ -178,7 +179,7 @@
             base.OnPaint(e);
 
             var graphics = e.Graphics;
-
+            graphics.SmoothingMode = SmoothingMode.AntiAlias;
             graphics.Clear(BackColor);
 
             var x1 = 0;
