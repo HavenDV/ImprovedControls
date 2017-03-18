@@ -25,8 +25,11 @@
         [DispId(5)]
         void BottomValueChanged(object sender, float newValue);
 
+        [DispId(6)]
+        void MiddleZoneValueChanged(object sender, float newValue);
+
         #region User control events
-        
+
         [DispId(-610)]
         void Click(object sender, EventArgs e);
 

@@ -64,7 +64,7 @@
             {
                 backgroundControl.TopZone = value;
                 topHandle.Visible = value;
-                UpdateMiddleHandleVisible();
+                middleHandle.Visible = OneSliderMode;
             }
         }
 
@@ -76,7 +76,7 @@
             {
                 backgroundControl.BottomZone = value;
                 bottomHandle.Visible = value;
-                UpdateMiddleHandleVisible();
+                middleHandle.Visible = OneSliderMode;
             }
         }
 
@@ -93,6 +93,8 @@
                     OnTopZoneValueChanged(value);
                 }
                 topHandle.Value = value;
+                if (MiddleZoneValueAsAverage)
+                    MiddleZoneValue = AverageZoneValue;
 
                 Invalidate();
             }
@@ -111,15 +113,29 @@
                     OnBottomZoneValueChanged(value);
                 }
                 bottomHandle.Value = value;
+                if (MiddleZoneValueAsAverage)
+                    MiddleZoneValue = AverageZoneValue;
 
                 Invalidate();
             }
         }
 
+        private float _middleZoneValue = 50.0F;
         [Description("Bottom zone value"), Category("Slider")]
         public float MiddleZoneValue
         {
-            get { return (TopZoneValue + BottomZoneValue) / 2; }
+            get { return _middleZoneValue; }
+            set
+            {
+                _middleZoneValue = value;
+                if (middleHandle.Visible)
+                {
+                    OnMiddleZoneValueChanged(value);
+                }
+                middleHandle.Value = value;
+
+                Invalidate();
+            }
         }
 
         private float _stepValue = 10;
@@ -142,7 +158,7 @@
             set
             {
                 _twoSliderMode = value;
-                UpdateMiddleHandleVisible();
+                middleHandle.Visible = OneSliderMode;
 
                 Invalidate();
             }
@@ -262,6 +278,9 @@
         [Description("Low event mode for handles"), Category("Handles")]
         public bool LowEventMode { get; set; } = true;
 
+        [Description("Automatical set middle handle value as average"), Category("Handles")]
+        public bool MiddleZoneValueAsAverage { get; set; }
+
         [Description("Color for indicator"), Category("Indicator")]
         public Color IndicatorColor
         {
@@ -373,6 +392,12 @@
         public string CurrentValueText => ValueToText(CurrentValue);
 
         [Browsable(false)]
+        public float AverageZoneValue => (TopZoneValue + BottomZoneValue) / 2;
+
+        [Browsable(false)]
+        public bool OneSliderMode => !TwoSliderMode && TopZone && BottomZone;
+
+        [Browsable(false)]
         public void SetRange(float topValue, float bottomValue)
         {
             TopValue = topValue;
@@ -383,6 +408,16 @@
         public void SetZoneValues(float topZoneValue, float bottomZoneValue)
         {
             TopZoneValue = topZoneValue;
+            BottomZoneValue = bottomZoneValue;
+        }
+
+        [Browsable(false)]
+        public void SetZoneValues(float topZoneValue, float middleZoneValue, float bottomZoneValue)
+        {
+            MiddleZoneValueAsAverage = false;
+
+            TopZoneValue = topZoneValue;
+            MiddleZoneValue = middleZoneValue;
             BottomZoneValue = bottomZoneValue;
         }
 
@@ -410,6 +445,10 @@
         [Description("Causes if bottom value is changed"), Category("Slider")]
         public virtual event ValueChangedEventHandler BottomValueChanged;
 
+        [Browsable(true)]
+        [Description("Causes if middle zone value is changed"), Category("Slider")]
+        public virtual event ValueChangedEventHandler MiddleZoneValueChanged;
+
         protected void OnTopZoneValueChanged(float value) =>
             TopZoneValueChanged?.Invoke(this, value);
 
@@ -425,6 +464,9 @@
         protected void OnBottomValueChanged(float value) =>
             BottomValueChanged?.Invoke(this, value);
 
+        protected void OnMiddleZoneValueChanged(float value) =>
+            MiddleZoneValueChanged?.Invoke(this, value);
+
         #endregion
 
         private MouseMover Mover { get; }
@@ -436,9 +478,6 @@
             ResizeRedraw = true;
             Mover = new MouseMover(this);
         }
-
-        private void UpdateMiddleHandleVisible() => 
-            middleHandle.Visible = !TwoSliderMode && TopZone && BottomZone;
 
         public float YToValue(float y)
         {
@@ -493,8 +532,7 @@
         private void middleHandle_MouseUp(object sender, MouseEventArgs e)
         {
             handle_MouseUp(sender, e);
-            TopZoneValue = topHandle.Value;
-            BottomZoneValue = bottomHandle.Value;
+            UpdateZoneValuesFromHandles();
         }
 
         private void bottomHandle_MouseUp(object sender, MouseEventArgs e)
@@ -602,11 +640,20 @@
 
             if (!LowEventMode)
             {
-                TopZoneValue = topHandle.Value;
-                BottomZoneValue = bottomHandle.Value;
+                UpdateZoneValuesFromHandles();
             }
 
             Refresh();
+        }
+
+        private void UpdateZoneValuesFromHandles()
+        {
+            var temp = MiddleZoneValueAsAverage;
+            MiddleZoneValueAsAverage = false;
+            TopZoneValue = topHandle.Value;
+            BottomZoneValue = bottomHandle.Value;
+            MiddleZoneValueAsAverage = temp;
+            MiddleZoneValue = MiddleZoneValueAsAverage ? AverageZoneValue : middleHandle.Value;
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -620,9 +667,7 @@
             backgroundControl.StepHeight = ValueToHeight(StepValue);
             backgroundControl.BigOffsetY = GetOffsetForValue(StepValue);
             backgroundControl.SmallOffsetY = backgroundControl.BigOffsetY + ValueToHeight(StepValue / 2);
-
-            middleHandle.Value = (topHandle.Value + bottomHandle.Value) / 2; ;
-
+            
             Func<float, Control, int> getYForHandleFromValue = (value, control) =>
                 Convert.ToInt32(ValueToY(Clamp(value)) - control.Height / 2.0F);
 

@@ -11,7 +11,7 @@
         bool BottomZone { get; set; }
         float TopZoneValue { get; set; }
         float BottomZoneValue { get; set; }
-        float MiddleZoneValue { get; }
+        float MiddleZoneValue { get; set; }
         float StepValue { get; set; }
         bool TwoSliderMode { get; set; }
         string AdditionalText { get; set; }
@@ -25,6 +25,7 @@
         Color HandlesBorderColor { get; set; }
         Color MiddleHandleColor { get; set; }
         bool LowEventMode { get; set; }
+        bool MiddleZoneValueAsAverage { get; set; }
         Color IndicatorColor { get; set; }
         Color IndicatorBorderColor { get; set; }
         int IndicatorWidth { get; set; }
@@ -46,6 +47,7 @@
         string CurrentValueText { get; }
         void SetRange(float topValue, float bottomValue);
         void SetZoneValues(float topZoneValue, float bottomZoneValue);
+        void SetZoneValues(float topZoneValue, float middleZoneValue, float bottomZoneValue);
 
         //User control properties
         Color ForeColor { get; set; }
