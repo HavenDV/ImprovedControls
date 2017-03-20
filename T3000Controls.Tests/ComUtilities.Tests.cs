@@ -39,8 +39,9 @@
             
             var expected = typeof(ISliderControlEvents).GetMethods().GetLength(0);
             var actual = Regex.Matches(text, "ValueChanged").Count +
-               Regex.Matches(text, "Click").Count + 
-               Regex.Matches(text, "KeyDown").Count + 
+               Regex.Matches(text, "Moved").Count +
+               Regex.Matches(text, "Click").Count +
+               Regex.Matches(text, "KeyDown").Count +
                Regex.Matches(text, "KeyPress").Count +
                Regex.Matches(text, "KeyUp").Count +
                Regex.Matches(text, "Mouse").Count;
