@@ -425,29 +425,32 @@
 
         #region Events
 
-        [Browsable(true)]
         [Description("Causes if top zone value is changed"), Category("Slider")]
         public virtual event ValueChangedEventHandler TopZoneValueChanged;
 
-        [Browsable(true)]
         [Description("Causes if bottom zone value is changed"), Category("Slider")]
         public virtual event ValueChangedEventHandler BottomZoneValueChanged;
 
-        [Browsable(true)]
         [Description("Causes if current value is changed"), Category("Slider")]
         public virtual event ValueChangedEventHandler CurrentValueChanged;
 
-        [Browsable(true)]
         [Description("Causes if top value is changed"), Category("Slider")]
         public virtual event ValueChangedEventHandler TopValueChanged;
 
-        [Browsable(true)]
         [Description("Causes if bottom value is changed"), Category("Slider")]
         public virtual event ValueChangedEventHandler BottomValueChanged;
 
-        [Browsable(true)]
         [Description("Causes if middle zone value is changed"), Category("Slider")]
         public virtual event ValueChangedEventHandler MiddleZoneValueChanged;
+
+        [Description("Causes if top handle is moved. Only in TwoSliderMode"), Category("Slider")]
+        public virtual event ValueChangedEventHandler TopHandleMoved;
+
+        [Description("Causes if middle handle is moved. Only in OneSliderMode"), Category("Slider")]
+        public virtual event ValueChangedEventHandler MiddleHandleMoved;
+
+        [Description("Causes if bottom handle is moved. Only in TwoSliderMode"), Category("Slider")]
+        public virtual event ValueChangedEventHandler BottomHandleMoved;
 
         protected void OnTopZoneValueChanged(float value) =>
             TopZoneValueChanged?.Invoke(this, value);
@@ -466,6 +469,15 @@
 
         protected void OnMiddleZoneValueChanged(float value) =>
             MiddleZoneValueChanged?.Invoke(this, value);
+
+        protected void OnTopHandleMoved(float value) =>
+            TopHandleMoved?.Invoke(this, value);
+
+        protected void OnMiddleHandleMoved(float value) =>
+            MiddleHandleMoved?.Invoke(this, value);
+
+        protected void OnBottomHandleMoved(float value) =>
+            BottomHandleMoved?.Invoke(this, value);
 
         #endregion
 
@@ -527,12 +539,14 @@
 
             handle_MouseUp(sender, e);
             TopZoneValue = topHandle.Value;
+            OnTopHandleMoved(topHandle.Value);
         }
 
         private void middleHandle_MouseUp(object sender, MouseEventArgs e)
         {
             handle_MouseUp(sender, e);
             UpdateZoneValuesFromHandles();
+            OnMiddleHandleMoved(middleHandle.Value);
         }
 
         private void bottomHandle_MouseUp(object sender, MouseEventArgs e)
@@ -545,6 +559,7 @@
 
             handle_MouseUp(sender, e);
             BottomZoneValue = bottomHandle.Value;
+            OnBottomHandleMoved(bottomHandle.Value);
         }
 
         private void handle_MouseMove(object sender, MouseEventArgs e)
@@ -586,6 +601,7 @@
 
             if (!LowEventMode)
             {
+                OnTopHandleMoved(topHandle.Value);
                 TopZoneValue = topHandle.Value;
             }
             Refresh();
@@ -611,6 +627,7 @@
 
             if (!LowEventMode)
             {
+                OnBottomHandleMoved(bottomHandle.Value);
                 BottomZoneValue = bottomHandle.Value;
             }
             Refresh();
@@ -640,6 +657,7 @@
 
             if (!LowEventMode)
             {
+                OnMiddleHandleMoved(middleHandle.Value);
                 UpdateZoneValuesFromHandles();
             }
 

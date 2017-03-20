@@ -28,6 +28,15 @@
         [DispId(6)]
         void MiddleZoneValueChanged(object sender, float newValue);
 
+        [DispId(7)]
+        void TopHandleMoved(object sender, float newValue);
+
+        [DispId(8)]
+        void MiddleHandleMoved(object sender, float newValue);
+
+        [DispId(9)]
+        void BottomHandleMoved(object sender, float newValue);
+
         #region User control events
 
         [DispId(-610)]
