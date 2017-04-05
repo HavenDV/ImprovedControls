@@ -44,8 +44,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\BackgroundControl.cs">
@@ -53,6 +55,14 @@
     </Compile>
     <Compile Include="Controls\BackgroundControl.Designer.cs">
       <DependentUpon>BackgroundControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Interfaces\IUserCheckBox.cs" />
+    <Compile Include="Controls\Interfaces\IUserCheckBoxEvents.cs" />
+    <Compile Include="Controls\UserCheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\UserCheckBox.Designer.cs">
+      <DependentUpon>UserCheckBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Extensions\IntegerExtensions.cs" />
     <Compile Include="Controls\Interfaces\ISetPointsControl.cs" />
